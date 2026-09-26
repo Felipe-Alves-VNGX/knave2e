@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.4.1
+- Update system for v14 compatibility
+- Replace deprecated global `TextEditor.enrichHTML`, `renderTemplate`, and `loadTemplates` calls with their namespaced `foundry.applications.*` equivalents
+
 ## 0.3.3
 - Update system for v12 compatibility
 - Fix deprecation warnings after migration to v12

@@ -1,6 +1,6 @@
 import { onAttack, onDamageFromSheet, onCast } from '../helpers/items.mjs';
 
-export default class Knave2eActorSheet extends ActorSheet {
+export default class Knave2eActorSheet extends foundry.appv1.sheets.ActorSheet {
     static get defaultOptions() {
         return foundry.utils.mergeObject(super.defaultOptions, {
             classes: ['knave2e', 'sheet', 'actor'],
@@ -55,7 +55,7 @@ export default class Knave2eActorSheet extends ActorSheet {
         context.rollData = context.actor.getRollData();
 
         // Add enriched HTML for text editors
-        context.system.enrichedHTML = await TextEditor.enrichHTML(context.system.description);
+        context.system.enrichedHTML = await foundry.applications.ux.TextEditor.implementation.enrichHTML(context.system.description);
 
         // Add global knave2e settings for sheet logic
         context.system.settings = {};

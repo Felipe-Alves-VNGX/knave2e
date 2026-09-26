@@ -318,7 +318,7 @@ export async function onAttack(event) {
 
     // Merge and push to chat message
     //messageData = foundry.utils.mergeObject(messageData, rollData);
-    messageData.content = await renderTemplate('systems/knave2e/templates/item/item-chat-message.hbs', rollData);
+    messageData.content = await foundry.applications.handlebars.renderTemplate('systems/knave2e/templates/item/item-chat-message.hbs', rollData);
     ChatMessage.create(messageData);
     // Check for ammo and decrement ammo counter
     function hasAmmo(item, actor) {

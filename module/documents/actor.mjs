@@ -15,7 +15,9 @@ export default class Knave2eActor extends Actor {
         super.prepareData();
     }
 
-    prepareBaseData() {}
+    prepareBaseData() {
+        super.prepareBaseData();
+    }
 
     prepareDerivedData() {
         const actorData = this;
