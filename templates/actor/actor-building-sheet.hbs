@@ -1,0 +1,86 @@
+<form class="{{cssClass}} {{actor.type}}" autocomplete="off">
+    <div class="sheet-container">
+        <div class="vehicle-grid">
+
+            {{!-- Sheet Header --}}
+            <header class="header">
+
+                {{!-- Building Image --}}
+                <div class="image">
+                    <div class="flexcol no-wrap">
+                        <div class="resource-label align-center">{{localize "KNAVE2E.Portrait"}}</div>
+                        <img class="rounded" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" width="100%" />
+                    </div>
+                </div>
+
+                {{!-- Building Header Info --}}
+                <div class="info">
+                    <div class="flexrow no-wrap flex-between flex-group-left dotted name">
+                        <div class="resource-label flex1">{{localize "KNAVE2E.Name"}}</div>
+                        <input class="transparent flex3 no-border detail name" name="name" type="text"
+                            value="{{actor.name}}" placeholder="{{actor.name}}" />
+                    </div>
+                    <div class="grid grid-3col no-wrap flex-between flex-group-center" style="margin-top: 5px;">
+                        <div class="grid-span-1 flexcol no-wrap flex-group-center info-2">
+                            <div class="resource-label">{{localize "KNAVE2E.RoomStyleLabel"}}</div>
+                            <select name="system.roomStyle">
+                                {{selectOptions roomStyles selected=system.roomStyle localize=true}}
+                            </select>
+                        </div>
+                        <div class="grid-span-1 flexcol no-wrap flex-group-center">
+                            <div class="resource-label">{{localize "KNAVE2E.Squares"}}</div>
+                            <input class="resource-label content narrow" type="text" name="system.squares"
+                                value="{{system.squares}}" data-dtype="Number" />
+                        </div>
+                        <div class="grid-span-1 flexcol no-wrap flex-group-center cost">
+                            <div class="resource-label">{{localize "KNAVE2E.BaseCost"}}</div>
+                            <div class="resource-label content narrow">{{system.baseCost}}</div>
+                        </div>
+                    </div>
+                    <div class="grid grid-3col no-wrap flex-between flex-group-center" style="margin-top: 5px;">
+                        <div class="grid-span-1 flexcol no-wrap flex-group-center">
+                            <div class="resource-label">{{localize "KNAVE2E.Staffed"}}</div>
+                            <input type="checkbox" name="system.staffed" {{checked system.staffed}} />
+                        </div>
+                        <div class="grid-span-1 flexcol no-wrap flex-group-center">
+                            <div class="resource-label">{{localize "KNAVE2E.AnnualStaffingCost"}}</div>
+                            <div class="resource-label content narrow">{{system.annualStaffingCost}}</div>
+                        </div>
+                        <div class="grid-span-1 flexcol no-wrap flex-group-center">
+                            <div class="resource-label">{{localize "KNAVE2E.MonthlyRentalIncome"}}</div>
+                            <div class="resource-label content narrow">{{system.monthlyRentalIncome}}</div>
+                        </div>
+                    </div>
+                    <div class="grid grid-3col no-wrap flex-between flex-group-center" style="margin-top: 5px;">
+                        <div class="grid-span-1 flexcol no-wrap flex-group-center">
+                            <div class="resource-label">{{localize "KNAVE2E.IsBusiness"}}</div>
+                            <input type="checkbox" name="system.isBusiness" {{checked system.isBusiness}} />
+                        </div>
+                        <div class="grid-span-1 flexcol no-wrap flex-group-center coins">
+                            <div class="resource-label">{{localize "KNAVE2E.Stored"}} {{localize "KNAVE2E.Coins"}}</div>
+                            <input class="resource-label content narrow" type="text" name="system.coins"
+                                value="{{system.coins}}" data-dtype="Number" />
+                        </div>
+                        <div class="grid-span-1 flexcol no-wrap flex-group-center">
+                            {{#if system.isBusiness}}
+                            <button class="resource-label rounded transparent actor-button profit" type="button">
+                                {{localize "KNAVE2E.RollAnnualProfit"}}</button>
+                            {{/if}}
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            {{!-- Sheet Body --}}
+            <section class="sheet-body">
+                <div class="items">
+                    <div class="resource-label">{{localize "KNAVE2E.Description"}}</div>
+                    <section class="editor">
+                        {{editor system.enrichedHTML target="system.description" button=true owner=owner
+                        editable=editable}}
+                    </section>
+                </div>
+            </section>
+        </div>
+    </div>
+</form>

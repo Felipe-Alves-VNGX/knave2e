@@ -6,6 +6,8 @@ import * as DataModels from './data/_module.mjs';
 import { Knave2eActor, Knave2eItem, Knave2eChatMessage } from './documents/_module.mjs';
 import { Knave2eActorSheet, Knave2eItemSheet } from './sheets/_module.mjs';
 import { SYSTEM } from './config/system.mjs';
+import * as Downtime from './helpers/downtime.mjs';
+import * as Warfare from './helpers/warfare.mjs';
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
@@ -16,12 +18,14 @@ Hooks.on('init', () => {
     CONFIG.Actor.dataModels.recruit = DataModels.Knave2eRecruit;
     CONFIG.Actor.dataModels.monster = DataModels.Knave2eMonster;
     CONFIG.Actor.dataModels.vehicle = DataModels.Knave2eVehicle;
+    CONFIG.Actor.dataModels.building = DataModels.Knave2eBuilding;
     CONFIG.Item.dataModels.weapon = DataModels.Knave2eWeapon;
     CONFIG.Item.dataModels.spellbook = DataModels.Knave2eSpellbook;
     CONFIG.Item.dataModels.lightSource = DataModels.Knave2eLightSource;
     CONFIG.Item.dataModels.equipment = DataModels.Knave2eEquipment;
     CONFIG.Item.dataModels.armor = DataModels.Knave2eArmor;
     CONFIG.Item.dataModels.monsterAttack = DataModels.Knave2eMonsterAttack;
+    CONFIG.Item.dataModels.potion = DataModels.Knave2ePotion;
 });
 
 Hooks.once('init', () => {
@@ -49,6 +53,8 @@ Hooks.once('init', function () {
         Knave2eItem,
         Knave2eChatMessage,
         rollItemMacro,
+        downtime: Downtime,
+        warfare: Warfare,
     };
 
     // Set globals from game settings (TODO: localize)
@@ -350,10 +356,52 @@ Handlebars.registerHelper('toLowerCase', function (str) {
 /*  Ready Hook                                  */
 /* -------------------------------------------- */
 
-Hooks.once('ready', function () {
+Hooks.once('ready', async function () {
     // Wait to register hotbar drop hook on ready so that modules could register earlier if they want to
     Hooks.on('hotbarDrop', (bar, data, slot) => createItemMacro(data, slot));
+
+    if (game.user.isGM) {
+        await createDowntimeMacros();
+    }
 });
+
+/**
+ * Create a handful of world macros exposing the Downtime and Warfare tools,
+ * so GMs don't need the console to reach them. Idempotent: skips creation if
+ * a macro with the same name and command already exists.
+ */
+async function createDowntimeMacros() {
+    const macros = [
+        {
+            name: 'Carouse',
+            command: 'game.knave2e.downtime.carouse(canvas.tokens.controlled[0]?.actor ?? game.user.character);',
+        },
+        {
+            name: 'Gamble',
+            command: 'game.knave2e.downtime.gamble(canvas.tokens.controlled[0]?.actor ?? game.user.character);',
+        },
+        {
+            name: 'Career Training Costs',
+            command: 'game.knave2e.downtime.careerTrainingReference(canvas.tokens.controlled[0]?.actor ?? game.user.character);',
+        },
+        {
+            name: 'Warfare Calculator',
+            command: 'game.knave2e.warfare.resolveBattle();',
+        },
+    ];
+
+    for (const { name, command } of macros) {
+        const existing = game.macros.find((m) => m.name === name && m.command === command);
+        if (existing) continue;
+        await Macro.create({
+            name,
+            type: 'script',
+            img: 'icons/svg/dice-target.svg',
+            command,
+            flags: { 'knave2e.systemMacro': true },
+        });
+    }
+}
 
 /* -------------------------------------------- */
 /*  Hotbar Macros                               */

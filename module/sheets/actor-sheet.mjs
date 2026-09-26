@@ -1,4 +1,5 @@
 import { onAttack, onDamageFromSheet, onCast } from '../helpers/items.mjs';
+import { onBrewPotion } from '../helpers/alchemy.mjs';
 
 export default class Knave2eActorSheet extends foundry.appv1.sheets.ActorSheet {
     static get defaultOptions() {
@@ -49,6 +50,10 @@ export default class Knave2eActorSheet extends foundry.appv1.sheets.ActorSheet {
 
         if (actorData.type == 'vehicle') {
             this._prepareVehicleData(context);
+        }
+
+        if (actorData.type == 'building') {
+            this._prepareBuildingData(context);
         }
 
         // Add roll data for TinyMCE editors.
@@ -134,6 +139,20 @@ export default class Knave2eActorSheet extends foundry.appv1.sheets.ActorSheet {
         if (game.settings.get('knave2e', 'automaticArmor')) {
             systemData.armorPoints = systemData.armorClass - 11;
         }
+    }
+
+    _prepareBuildingData(context) {
+        context.roomStyles = this._labelOptions(CONFIG.SYSTEM.BUILDING.ROOM_STYLES);
+
+        const systemData = context.system;
+        const style = CONFIG.SYSTEM.BUILDING.ROOM_STYLES[systemData.roomStyle] ?? CONFIG.SYSTEM.BUILDING.ROOM_STYLES.poor;
+        const baseCost = Number.isFinite(systemData.costOverride)
+            ? systemData.costOverride
+            : style.costPerSquare * systemData.squares;
+
+        systemData.baseCost = baseCost;
+        systemData.annualStaffingCost = systemData.staffed ? Math.ceil(baseCost * 0.5) : 0;
+        systemData.monthlyRentalIncome = Math.ceil(baseCost * 0.01);
     }
 
     _prepareVehicleData(context) {
@@ -341,6 +360,9 @@ export default class Knave2eActorSheet extends foundry.appv1.sheets.ActorSheet {
         // Cast Spell
         html.on('click', '.item-button.cast', onCast.bind(this));
 
+        // Brew Potion
+        html.on('click', '.item-button.brew', onBrewPotion.bind(this));
+
         /* -------------------------------------------- */
         /*  Sheet Buttons                               */
         /* -------------------------------------------- */
@@ -353,6 +375,9 @@ export default class Knave2eActorSheet extends foundry.appv1.sheets.ActorSheet {
 
         // Resting
         html.on('click', '.actor-button.rest', this._onRest.bind(this));
+
+        // Building: Roll Annual Business Profit
+        html.on('click', '.actor-button.profit', this._onBuildingProfit.bind(this));
 
         // Morale
         html.on('click', '.actor-button.morale', this._onMorale.bind(this));
@@ -832,6 +857,11 @@ export default class Knave2eActorSheet extends foundry.appv1.sheets.ActorSheet {
     async _onRest(event) {
         event.preventDefault();
         await this.actor.system.rest();
+    }
+
+    async _onBuildingProfit(event) {
+        event.preventDefault();
+        await this.actor.system.rollAnnualProfit();
     }
 
     async _onRollable(event) {

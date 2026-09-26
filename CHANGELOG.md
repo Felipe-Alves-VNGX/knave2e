@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## 0.5.0
+- Add Alchemy: potion Item type with a brewing mechanic (INT check, optional
+  extra watch for +5, recipe discovery on a strong success)
+- Add Downtime tools: Carouse and Gamble macros, and a Career Training cost
+  reference, exposed under `game.knave2e.downtime`
+- Add a Warfare Calculator (fighting power ratio -> bonus -> opposed checks),
+  exposed under `game.knave2e.warfare` and as a world macro
+- Add Buildings: new "building" Actor type with construction cost, staffing
+  upkeep, rental income, and an annual business profit roll
+- These add only game mechanics/automation (numbers and procedures); no book
+  text, art, or random tables were reproduced
+
 ## 0.4.1
 - Update system for v14 compatibility
 - Replace deprecated global `TextEditor.enrichHTML`, `renderTemplate`, and `loadTemplates` calls with their namespaced `foundry.applications.*` equivalents
