@@ -1,0 +1,204 @@
+// Self-hosted OFL fonts. No network is needed to render the journal.
+@font-face { font-family: 'Knave Hand'; src: url('../assets/fonts/Caveat.ttf') format('truetype'); font-weight: 400 700; font-display: swap; }
+@font-face { font-family: 'Knave Press'; src: url('../assets/fonts/IMFellEnglish.ttf') format('truetype'); font-weight: 400; font-display: swap; }
+@font-face { font-family: 'Knave Capitals'; src: url('../assets/fonts/IMFellEnglishSC.ttf') format('truetype'); font-weight: 400; font-display: swap; }
+
+.knave2e.document-sheet {
+  // Space belongs to the window, allowing tabs to project beyond the paper.
+  &:has(.document-character) .window-content { padding-right: 124px; }
+  .knave-document {
+    --doc-ink: #34291f;
+    font-family: 'Knave Press', Georgia, serif;
+    div, section, button, footer, p { font-family: 'Knave Press', Georgia, serif; }
+    .resource-label, .document-masthead h1 {
+      font-family: 'Knave Capitals', Georgia, serif;
+      font-weight: 400; letter-spacing: .025em;
+    }
+    .resource-label { font-size: 14px; }
+    .resource-label.aside { font-size: 12px; }
+    .detail, .detail.italic { font-family: 'Knave Hand', cursive; font-style: normal; }
+    input:not([type='checkbox']):not([type='range']), select, textarea {
+      font-family: 'Knave Hand', cursive;
+      font-size: 25px;
+      font-weight: 500;
+      background: transparent;
+      border-bottom: 1px solid #65533d77;
+      height: 34px;
+    }
+    .dotted { border: 0; border-bottom: 1px dashed #65533d88; }
+    .dotted.name input, .item-header-name input { font-family: 'Knave Hand', cursive; font-size: 34px; font-style: normal; height: 44px; }
+    .dotted.careers input { font-size: 24px; }
+    .document-masthead {
+      border-bottom: 1px solid #76573199;
+      position: relative;
+      h1 { font-size: 29px; }
+      .document-kicker { font-family: 'Knave Press', serif; letter-spacing: .1em; font-size: 11px; }
+      .document-edition { font-family: 'Knave Capitals', serif; font-size: 13px; }
+      .document-folio {
+        font-family: 'Knave Hand', cursive; font-style: normal;
+        height: 55px; width: 55px; line-height: 55px;
+        background: url('../assets/ink-seal.webp') center / contain no-repeat;
+        color: #803b28; transform: rotate(9deg); font-size: 28px;
+      }
+      &::after { content: ''; position: absolute; bottom: -4px; left: 4%; width: 92%; border-bottom: 1px solid #76573155; transform: rotate(-.35deg); }
+    }
+    .circle.character, input.circle.character,
+    .rounded.character, input.rounded.character {
+      border: 0; box-shadow: none; border-radius: 0;
+      background: url('../assets/ink-seal.webp') center / contain no-repeat;
+      width: 58px; min-width: 58px; max-width: 58px;
+      height: 58px; min-height: 58px; max-height: 58px;
+      font-family: 'Knave Hand', cursive; font-size: 35px; font-weight: 600;
+      text-align: center; padding: 0;
+    }
+    .shield.character, input.shield.character {
+      border: 0; box-shadow: none; border-radius: 0;
+      background: url('../assets/ink-shield.webp') center / contain no-repeat;
+      width: 58px; min-width: 58px; height: 58px; min-height: 58px;
+      font-family: 'Knave Hand', cursive; font-size: 33px; font-weight: 600;
+      text-align: center; padding: 0 0 4px;
+    }
+    .character-grid {
+      .header .logo { transform: rotate(-3deg); opacity: .9; }
+      .header .stats { border-bottom: 1px solid #967c5644; padding-bottom: 10px; }
+      .sheet-body { margin-top: 26px; }
+      .sheet-body .tab.character.active {
+        grid-template-columns: minmax(0, 1.2fr) minmax(0, .85fr) minmax(0, 1fr);
+        gap: 16px;
+        .abilities { border: 0; padding-right: 8px; }
+        .abilities > .flexrow { gap: 9px; margin-bottom: 10px; }
+        .abilities input { flex-basis: 58px; }
+        .abilities .rollable { font-family: 'Knave Capitals', serif; font-size: 15px !important; font-weight: 400; }
+        .abilities .detail { font-family: 'Knave Hand', cursive; font-size: 17px; line-height: 1.05; color: #584833; }
+        .abilities > .flexrow:nth-child(2n) input { transform: rotate(-5deg); }
+        .abilities > .flexrow:nth-child(2n+1) input { transform: rotate(3deg); }
+        .health { min-width: 0; }
+        .level > .flexcol { flex-basis: 60px; }
+        .portrait {
+          position: relative; padding: 7px; transform: rotate(1deg);
+          background: url('../assets/document-paper.webp') center / cover;
+          box-shadow: 2px 3px 5px #36291940;
+          &::before, &::after { content: ''; position: absolute; top: 19px; width: 28px; height: 12px; border-top: 1px solid #8b704944; background: #bea37177; transform: rotate(-38deg); pointer-events: none; }
+          &::before { left: -8px; }
+          &::after { right: -8px; transform: rotate(38deg); }
+          img { border: 1px solid #72543566; background: transparent; box-shadow: none; min-height: 210px; padding: 5px; }
+        }
+      }
+    }
+    .sheet-tabs.document-bookmarks {
+      position: absolute; right: -110px; top: 175px;
+      width: 122px; display: flex; flex-direction: column; gap: 13px;
+      margin: 0; padding: 0; border: 0; z-index: 2;
+      align-items: stretch;
+      .item {
+        --ribbon: #753d2e;
+        flex: none; display: flex; flex-direction: column; justify-content: center;
+        min-height: 66px; padding: 8px 14px 8px 8px; margin: 0;
+        border: 0; border-radius: 0; text-decoration: none;
+        font-family: 'Knave Capitals', serif; font-size: 13px; letter-spacing: .015em;
+        color: #f7e7c5;
+        &, &.active { background: linear-gradient(90deg, #0006, transparent 25%), repeating-linear-gradient(0deg, #fff1 0 1px, transparent 1px 3px), var(--ribbon) url('../assets/document-leather.webp') center / 180px;
+        background-blend-mode: multiply, soft-light, luminosity; }
+        clip-path: polygon(0 0, 100% 3%, 91% 50%, 100% 98%, 0 100%);
+        box-shadow: inset 0 2px 0 #e4cb943d, inset 0 -2px 0 #1f140c66;
+        transform: rotate(-2deg); transform-origin: left center;
+        transition: transform 140ms ease-out;
+        .bookmark-index { font: 12px 'Knave Press', serif; opacity: .8; margin-bottom: 3px; }
+        &:nth-child(2) { --ribbon: #4b5b3b; transform: rotate(1deg); }
+        &:nth-child(3) { --ribbon: #415660; transform: rotate(-1deg); }
+        &.active, &:hover { transform: translateX(7px); color: #fff3d4; text-shadow: 0 1px 2px #0006; }
+        &.active { box-shadow: inset 0 0 0 2px #dcc69b88; }
+        &:focus-visible { outline: 0; box-shadow: inset 0 0 0 3px #fff1b8; }
+      }
+    }
+    .vital-note {
+      display: grid; grid-template-columns: minmax(50px, 1fr) 58px; align-items: center;
+      gap: 4px; padding: 5px 0 9px; border-bottom: 1px dashed #967c5688;
+      .vital-illustration { width: 100%; max-height: 110px; object-fit: contain; border: 0; transform: rotate(-9deg); }
+      .vital-values { text-align: center; }
+      label { display: block; }
+    }
+    input.ink-number:not([type=checkbox]):not([type=range]), .ink-number {
+      font: 600 38px/1 'Knave Hand', cursive;
+      text-align: center; width: 100%; height: 43px;
+      border: 0; border-bottom: 1px solid #65533d88; background: transparent;
+      &.small { font-size: 26px; height: 32px; }
+    }
+    .wound-note { margin: 12px 0 0; text-align: center; color: #713b2b; }
+    .wound-values { display: grid; grid-template-columns: 1fr 14px 1fr; align-items: center; gap: 3px; }
+    button.actor-button.rest {
+      border: 2px solid #794730aa; border-radius: 3px 6px 2px 4px;
+      outline: 1px solid #79473066; outline-offset: -5px;
+      font-family: 'Knave Capitals', serif; color: #783e2b;
+      background: transparent; transform: rotate(-3deg); letter-spacing: .09em;
+    }
+    .progress-container {
+      border: 0; border-bottom: 1px solid #72533288; background: transparent;
+      .progress-input { font-family: 'Knave Hand', cursive; font-size: 31px !important; font-weight: 500; }
+      .progress-fill.xp, .progress-fill.hitPoints { background: repeating-linear-gradient(105deg, #85653b33 0 2px, transparent 2px 5px); top: auto; height: 7px; min-height: 0; bottom: 0; }
+    }
+    .journal-heading {
+      display: flex; align-items: center; gap: 12px; margin: 0 0 14px;
+      font: 28px 'Knave Hand', cursive;
+      img { width: 65px; height: 60px; object-fit: contain; border: 0; }
+      span { font-family: 'Knave Hand', cursive; border-bottom: 1px solid #72533266; transform: rotate(-2deg); }
+    }
+    .items-list {
+      border: 0; border-top: 2px solid #7a5c3599; border-bottom: 1px solid #7a5c3599;
+      .items-header { background: transparent; border-bottom: 2px solid #7a5c3566; }
+      .items-header .resource-label { font-family: 'Knave Capitals', serif; font-size: 12px; }
+      .knave-item { border-bottom: 1px dashed #7a5c3566; }
+      .item-name { font: 23px 'Knave Hand', cursive; }
+      .item-slots, .item-quantity, .item-prop { font: 23px 'Knave Hand', cursive; }
+      .item-buttons .item-button {
+        border: 1px solid #784831aa; border-radius: 3px 1px 4px 2px;
+        color: #704532; font: 13px 'Knave Capitals', serif;
+        background: transparent; transform: rotate(-2deg);
+      }
+      .item-buttons .item-button:nth-child(2n) { transform: rotate(2deg); }
+    }
+    section.editor {
+      border: 0; border-left: 1px solid #914b3a44; padding-left: 16px;
+      .editor-content { font: 23px/28px 'Knave Hand', cursive; }
+      .editor-content p { font: inherit; }
+    }
+    .item-body-aside { border-right: 1px dashed #967c5677; }
+    .item-body-aside .resource-label { font-size: 13px; }
+    footer.footer { border-top: 1px solid #76573188; }
+    footer p { font-family: 'Knave Press', serif; font-size: 10px !important; }
+  }
+  @container (max-width: 560px) {
+    .knave-document .character-grid .sheet-body .tab.character.active {
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      .abilities { grid-area: 1 / 1 / 4 / 2; }
+      .armor { grid-area: 1 / 2 / 2 / 3; }
+      .health { grid-area: 2 / 2 / 3 / 3; }
+      .level { grid-area: 3 / 2 / 4 / 3; }
+      .portrait { grid-area: 4 / 1 / 5 / 3; }
+    }
+    .knave-document .document-masthead { grid-template-columns: 50px minmax(0, 1fr) 45px; gap: 6px; h1 { font-size: 23px; } }
+    .knave-document .document-masthead .document-folio { height: 45px; width: 45px; line-height: 45px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .knave-document .document-bookmarks .item { transition: none; } }
+}
+
+// Ink checkmarks and tally tracks replace the browser's plastic form controls.
+.knave2e.document-sheet .knave-document {
+  input[type='checkbox'] {
+    appearance: none; position: relative; display: inline-block;
+    flex: 0 0 19px; width: 19px; height: 19px; padding: 0;
+    border: 1px solid #65513c; border-radius: 2px 4px 1px 3px;
+    background: transparent; vertical-align: middle; cursor: pointer;
+    &:checked::after { content: '✓'; position: absolute; left: 0; top: -8px; font: 28px 'Knave Hand', cursive; color: #643e28; }
+  }
+  input[type='range'] {
+    appearance: none; background: transparent; height: 24px; padding: 0;
+    &::-webkit-slider-runnable-track { height: 6px; border-bottom: 1px solid #72533299; background: repeating-linear-gradient(100deg, #72533288 0 1px, transparent 1px 9px); }
+    &::-webkit-slider-thumb { appearance: none; width: 19px; height: 19px; margin-top: -6px; border: 0; background: url('../assets/ink-seal.webp') center / contain no-repeat; cursor: ew-resize; }
+    &::-moz-range-track { height: 6px; border-bottom: 1px solid #72533299; background: repeating-linear-gradient(100deg, #72533288 0 1px, transparent 1px 9px); }
+    &::-moz-range-thumb { width: 19px; height: 19px; border: 0; background: url('../assets/ink-seal.webp') center / contain no-repeat; cursor: ew-resize; }
+  }
+  .item-control.item-edit i, .item-control.item-delete i { display: none; }
+  .item-control.item-edit::before { content: '✎'; font: 21px Georgia, serif; }
+  .item-control.item-delete::before { content: '×'; font: 25px 'Knave Hand', cursive; color: #783e2b; }
+}

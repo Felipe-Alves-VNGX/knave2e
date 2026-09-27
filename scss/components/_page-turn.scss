@@ -1,0 +1,33 @@
+// A disposable, noninteractive paper leaf sits over the live tab during the turn.
+.knave2e.document-sheet .knave-document {
+  .document-turn-layer {
+    position: absolute;
+    left: -6px; top: -1px;
+    pointer-events: none;
+    z-index: 3;
+    perspective: 1400px;
+    perspective-origin: 50% 45%;
+    // Do not clip the leaf to the original page width as it swings away.
+    overflow: visible;
+  }
+  .knave-document.document-turn-face {
+    position: absolute; left: 0; top: 0;
+    margin: 0;
+    pointer-events: none;
+    backface-visibility: hidden;
+    box-shadow: 12px 3px 24px #20140755, inset 12px 0 20px #51381918;
+    will-change: transform, opacity;
+    overflow: hidden;
+    // The snapshot has its original layout, but no functional navigation.
+    .document-bookmarks { display: none; }
+    &::after {
+      content: ''; position: absolute; inset: 0;
+      pointer-events: none;
+      background: linear-gradient(90deg, #3324112b, transparent 12%, #fff4 48%, transparent 78%, #3324111c);
+    }
+  }
+  .sheet-tabs.document-bookmarks { z-index: 4; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .knave2e.document-sheet .document-turn-layer { display: none; }
+}

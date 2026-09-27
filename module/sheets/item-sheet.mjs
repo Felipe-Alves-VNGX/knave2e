@@ -1,9 +1,9 @@
 export default class Knave2eItemSheet extends foundry.appv1.sheets.ItemSheet {
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
-      classes: ["knave2e", "sheet", "item"],
-      width: 580,
-      height: 350,
+      classes: ["knave2e", "sheet", "item", "document-sheet"],
+      width: 720,
+      height: 600,
       // tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description" }]
     });
   }

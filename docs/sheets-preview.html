@@ -1,0 +1,4240 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Knave II — Document sheets preview</title><style>*{box-sizing:border-box}body{margin:0;padding:30px;background:#252723;font:14px Georgia} .window-app{width:900px;margin:20px auto;display:flex;flex-direction:column}.window-header{display:flex;align-items:center;height:32px;padding:0 12px;font:12px Arial}.window-content{flex:1}.flexrow{display:flex;flex-direction:row;flex-wrap:wrap;align-items:center}.flexrow>*{flex:1;min-width:0}.flexcol{display:flex;flex-direction:column}.flexcol>*{flex:1}.flex1{flex:1}.flex3{flex:3}input,select,button{width:100%;font:inherit}input[type=checkbox]{width:20px;flex:0 0 20px}input[type=range]{width:100%}a{cursor:pointer}img{max-width:100%;border:1px solid} .tab{display:none}.tab.active{display:block}button{margin:0}h1{margin:0} .preview-nav{position:sticky;top:0;z-index:10;padding:12px;background:#191d19;color:#eee;display:flex;gap:8px;flex-wrap:wrap;justify-content:center;font:13px Arial}.preview-nav a{color:#eee;padding:6px 9px;border:1px solid #666;text-decoration:none}.preview-note{color:#ddd;text-align:center;font:13px Arial}.window-app[hidden]{display:none} .fas,.fa-solid{font-style:normal}.fa-edit:before{content:'✎'}.fa-trash:before{content:'×'}.fa-plus:before{content:'+'} .fa-weight-hanging:before{content:'↓'}.fa-book:before{content:'▤'}.fa-sun:before{content:'☼'}</style><style>@charset "UTF-8";
+0,500;0,700;0,800;0,900;1,400;1,500;1,700;1,800;1,900&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+/* Global styles */
+.window-app p {
+  font-family: "Roboto", sans-serif;
+}
+.window-app.actor form div,
+.window-app.actor form section,
+.window-app.actor form input,
+.window-app.actor form button,
+.window-app.actor form footer {
+  font-family: "Alegreya SC", serif;
+}
+.window-app.actor form .detail {
+  font-family: "Crimson Text", serif;
+}
+
+.chat-message .message-header .message-sender {
+  font-family: "Alegreya SC", serif;
+  font-size: normal;
+  font-weight: bold;
+  text-transform: uppercase;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rollable:hover, .rollable:focus {
+  color: #000;
+  text-shadow: 0 0 10px red;
+  cursor: pointer;
+}
+
+.grid,
+.grid-2col {
+  display: grid;
+  grid-column: span 2/span 2;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2px;
+  margin: 2px 0;
+  padding: 0;
+}
+
+.grid-3col {
+  grid-column: span 3/span 3;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.grid-4col {
+  grid-column: span 4/span 4;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.grid-5col {
+  grid-column: span 5/span 5;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.grid-6col {
+  grid-column: span 6/span 6;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+.grid-7col {
+  grid-column: span 7/span 7;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+}
+
+.grid-8col {
+  grid-column: span 8/span 8;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+}
+
+.grid-9col {
+  grid-column: span 9/span 9;
+  grid-template-columns: repeat(9, minmax(0, 1fr));
+}
+
+.grid-10col {
+  grid-column: span 10/span 10;
+  grid-template-columns: repeat(10, minmax(0, 1fr));
+}
+
+.grid-11col {
+  grid-column: span 11/span 11;
+  grid-template-columns: repeat(11, minmax(0, 1fr));
+}
+
+.grid-12col {
+  grid-column: span 12/span 12;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+}
+
+.grid-start-2 {
+  grid-column-start: 2;
+}
+
+.grid-start-3 {
+  grid-column-start: 3;
+}
+
+.grid-start-4 {
+  grid-column-start: 4;
+}
+
+.grid-start-5 {
+  grid-column-start: 5;
+}
+
+.grid-start-6 {
+  grid-column-start: 6;
+}
+
+.grid-start-7 {
+  grid-column-start: 7;
+}
+
+.grid-start-8 {
+  grid-column-start: 8;
+}
+
+.grid-start-9 {
+  grid-column-start: 9;
+}
+
+.grid-start-10 {
+  grid-column-start: 10;
+}
+
+.grid-start-11 {
+  grid-column-start: 11;
+}
+
+.grid-start-12 {
+  grid-column-start: 12;
+}
+
+.grid-span-2 {
+  grid-column-end: span 2;
+}
+
+.grid-span-3 {
+  grid-column-end: span 3;
+}
+
+.grid-span-4 {
+  grid-column-end: span 4;
+}
+
+.grid-span-5 {
+  grid-column-end: span 5;
+}
+
+.grid-span-6 {
+  grid-column-end: span 6;
+}
+
+.grid-span-7 {
+  grid-column-end: span 7;
+}
+
+.grid-span-8 {
+  grid-column-end: span 8;
+}
+
+.grid-span-9 {
+  grid-column-end: span 9;
+}
+
+.grid-span-10 {
+  grid-column-end: span 10;
+}
+
+.grid-span-11 {
+  grid-column-end: span 11;
+}
+
+.grid-span-12 {
+  grid-column-end: span 12;
+}
+
+.grid-slot > * {
+  display: grid;
+}
+
+.character-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(4, -webkit-max-content) auto auto;
+  grid-template-rows: repeat(4, max-content) auto auto;
+  grid-auto-columns: 1fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  width: 100%;
+  height: 100%;
+}
+.character-grid .header {
+  display: grid;
+  grid-template-columns: -webkit-max-content -webkit-max-content auto auto auto;
+  grid-template-columns: max-content max-content auto auto auto;
+  grid-template-rows: 1fr;
+  gap: 0px 0px;
+}
+.character-grid .header .logo {
+  grid-area: 1/1/2/3;
+}
+.character-grid .header .logo img {
+  place-content: center;
+  min-width: 180px;
+  max-width: 250px;
+}
+.character-grid .header .info {
+  grid-area: 1/3/2/6;
+}
+.character-grid .sheet-tabs {
+  grid-area: 2/1/3/2;
+}
+.character-grid .sheet-body {
+  grid-area: 3/1/4/2;
+}
+.character-grid .sheet-body .tab.character.active {
+  display: grid;
+  grid-template-columns: -webkit-min-content -webkit-max-content -webkit-min-content;
+  grid-template-columns: min-content max-content min-content;
+  grid-template-rows: auto auto;
+  grid-auto-columns: 1fr;
+  gap: 0px 5px;
+  grid-auto-flow: row;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+.character-grid .sheet-body .tab.character.active .abilities {
+  grid-area: 1/1/3/2;
+}
+.character-grid .sheet-body .tab.character.active .abilities .ability {
+  margin-left: 5px;
+}
+.character-grid .sheet-body .tab.character.active .armor {
+  grid-area: 1/2/2/3;
+}
+.character-grid .sheet-body .tab.character.active .health {
+  grid-area: 2/2/3/3;
+  display: grid;
+  grid-auto-columns: 1fr;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr auto 1fr;
+  gap: 0px 0px;
+}
+.character-grid .sheet-body .tab.character.active .health .health-max {
+  grid-area: 1/1/2/3;
+}
+.character-grid .sheet-body .tab.character.active .health .health-value {
+  grid-area: 2/1/3/3;
+}
+.character-grid .sheet-body .tab.character.active .health .health-rest {
+  grid-area: 3/1/4/3;
+}
+.character-grid .sheet-body .tab.character.active .advancement {
+  grid-area: 1/3/2/4;
+}
+.character-grid .sheet-body .tab.character.active .portrait {
+  grid-area: 2/3/3/4;
+  place-items: center;
+}
+.character-grid .sheet-body .tab.character.active .portrait img {
+  max-width: 256px;
+  max-height: 256px;
+  -o-object-fit: scale-down;
+  object-fit: scale-down;
+}
+.character-grid footer.footer {
+  display: grid;
+  padding-bottom: 0;
+  align-self: end;
+  grid-area: 4/1/5/2;
+}
+
+.vehicle-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: -webkit-max-content -webkit-max-content auto;
+  grid-template-rows: max-content max-content auto;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+}
+.vehicle-grid .header {
+  grid-area: 1/1/2/4;
+  display: grid;
+  grid-template-columns: minmax(80px, 100px) auto auto;
+  grid-template-rows: 1fr;
+  gap: 0px 10px;
+  grid-auto-flow: row;
+}
+.vehicle-grid .header .image {
+  grid-area: 1/1/2/2;
+}
+.vehicle-grid .header .info {
+  grid-area: 1/2/2/4;
+}
+.vehicle-grid .sheet-body {
+  grid-area: 2/1/3/4;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: -webkit-max-content auto;
+  grid-template-rows: max-content auto;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+}
+.vehicle-grid .sheet-body .resources {
+  grid-area: 1/1/2/2;
+  min-height: 10px;
+}
+.vehicle-grid .sheet-body .items {
+  grid-area: 2/1/3/2;
+}
+.vehicle-grid .footer {
+  grid-area: 3/1/4/4;
+}
+
+.npc-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: -webkit-max-content -webkit-max-content auto;
+  grid-template-rows: max-content max-content auto;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+}
+.npc-grid .header {
+  grid-area: 1/1/2/4;
+  display: grid;
+  grid-template-columns: minmax(80px, 200px) auto auto;
+  grid-template-rows: 1fr;
+  gap: 0px 10px;
+  grid-auto-flow: row;
+}
+.npc-grid .header .image {
+  grid-area: 1/1/2/2;
+}
+.npc-grid .header .info {
+  grid-area: 1/2/2/4;
+}
+.npc-grid .sheet-body {
+  grid-area: 2/1/3/4;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: -webkit-max-content auto;
+  grid-template-rows: max-content auto;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+}
+.npc-grid .sheet-body .resources {
+  grid-area: 1/1/2/2;
+  min-height: 10px;
+}
+.npc-grid .sheet-body .items {
+  grid-area: 2/1/3/2;
+}
+.npc-grid .footer {
+  grid-area: 3/1/4/4;
+}
+
+.item-header-grid {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: 1fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+}
+
+.item-img {
+  grid-area: 1/1/2/2;
+}
+
+.item-info {
+  grid-area: 1/2/2/3;
+}
+
+.item-body-grid {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: 1fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+}
+.item-body-grid .item-aside {
+  grid-area: 1/1/2/2;
+  width: 300px;
+}
+.item-body-grid .item-description {
+  grid-area: 1/2/2/3;
+}
+
+.item-header-grid {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: 1fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+}
+
+.item-header-img {
+  grid-area: 1/1/2/2;
+}
+
+.item-info-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-area: 1/2/2/3;
+}
+
+.item-header-info {
+  grid-area: 2/1/3/2;
+}
+
+.item-header-name {
+  grid-area: 1/1/2/2;
+}
+
+.item-body-grid {
+  display: grid;
+  grid-template-columns: 200px auto;
+  grid-template-rows: 1fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+}
+
+.item-body-aside {
+  grid-area: 1/1/2/2;
+  padding-right: 10px;
+  margin-top: 10px;
+}
+.item-body-aside .separator {
+  border-bottom: 1px solid lightgrey;
+}
+
+.item-body-description {
+  min-width: 350px;
+  grid-area: 1/2/2/3;
+}
+
+.progress-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  gap: 0px 0px;
+}
+.progress-container .progress-bar .progress-input:focus {
+  -webkit-box-shadow: 0 0 7px var(--color-shadow-primary);
+  box-shadow: 0 0 7px var(--color-shadow-primary);
+  outline: 1px solid transparent;
+}
+.progress-container.vertical {
+  width: 50px;
+  max-width: 50px;
+  min-height: 175px;
+  border: 2px solid black;
+}
+.progress-container.vertical .progress-bar,
+.progress-container.vertical .progress-fill,
+.progress-container.vertical .progress-input {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.progress-container.vertical .progress-fill {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  -webkit-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  transform: rotate(180deg);
+  max-height: 100%;
+}
+.progress-container.vertical .progress-fill.hitPoints {
+  background-color: #7cd000;
+}
+.progress-container.vertical .progress-fill.wounds {
+  background-color: #659db5;
+}
+.progress-container.vertical .progress-input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0);
+  border-color: rgba(255, 255, 255, 0);
+  border: none;
+  text-align: center;
+  font-weight: normal;
+}
+.progress-container.horizontal {
+  min-width: 150px;
+  height: 50px;
+  margin: 2px;
+  border: 2px solid black;
+}
+.progress-container.horizontal.hitPoints {
+  width: 90%;
+  min-width: 100px;
+  max-width: none;
+}
+.progress-container.horizontal .progress-bar,
+.progress-container.horizontal .progress-fill,
+.progress-container.horizontal .progress-input {
+  height: 100%;
+  min-height: 46px;
+  position: relative;
+}
+.progress-container.horizontal .progress-fill,
+.progress-container.horizontal .progress-input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+.progress-container.horizontal .progress-fill {
+  background-color: var(--color-border-highlight);
+  max-width: 100%;
+}
+.progress-container.horizontal .progress-fill.hitPoints {
+  background-color: #7cd000;
+}
+.progress-container.horizontal .progress-fill.wounds {
+  background-color: #659db5;
+}
+.progress-container.horizontal .progress-input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0);
+  border-color: rgba(255, 255, 255, 0);
+  border: none;
+  text-align: center;
+  font-weight: normal;
+}
+
+.flex-group-center,
+.flex-group-left,
+.flex-group-right {
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  text-align: center;
+}
+
+.flexrow.no-wrap,
+.flexcol.no-wrap {
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+}
+.flexrow .min-width,
+.flexcol .min-width {
+  min-width: 80px;
+}
+.flexrow .item-row,
+.flexcol .item-row {
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  overflow: hidden;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  text-overflow: ellipsis;
+}
+
+.flex-group-left {
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  text-align: left;
+}
+
+.flex-group-right {
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+  text-align: right;
+}
+
+.flexshrink {
+  -webkit-box-flex: 0;
+  -ms-flex: 0;
+  flex: 0;
+}
+
+.flex-between {
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+.flex-button {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  padding: 10px;
+}
+
+.align-left {
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  text-align: left;
+}
+
+.align-right {
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+  text-align: right;
+}
+
+.align-center {
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.items-start {
+  -webkit-box-align: start;
+  -ms-flex-align: start;
+  align-items: flex-start;
+}
+
+.items-end {
+  -webkit-box-align: end;
+  -ms-flex-align: end;
+  align-items: flex-end;
+}
+
+/* Styles limited to knave2e sheets */
+.knave2e {
+  /* ----------------------------------------- */
+  /*  Items Lists                              */
+  /* ----------------------------------------- */
+}
+.knave2e input.resource-label {
+  text-align: center;
+}
+.knave2e input.narrow {
+  max-width: 75px;
+}
+.knave2e input.name {
+  font-size: large;
+}
+.knave2e button.narrow {
+  max-width: 75px;
+}
+.knave2e .transparent {
+  background: rgba(255, 255, 255, 0);
+}
+.knave2e .no-border {
+  border: none;
+}
+.knave2e .dotted {
+  margin: 0 5px;
+  border-bottom: 2px dotted black;
+  -ms-flex-line-pack: end;
+  align-content: flex-end;
+}
+.knave2e .sheet-tabs {
+  -webkit-box-flex: 0;
+  -ms-flex: 0;
+  flex: 0;
+}
+.knave2e .sheet-tabs.tabs {
+  border: none;
+  margin-top: 4px;
+  margin-bottom: 8px;
+  border-bottom: 2px solid var(--color-border-highlight);
+}
+.knave2e .active.tab-color {
+  background-color: var(--color-border-highlight);
+}
+.knave2e .sheet-body,
+.knave2e .sheet-body .tab,
+.knave2e .sheet-body .tab .editor {
+  width: 100%;
+  height: auto;
+  min-height: 10px;
+}
+.knave2e .sheet-body section.editor,
+.knave2e .sheet-body .tab section.editor,
+.knave2e .sheet-body .tab .editor section.editor {
+  min-height: 100px;
+  border: 2px solid black;
+}
+.knave2e .sheet-body section.editor .editor,
+.knave2e .sheet-body .tab section.editor .editor,
+.knave2e .sheet-body .tab .editor section.editor .editor {
+  min-height: 100px;
+  padding: 5px;
+}
+.knave2e section.editor {
+  min-height: 100px;
+  border: 2px solid black;
+}
+.knave2e section.editor .editor {
+  min-height: 100px;
+  padding: 5px;
+}
+.knave2e footer {
+  padding: 10px;
+  text-align: center;
+  margin-top: auto;
+}
+.knave2e .tox .tox-editor-container {
+  background: #fff;
+  min-height: 200px;
+}
+.knave2e .tox .tox-edit-area {
+  padding: 0 8px;
+}
+.knave2e .tox.tox-tinymce {
+  min-height: 200px;
+}
+.knave2e .resource-label {
+  font-weight: bold;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.knave2e .resource-label.circle, .knave2e .resource-label.shield, .knave2e .resource-label.rounded {
+  display: grid;
+  place-items: center;
+}
+.knave2e .resource-label.content {
+  font-weight: 500;
+}
+.knave2e .resource-label.aside {
+  font-size: smaller;
+}
+.knave2e .circle {
+  border: 2px solid black;
+  border-radius: 50%;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-pack: distribute;
+  justify-content: space-around;
+}
+.knave2e .circle.character {
+  min-height: 50px;
+  min-width: 50px;
+  max-height: 50px;
+  max-width: 50px;
+  height: 50px;
+  width: 50px;
+}
+.knave2e .shield {
+  border: 2px solid black;
+  border-radius: 50% 50% 50% 50%/12% 12% 88% 88%;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-pack: distribute;
+  justify-content: space-around;
+}
+.knave2e .shield.character {
+  min-height: 50px;
+  min-width: 50px;
+  max-height: 50px;
+  max-width: 50px;
+  height: 50px;
+  width: 50px;
+}
+.knave2e .shield.resource-label {
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-pack: distribute;
+  justify-content: space-around;
+}
+.knave2e .rounded {
+  margin: 2px;
+  border: 2px solid black;
+  border-radius: 5%;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-pack: distribute;
+  justify-content: space-around;
+}
+.knave2e .rounded.character {
+  min-height: 50px;
+  min-width: 50px;
+  max-height: 50px;
+  max-width: 50px;
+  height: 50px;
+  width: 50px;
+}
+.knave2e .rounded.item {
+  min-height: 25px;
+  min-width: 50px;
+  max-height: 50px;
+  max-width: 50px;
+}
+.knave2e .rounded.actor-button {
+  font-family: "Alegreya SC", serif;
+  text-transform: uppercase;
+}
+.knave2e .square {
+  margin: 2px;
+  border: 2px solid black;
+}
+.knave2e .square .description {
+  padding: 2px;
+  border-bottom: 2px solid black;
+}
+.knave2e .italic {
+  font-style: italic;
+}
+.knave2e .items-header {
+  height: 28px;
+  padding: 2px;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-bottom: 2px solid black;
+  font-weight: bold;
+}
+.knave2e .items-header .item-name-header,
+.knave2e .items-header .item-slots-header {
+  font-size: 14px;
+}
+.knave2e .items-header .item-name-header {
+  padding-left: 5px;
+  text-align: left;
+}
+.knave2e .items-header .item-slots-header {
+  text-align: center;
+}
+.knave2e .items-header .item-controls-header {
+  padding-right: 5px;
+  font-size: 12px;
+  text-align: right;
+}
+.knave2e .items-list {
+  display: grid;
+  list-style: none;
+  padding: 2px;
+  overflow: hidden;
+  scrollbar-width: thin;
+  color: #444;
+  border: 2px solid black;
+  border-radius: 5px;
+}
+.knave2e .items-list .item-controls {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 100px;
+  flex: 0 0 100px;
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+}
+.knave2e .items-list .item-controls a {
+  font-size: 14px;
+  text-align: center;
+  margin: 0 6px;
+}
+.knave2e .items-list button.list-roll {
+  max-width: -webkit-max-content;
+  max-width: -moz-max-content;
+  max-width: max-content;
+  padding: 0px 5px;
+  font-size: smaller;
+}
+.knave2e .items-list button.item-monster-roll {
+  max-width: -webkit-max-content;
+  max-width: -moz-max-content;
+  max-width: max-content;
+  padding: 0px 5px;
+  font-size: smaller;
+}
+.knave2e .items-list .knave-item {
+  display: grid;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding-bottom: 2px;
+  max-height: 40px;
+  position: relative;
+  overflow: hidden;
+}
+.knave2e .items-list .knave-item:last-child {
+  border-bottom: none;
+}
+.knave2e .items-list .knave-item .item-progress-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.knave2e .items-list .knave-item .item-progress-fill {
+  position: absolute;
+  top: 2px;
+  left: 0;
+  height: 100%;
+  background-color: lightcoral;
+  z-index: 0;
+}
+.knave2e .items-list .knave-item .item-progress-content {
+  position: relative;
+  z-index: 1;
+  padding-bottom: 2px;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+.knave2e .items-list .knave-item .item-image {
+  border: none;
+  margin-right: 5px;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+.knave2e .items-list .knave-item .item-image a {
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+.knave2e .items-list .knave-item .item-image a img {
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+.knave2e .items-list .knave-item .item-name {
+  -webkit-box-pack: left;
+  -ms-flex-pack: left;
+  justify-content: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #191813;
+  font-size: large;
+}
+.knave2e .items-list .knave-item .item-buttons {
+  -webkit-box-pack: right;
+  -ms-flex-pack: right;
+  justify-content: right;
+  padding-bottom: 4px;
+}
+.knave2e .items-list .knave-item .item-buttons .item-button {
+  background: rgba(255, 255, 255, 0);
+  border: 2px solid black;
+  border-radius: 10%;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+.knave2e .items-list .item-prop {
+  text-align: center;
+  font-size: 14px;
+}
+
+.knave2e.document-sheet {
+  --doc-ink: #30271f;
+  --doc-muted: #65533d;
+  --doc-rule: #967c56;
+  --doc-accent: #783c2c;
+  --doc-paper: #f1e5ca;
+  color: var(--doc-ink);
+  min-width: 560px;
+  background: #302019 url("../assets/document-leather.webp") center/620px;
+  border: 1px solid #21150e;
+  border-radius: 7px;
+  -webkit-box-shadow: 0 16px 42px rgba(0, 0, 0, 0.6), inset 0 0 0 3px rgba(143, 112, 71, 0.2);
+  box-shadow: 0 16px 42px rgba(0, 0, 0, 0.6), inset 0 0 0 3px rgba(143, 112, 71, 0.2);
+}
+.knave2e.document-sheet .window-header {
+  background: rgba(36, 23, 11, 0.6);
+  color: #e6d3ae;
+  border-bottom: 1px solid rgba(165, 138, 92, 0.4);
+  text-shadow: 0 1px 1px #000;
+}
+.knave2e.document-sheet .window-content {
+  background: transparent;
+  padding: 12px;
+  color: var(--doc-ink);
+  overflow: auto;
+}
+.knave2e.document-sheet .knave-document {
+  container-type: inline-size;
+  color-scheme: light;
+  --color-text-primary: var(--doc-ink);
+  --color-text-dark-primary: var(--doc-ink);
+  --color-text-dark-secondary: var(--doc-muted);
+  --color-border-highlight: var(--doc-accent);
+  --color-shadow-primary: #783c2c66;
+  height: auto;
+  min-height: 100%;
+  padding: 22px 28px 16px;
+  position: relative;
+  background: var(--doc-paper) url("../assets/document-paper.webp") center top/100% 100%;
+  border: 1px solid #b99b67;
+  border-radius: 2px 5px 3px 2px;
+  -webkit-box-shadow: 2px 3px 0 #c7b38b, 4px 5px 0 #725e40, 0 4px 14px rgba(0, 0, 0, 0.4666666667);
+  box-shadow: 2px 3px 0 #c7b38b, 4px 5px 0 #725e40, 0 4px 14px rgba(0, 0, 0, 0.4666666667);
+  font: 15px/1.4 Georgia, "Palatino Linotype", serif;
+  border-left: 6px double rgba(156, 129, 90, 0.5333333333);
+}
+.knave2e.document-sheet .knave-document div, .knave2e.document-sheet .knave-document section, .knave2e.document-sheet .knave-document input, .knave2e.document-sheet .knave-document button, .knave2e.document-sheet .knave-document footer, .knave2e.document-sheet .knave-document p {
+  font-family: Georgia, "Palatino Linotype", serif;
+}
+.knave2e.document-sheet .knave-document .detail {
+  font-family: Georgia, serif;
+  font-style: italic;
+}
+.knave2e.document-sheet .knave-document .resource-label {
+  font-size: 12px;
+  letter-spacing: 0.035em;
+  white-space: normal;
+  line-height: 1.35;
+}
+.knave2e.document-sheet .knave-document .resource-label.content {
+  font-size: 20px;
+  font-weight: normal;
+  letter-spacing: 0;
+}
+.knave2e.document-sheet .knave-document a {
+  color: var(--doc-ink);
+  text-shadow: none;
+}
+.knave2e.document-sheet .knave-document a:hover, .knave2e.document-sheet .knave-document .rollable:hover {
+  color: var(--doc-accent);
+  text-shadow: none;
+}
+.knave2e.document-sheet .knave-document button, .knave2e.document-sheet .knave-document input, .knave2e.document-sheet .knave-document select, .knave2e.document-sheet .knave-document textarea {
+  color: var(--doc-ink);
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+.knave2e.document-sheet .knave-document input:not([type=checkbox]):not([type=range]), .knave2e.document-sheet .knave-document select, .knave2e.document-sheet .knave-document textarea {
+  min-width: 0;
+  background: rgba(255, 252, 243, 0.2);
+  border: 0;
+  border-bottom: 1px solid var(--doc-rule);
+  border-radius: 0;
+  font-family: Georgia, serif;
+  font-size: 17px;
+  height: 30px;
+}
+.knave2e.document-sheet .knave-document input:focus, .knave2e.document-sheet .knave-document select:focus, .knave2e.document-sheet .knave-document textarea:focus, .knave2e.document-sheet .knave-document button:focus-visible, .knave2e.document-sheet .knave-document a:focus-visible {
+  outline: 2px solid var(--doc-accent);
+  outline-offset: 2px;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+.knave2e.document-sheet .knave-document input:disabled {
+  opacity: 0.7;
+}
+.knave2e.document-sheet .knave-document input[type=checkbox], .knave2e.document-sheet .knave-document input[type=range] {
+  accent-color: var(--doc-accent);
+}
+.knave2e.document-sheet .knave-document button {
+  background: rgba(227, 211, 177, 0.3333333333);
+  border: 1px solid var(--doc-rule);
+  border-radius: 2px;
+  cursor: pointer;
+  line-height: 1.5;
+}
+.knave2e.document-sheet .knave-document button:hover {
+  background: rgba(208, 181, 132, 0.4);
+  color: var(--doc-accent);
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+.knave2e.document-sheet .knave-document .dotted {
+  border-bottom: 1px dotted var(--doc-muted);
+  margin: 0 0 10px;
+}
+.knave2e.document-sheet .knave-document .dotted input {
+  border: 0;
+  background: transparent;
+}
+.knave2e.document-sheet .knave-document .dotted.name input {
+  font-size: 25px;
+  height: 38px;
+}
+.knave2e.document-sheet .knave-document img {
+  border-color: var(--doc-rule);
+}
+.knave2e.document-sheet .knave-document .circle, .knave2e.document-sheet .knave-document .shield, .knave2e.document-sheet .knave-document .rounded {
+  border: 1px solid var(--doc-rule);
+  background-color: rgba(255, 247, 230, 0.2196078431);
+  color: var(--doc-ink);
+}
+.knave2e.document-sheet .knave-document .circle.character, .knave2e.document-sheet .knave-document .shield.character, .knave2e.document-sheet .knave-document .rounded.character,
+.knave2e.document-sheet .knave-document input.circle.character, .knave2e.document-sheet .knave-document input.shield.character, .knave2e.document-sheet .knave-document input.rounded.character {
+  font-size: 25px;
+  border: 1px solid var(--doc-rule);
+  -webkit-box-shadow: inset 0 0 0 3px #ede0c4;
+  box-shadow: inset 0 0 0 3px #ede0c4;
+  height: 48px;
+  min-height: 48px;
+  width: 48px;
+  min-width: 48px;
+}
+.knave2e.document-sheet .knave-document input.circle.character, .knave2e.document-sheet .knave-document .circle {
+  border-radius: 48% 52% 50% 46%;
+}
+.knave2e.document-sheet .knave-document input.shield.character, .knave2e.document-sheet .knave-document .shield {
+  border-radius: 10% 10% 48% 48%;
+}
+.knave2e.document-sheet .knave-document input.rounded.character, .knave2e.document-sheet .knave-document .rounded {
+  border-radius: 2px;
+}
+.knave2e.document-sheet .knave-document .document-masthead {
+  display: grid;
+  grid-template-columns: 90px minmax(0, 1fr) 40px;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  gap: 14px;
+  padding: 0 0 16px;
+  margin: 0 0 20px;
+  border-bottom: 3px double var(--doc-rule);
+  text-align: center;
+}
+.knave2e.document-sheet .knave-document .document-masthead h1 {
+  font: 26px/1.15 Georgia, serif;
+  font-variant: small-caps;
+  border: none;
+  margin: 3px 0 0;
+  color: var(--doc-ink);
+}
+.knave2e.document-sheet .knave-document .document-masthead .document-kicker {
+  margin: 0;
+  color: var(--doc-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.19em;
+  font-size: 9px;
+}
+.knave2e.document-sheet .knave-document .document-masthead .document-edition {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-align: left;
+}
+.knave2e.document-sheet .knave-document .document-masthead .document-folio {
+  font-size: 23px;
+  font-style: italic;
+  color: var(--doc-accent);
+}
+.knave2e.document-sheet .knave-document .sheet-tabs.tabs {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 8px;
+  margin: 18px 0;
+  padding: 0;
+  border: none;
+  border-bottom: 1px solid var(--doc-rule);
+}
+.knave2e.document-sheet .knave-document .sheet-tabs.tabs .item {
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  padding: 9px 8px;
+  border: 1px solid var(--doc-rule);
+  border-bottom: 0;
+  border-radius: 3px 3px 0 0;
+  background: rgba(201, 181, 141, 0.2196078431);
+  text-align: center;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  -webkit-box-shadow: inset 0 2px 2px rgba(255, 255, 255, 0.2666666667);
+  box-shadow: inset 0 2px 2px rgba(255, 255, 255, 0.2666666667);
+}
+.knave2e.document-sheet .knave-document .sheet-tabs.tabs .item.active {
+  background: var(--doc-accent);
+  color: #fff1d3;
+  text-shadow: none;
+}
+.knave2e.document-sheet .knave-document .character-grid {
+  display: block;
+  height: auto;
+}
+.knave2e.document-sheet .knave-document .character-grid .header {
+  grid-template-columns: 160px minmax(0, 1fr);
+  gap: 22px;
+}
+.knave2e.document-sheet .knave-document .character-grid .header .logo {
+  grid-area: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+.knave2e.document-sheet .knave-document .character-grid .header .logo img {
+  width: 100%;
+  min-width: 0;
+  max-width: 170px;
+  mix-blend-mode: multiply;
+}
+.knave2e.document-sheet .knave-document .character-grid .header .info {
+  grid-area: auto;
+  min-width: 0;
+}
+.knave2e.document-sheet .knave-document .character-grid .header .stats {
+  gap: 16px;
+}
+.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active {
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.8fr) minmax(0, 1fr);
+  grid-template-rows: auto 1fr;
+  gap: 18px 20px;
+  -webkit-box-align: start;
+  -ms-flex-align: start;
+  align-items: start;
+  -webkit-box-pack: stretch;
+  -ms-flex-pack: stretch;
+  justify-content: stretch;
+}
+.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .abilities {
+  grid-area: 1/1/3/2;
+  border-right: 1px solid rgba(150, 124, 86, 0.3333333333);
+  padding-right: 12px;
+}
+.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .abilities > .flexrow {
+  margin-bottom: 13px;
+  gap: 10px;
+}
+.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .abilities .ability {
+  margin-left: 0;
+  min-width: 0;
+}
+.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .abilities input {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 48px;
+  flex: 0 0 48px;
+}
+.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .abilities .rollable {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  font-size: 12px !important;
+  font-weight: bold;
+  text-align: left;
+  min-height: 26px;
+  height: auto;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .abilities .detail {
+  font-size: 11px;
+  line-height: 1.35;
+  color: var(--doc-muted);
+}
+.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .armor {
+  grid-area: 1/2/2/3;
+  gap: 6px;
+}
+.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .health {
+  grid-area: 2/2/3/3;
+  display: block;
+}
+.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .health .health-max {
+  margin-bottom: 8px;
+}
+.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .health-rest {
+  margin-top: 14px;
+}
+.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .health-rest button {
+  width: 100%;
+  padding: 7px;
+}
+.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .level {
+  grid-area: 1/3/2/4;
+  gap: 8px;
+}
+.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .level > .flexcol {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 52px;
+  flex: 0 0 52px;
+}
+.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .xp {
+  min-width: 0;
+}
+.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .portrait {
+  grid-area: 2/3/3/4;
+  width: 100%;
+}
+.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .portrait img {
+  width: 100%;
+  max-height: 270px;
+  min-height: 205px;
+  -o-object-fit: contain;
+  object-fit: contain;
+  padding: 7px;
+  margin: 5px 0 0;
+  background: rgba(255, 250, 235, 0.3333333333);
+  border: 1px solid var(--doc-rule);
+  -webkit-box-shadow: 2px 3px 4px rgba(81, 64, 34, 0.2);
+  box-shadow: 2px 3px 4px rgba(81, 64, 34, 0.2);
+}
+.knave2e.document-sheet .knave-document .progress-container {
+  border: 1px solid var(--doc-rule);
+  background: rgba(255, 245, 223, 0.3333333333);
+}
+.knave2e.document-sheet .knave-document .progress-container .progress-bar {
+  isolation: isolate;
+}
+.knave2e.document-sheet .knave-document .progress-container .progress-input {
+  background: transparent !important;
+  border: 0 !important;
+  font-size: 25px !important;
+  z-index: 1;
+}
+.knave2e.document-sheet .knave-document .progress-container .progress-fill.hitPoints {
+  background: rgba(98, 114, 82, 0.2666666667);
+}
+.knave2e.document-sheet .knave-document .progress-container .progress-fill.wounds {
+  background: repeating-linear-gradient(135deg, rgba(143, 62, 44, 0.2666666667) 0 2px, transparent 2px 6px);
+}
+.knave2e.document-sheet .knave-document .progress-container .progress-fill.xp {
+  background: rgba(156, 121, 59, 0.2666666667);
+}
+.knave2e.document-sheet .knave-document .progress-container.vertical {
+  width: 48px;
+  min-height: 140px;
+  height: 140px;
+}
+.knave2e.document-sheet .knave-document .progress-container.vertical .progress-input {
+  height: 100%;
+}
+.knave2e.document-sheet .knave-document .progress-container.horizontal {
+  width: 100%;
+  min-width: 0;
+  height: 48px;
+  margin: 2px 0;
+}
+.knave2e.document-sheet .knave-document .items-list {
+  color: var(--doc-ink);
+  border: 1px solid var(--doc-rule);
+  border-radius: 0;
+  padding: 0;
+}
+.knave2e.document-sheet .knave-document .items-list .knave-item {
+  max-height: none;
+  min-height: 42px;
+  border-bottom: 1px solid rgba(150, 124, 86, 0.3764705882);
+  padding: 4px;
+  gap: 4px;
+}
+.knave2e.document-sheet .knave-document .items-list .items-header {
+  background: rgba(180, 155, 112, 0.2);
+  height: auto;
+  min-height: 36px;
+  border-bottom: 2px solid var(--doc-rule);
+}
+.knave2e.document-sheet .knave-document .items-list .items-header .resource-label {
+  font-size: 10px;
+}
+.knave2e.document-sheet .knave-document .items-list .item-name {
+  font-size: 15px;
+}
+.knave2e.document-sheet .knave-document .items-list .item-controls {
+  gap: 4px;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+.knave2e.document-sheet .knave-document .items-list .item-controls a {
+  margin: 0 2px;
+  font-size: 13px;
+  min-width: 20px;
+  line-height: 24px;
+}
+.knave2e.document-sheet .knave-document .items-list .item-buttons {
+  padding: 0;
+  gap: 3px;
+}
+.knave2e.document-sheet .knave-document .items-list .item-buttons .item-button {
+  border: 1px solid var(--doc-rule);
+  border-radius: 2px;
+  padding: 2px;
+  font-size: 10px;
+}
+.knave2e.document-sheet .knave-document .items-list .item-progress-fill {
+  background: repeating-linear-gradient(135deg, rgba(148, 60, 40, 0.168627451) 0 2px, transparent 2px 6px);
+}
+.knave2e.document-sheet .knave-document .items-list .item-progress-content {
+  gap: 4px;
+}
+.knave2e.document-sheet .knave-document section.editor {
+  border: 1px solid rgba(150, 124, 86, 0.4666666667);
+  min-height: 200px;
+  padding: 10px;
+  background: repeating-linear-gradient(transparent 0 27px, rgba(150, 124, 86, 0.1607843137) 27px 28px);
+}
+.knave2e.document-sheet .knave-document section.editor .editor-content {
+  min-height: 180px;
+  line-height: 28px;
+}
+.knave2e.document-sheet .knave-document section.editor .editor {
+  min-height: 180px;
+  padding: 0;
+}
+.knave2e.document-sheet .knave-document .npc-grid, .knave2e.document-sheet .knave-document .vehicle-grid {
+  display: block;
+}
+.knave2e.document-sheet .knave-document .npc-grid .header {
+  grid-template-columns: 140px minmax(0, 1fr);
+  gap: 20px;
+}
+.knave2e.document-sheet .knave-document .vehicle-grid .header {
+  grid-template-columns: 110px minmax(0, 1fr);
+  gap: 20px;
+}
+.knave2e.document-sheet .knave-document .npc-grid .header .info, .knave2e.document-sheet .knave-document .vehicle-grid .header .info {
+  grid-area: auto;
+  min-width: 0;
+}
+.knave2e.document-sheet .knave-document .npc-grid .header .image, .knave2e.document-sheet .knave-document .vehicle-grid .header .image {
+  grid-area: auto;
+}
+.knave2e.document-sheet .knave-document .npc-grid .sheet-body, .knave2e.document-sheet .knave-document .vehicle-grid .sheet-body {
+  display: block;
+  margin-top: 20px;
+}
+.knave2e.document-sheet .knave-document .npc-grid .header img, .knave2e.document-sheet .knave-document .vehicle-grid .header img {
+  background: rgba(255, 250, 235, 0.4);
+  padding: 5px;
+  -webkit-box-shadow: 2px 3px 4px rgba(81, 64, 34, 0.2);
+  box-shadow: 2px 3px 4px rgba(81, 64, 34, 0.2);
+}
+.knave2e.document-sheet .knave-document .item-header-grid {
+  grid-template-columns: 84px minmax(0, 1fr);
+  gap: 18px;
+}
+.knave2e.document-sheet .knave-document .item-header-img img {
+  width: 80px;
+  height: 80px;
+  padding: 7px;
+  background: rgba(255, 250, 235, 0.4);
+}
+.knave2e.document-sheet .knave-document .item-info-grid {
+  gap: 12px;
+  grid-template-rows: auto auto;
+}
+.knave2e.document-sheet .knave-document .item-header-name input {
+  font-size: 26px;
+  height: 42px;
+  width: 100%;
+}
+.knave2e.document-sheet .knave-document .item-header-info .flexrow {
+  gap: 8px;
+}
+.knave2e.document-sheet .knave-document .item-header-info input:not([type=checkbox]) {
+  max-width: 70px;
+}
+.knave2e.document-sheet .knave-document .item-body-grid {
+  grid-template-columns: minmax(160px, 0.75fr) minmax(0, 1.25fr);
+  gap: 20px;
+  margin-top: 24px;
+}
+.knave2e.document-sheet .knave-document .item-body-aside {
+  padding: 0 16px 0 0;
+  border-right: 1px solid rgba(150, 124, 86, 0.4666666667);
+  margin: 0;
+}
+.knave2e.document-sheet .knave-document .item-body-aside > .flexrow {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  margin-bottom: 12px;
+  gap: 3px;
+}
+.knave2e.document-sheet .knave-document .item-body-aside .resource-label {
+  font-size: 10px;
+}
+.knave2e.document-sheet .knave-document .item-body-aside input, .knave2e.document-sheet .knave-document .item-body-aside select {
+  width: 100%;
+}
+.knave2e.document-sheet .knave-document .item-body-description {
+  min-width: 0;
+}
+.knave2e.document-sheet .knave-document .item-body-description .grid {
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.knave2e.document-sheet .knave-document footer.footer {
+  margin-top: 18px;
+  padding: 10px 0 0;
+  border-top: 3px double var(--doc-rule);
+  color: var(--doc-muted);
+}
+.knave2e.document-sheet .knave-document footer p {
+  font-size: 9px !important;
+  line-height: 1.5;
+  margin: 0;
+}
+.knave2e.document-sheet .document-monster, .knave2e.document-sheet .document-monsterAttack {
+  --doc-accent: #72352d;
+}
+.knave2e.document-sheet .document-spellbook {
+  --doc-accent: #4c4c69;
+}
+.knave2e.document-sheet .document-potion, .knave2e.document-sheet .document-recruit {
+  --doc-accent: #465b40;
+}
+.knave2e.document-sheet .document-building, .knave2e.document-sheet .document-vehicle {
+  --doc-accent: #39545b;
+}
+@container (max-width: 560px) {
+  .knave2e.document-sheet .knave-document .document-masthead {
+    grid-template-columns: 65px minmax(0, 1fr) 25px;
+  }
+  .knave2e.document-sheet .knave-document .document-masthead h1 {
+    font-size: 21px;
+  }
+  .knave2e.document-sheet .knave-document .character-grid .header {
+    grid-template-columns: 110px minmax(0, 1fr);
+    gap: 12px;
+  }
+  .knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active {
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  }
+  .knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .abilities {
+    grid-area: 1/1/4/2;
+  }
+  .knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .armor {
+    grid-area: 1/2/2/3;
+  }
+  .knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .health {
+    grid-area: 2/2/3/3;
+  }
+  .knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .level {
+    grid-area: 3/2/4/3;
+  }
+  .knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .portrait {
+    grid-area: 4/1/5/3;
+    max-width: 230px;
+    justify-self: center;
+  }
+  .knave2e.document-sheet .knave-document .item-body-grid {
+    grid-template-columns: 1fr;
+  }
+  .knave2e.document-sheet .knave-document .item-body-aside, .knave2e.document-sheet .knave-document .item-body-description {
+    grid-area: auto;
+    border: 0;
+    padding: 0;
+  }
+  .knave2e.document-sheet .knave-document .npc-grid .header, .knave2e.document-sheet .knave-document .vehicle-grid .header {
+    grid-template-columns: 85px minmax(0, 1fr);
+    gap: 10px;
+  }
+}
+
+@font-face {
+  font-family: "Knave Hand";
+  src: url("../assets/fonts/Caveat.ttf") format("truetype");
+  font-weight: 400 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Knave Press";
+  src: url("../assets/fonts/IMFellEnglish.ttf") format("truetype");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Knave Capitals";
+  src: url("../assets/fonts/IMFellEnglishSC.ttf") format("truetype");
+  font-weight: 400;
+  font-display: swap;
+}
+.knave2e.document-sheet:has(.document-character) .window-content {
+  padding-right: 124px;
+}
+.knave2e.document-sheet .knave-document {
+  --doc-ink: #34291f;
+  font-family: "Knave Press", Georgia, serif;
+}
+.knave2e.document-sheet .knave-document div, .knave2e.document-sheet .knave-document section, .knave2e.document-sheet .knave-document button, .knave2e.document-sheet .knave-document footer, .knave2e.document-sheet .knave-document p {
+  font-family: "Knave Press", Georgia, serif;
+}
+.knave2e.document-sheet .knave-document .resource-label, .knave2e.document-sheet .knave-document .document-masthead h1 {
+  font-family: "Knave Capitals", Georgia, serif;
+  font-weight: 400;
+  letter-spacing: 0.025em;
+}
+.knave2e.document-sheet .knave-document .resource-label {
+  font-size: 14px;
+}
+.knave2e.document-sheet .knave-document .resource-label.aside {
+  font-size: 12px;
+}
+.knave2e.document-sheet .knave-document .detail, .knave2e.document-sheet .knave-document .detail.italic {
+  font-family: "Knave Hand", cursive;
+  font-style: normal;
+}
+.knave2e.document-sheet .knave-document input:not([type=checkbox]):not([type=range]), .knave2e.document-sheet .knave-document select, .knave2e.document-sheet .knave-document textarea {
+  font-family: "Knave Hand", cursive;
+  font-size: 25px;
+  font-weight: 500;
+  background: transparent;
+  border-bottom: 1px solid rgba(101, 83, 61, 0.4666666667);
+  height: 34px;
+}
+.knave2e.document-sheet .knave-document .dotted {
+  border: 0;
+  border-bottom: 1px dashed rgba(101, 83, 61, 0.5333333333);
+}
+.knave2e.document-sheet .knave-document .dotted.name input, .knave2e.document-sheet .knave-document .item-header-name input {
+  font-family: "Knave Hand", cursive;
+  font-size: 34px;
+  font-style: normal;
+  height: 44px;
+}
+.knave2e.document-sheet .knave-document .dotted.careers input {
+  font-size: 24px;
+}
+.knave2e.document-sheet .knave-document .document-masthead {
+  border-bottom: 1px solid rgba(118, 87, 49, 0.6);
+  position: relative;
+}
+.knave2e.document-sheet .knave-document .document-masthead h1 {
+  font-size: 29px;
+}
+.knave2e.document-sheet .knave-document .document-masthead .document-kicker {
+  font-family: "Knave Press", serif;
+  letter-spacing: 0.1em;
+  font-size: 11px;
+}
+.knave2e.document-sheet .knave-document .document-masthead .document-edition {
+  font-family: "Knave Capitals", serif;
+  font-size: 13px;
+}
+.knave2e.document-sheet .knave-document .document-masthead .document-folio {
+  font-family: "Knave Hand", cursive;
+  font-style: normal;
+  height: 55px;
+  width: 55px;
+  line-height: 55px;
+  background: url("../assets/ink-seal.webp") center/contain no-repeat;
+  color: #803b28;
+  -webkit-transform: rotate(9deg);
+  -ms-transform: rotate(9deg);
+  transform: rotate(9deg);
+  font-size: 28px;
+}
+.knave2e.document-sheet .knave-document .document-masthead::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 4%;
+  width: 92%;
+  border-bottom: 1px solid rgba(118, 87, 49, 0.3333333333);
+  -webkit-transform: rotate(-0.35deg);
+  -ms-transform: rotate(-0.35deg);
+  transform: rotate(-0.35deg);
+}
+.knave2e.document-sheet .knave-document .circle.character, .knave2e.document-sheet .knave-document input.circle.character,
+.knave2e.document-sheet .knave-document .rounded.character, .knave2e.document-sheet .knave-document input.rounded.character {
+  border: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border-radius: 0;
+  background: url("../assets/ink-seal.webp") center/contain no-repeat;
+  width: 58px;
+  min-width: 58px;
+  max-width: 58px;
+  height: 58px;
+  min-height: 58px;
+  max-height: 58px;
+  font-family: "Knave Hand", cursive;
+  font-size: 35px;
+  font-weight: 600;
+  text-align: center;
+  padding: 0;
+}
+.knave2e.document-sheet .knave-document .shield.character, .knave2e.document-sheet .knave-document input.shield.character {
+  border: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border-radius: 0;
+  background: url("../assets/ink-shield.webp") center/contain no-repeat;
+  width: 58px;
+  min-width: 58px;
+  height: 58px;
+  min-height: 58px;
+  font-family: "Knave Hand", cursive;
+  font-size: 33px;
+  font-weight: 600;
+  text-align: center;
+  padding: 0 0 4px;
+}
+.knave2e.document-sheet .knave-document .character-grid .header .logo {
+  -webkit-transform: rotate(-3deg);
+  -ms-transform: rotate(-3deg);
+  transform: rotate(-3deg);
+  opacity: 0.9;
+}
+.knave2e.document-sheet .knave-document .character-grid .header .stats {
+  border-bottom: 1px solid rgba(150, 124, 86, 0.2666666667);
+  padding-bottom: 10px;
+}
+.knave2e.document-sheet .knave-document .character-grid .sheet-body {
+  margin-top: 26px;
+}
+.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active {
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.85fr) minmax(0, 1fr);
+  gap: 16px;
+}
+.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .abilities {
+  border: 0;
+  padding-right: 8px;
+}
+.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .abilities > .flexrow {
+  gap: 9px;
+  margin-bottom: 10px;
+}
+.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .abilities input {
+  -ms-flex-preferred-size: 58px;
+  flex-basis: 58px;
+}
+.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .abilities .rollable {
+  font-family: "Knave Capitals", serif;
+  font-size: 15px !important;
+  font-weight: 400;
+}
+.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .abilities .detail {
+  font-family: "Knave Hand", cursive;
+  font-size: 17px;
+  line-height: 1.05;
+  color: #584833;
+}
+.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .abilities > .flexrow:nth-child(2n) input {
+  -webkit-transform: rotate(-5deg);
+  -ms-transform: rotate(-5deg);
+  transform: rotate(-5deg);
+}
+.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .abilities > .flexrow:nth-child(2n+1) input {
+  -webkit-transform: rotate(3deg);
+  -ms-transform: rotate(3deg);
+  transform: rotate(3deg);
+}
+.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .health {
+  min-width: 0;
+}
+.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .level > .flexcol {
+  -ms-flex-preferred-size: 60px;
+  flex-basis: 60px;
+}
+.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .portrait {
+  position: relative;
+  padding: 7px;
+  -webkit-transform: rotate(1deg);
+  -ms-transform: rotate(1deg);
+  transform: rotate(1deg);
+  background: url("../assets/document-paper.webp") center/cover;
+  -webkit-box-shadow: 2px 3px 5px rgba(54, 41, 25, 0.2509803922);
+  box-shadow: 2px 3px 5px rgba(54, 41, 25, 0.2509803922);
+}
+.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .portrait::before, .knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .portrait::after {
+  content: "";
+  position: absolute;
+  top: 19px;
+  width: 28px;
+  height: 12px;
+  border-top: 1px solid rgba(139, 112, 73, 0.2666666667);
+  background: rgba(190, 163, 113, 0.4666666667);
+  -webkit-transform: rotate(-38deg);
+  -ms-transform: rotate(-38deg);
+  transform: rotate(-38deg);
+  pointer-events: none;
+}
+.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .portrait::before {
+  left: -8px;
+}
+.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .portrait::after {
+  right: -8px;
+  -webkit-transform: rotate(38deg);
+  -ms-transform: rotate(38deg);
+  transform: rotate(38deg);
+}
+.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .portrait img {
+  border: 1px solid rgba(114, 84, 53, 0.4);
+  background: transparent;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  min-height: 210px;
+  padding: 5px;
+}
+.knave2e.document-sheet .knave-document .sheet-tabs.document-bookmarks {
+  position: absolute;
+  right: -110px;
+  top: 175px;
+  width: 122px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  gap: 13px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  z-index: 2;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+}
+.knave2e.document-sheet .knave-document .sheet-tabs.document-bookmarks .item {
+  --ribbon: #753d2e;
+  -webkit-box-flex: 0;
+  -ms-flex: none;
+  flex: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  min-height: 66px;
+  padding: 8px 14px 8px 8px;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  text-decoration: none;
+  font-family: "Knave Capitals", serif;
+  font-size: 13px;
+  letter-spacing: 0.015em;
+  color: #f7e7c5;
+  clip-path: polygon(0 0, 100% 3%, 91% 50%, 100% 98%, 0 100%);
+  -webkit-box-shadow: inset 0 2px 0 rgba(228, 203, 148, 0.2392156863), inset 0 -2px 0 rgba(31, 20, 12, 0.4);
+  box-shadow: inset 0 2px 0 rgba(228, 203, 148, 0.2392156863), inset 0 -2px 0 rgba(31, 20, 12, 0.4);
+  -webkit-transform: rotate(-2deg);
+  -ms-transform: rotate(-2deg);
+  transform: rotate(-2deg);
+  -webkit-transform-origin: left center;
+  -ms-transform-origin: left center;
+  transform-origin: left center;
+  -webkit-transition: -webkit-transform 140ms ease-out;
+  transition: -webkit-transform 140ms ease-out;
+  transition: transform 140ms ease-out;
+  transition: transform 140ms ease-out, -webkit-transform 140ms ease-out;
+}
+.knave2e.document-sheet .knave-document .sheet-tabs.document-bookmarks .item, .knave2e.document-sheet .knave-document .sheet-tabs.document-bookmarks .item.active {
+  background: -webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, 0.4)), color-stop(25%, transparent)), repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.0666666667) 0 1px, transparent 1px 3px), var(--ribbon) url("../assets/document-leather.webp") center/180px;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.4), transparent 25%), repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.0666666667) 0 1px, transparent 1px 3px), var(--ribbon) url("../assets/document-leather.webp") center/180px;
+  background-blend-mode: multiply, soft-light, luminosity;
+}
+.knave2e.document-sheet .knave-document .sheet-tabs.document-bookmarks .item .bookmark-index {
+  font: 12px "Knave Press", serif;
+  opacity: 0.8;
+  margin-bottom: 3px;
+}
+.knave2e.document-sheet .knave-document .sheet-tabs.document-bookmarks .item:nth-child(2) {
+  --ribbon: #4b5b3b;
+  -webkit-transform: rotate(1deg);
+  -ms-transform: rotate(1deg);
+  transform: rotate(1deg);
+}
+.knave2e.document-sheet .knave-document .sheet-tabs.document-bookmarks .item:nth-child(3) {
+  --ribbon: #415660;
+  -webkit-transform: rotate(-1deg);
+  -ms-transform: rotate(-1deg);
+  transform: rotate(-1deg);
+}
+.knave2e.document-sheet .knave-document .sheet-tabs.document-bookmarks .item.active, .knave2e.document-sheet .knave-document .sheet-tabs.document-bookmarks .item:hover {
+  -webkit-transform: translateX(7px);
+  -ms-transform: translateX(7px);
+  transform: translateX(7px);
+  color: #fff3d4;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+.knave2e.document-sheet .knave-document .sheet-tabs.document-bookmarks .item.active {
+  -webkit-box-shadow: inset 0 0 0 2px rgba(220, 198, 155, 0.5333333333);
+  box-shadow: inset 0 0 0 2px rgba(220, 198, 155, 0.5333333333);
+}
+.knave2e.document-sheet .knave-document .sheet-tabs.document-bookmarks .item:focus-visible {
+  outline: 0;
+  -webkit-box-shadow: inset 0 0 0 3px #fff1b8;
+  box-shadow: inset 0 0 0 3px #fff1b8;
+}
+.knave2e.document-sheet .knave-document .vital-note {
+  display: grid;
+  grid-template-columns: minmax(50px, 1fr) 58px;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 0 9px;
+  border-bottom: 1px dashed rgba(150, 124, 86, 0.5333333333);
+}
+.knave2e.document-sheet .knave-document .vital-note .vital-illustration {
+  width: 100%;
+  max-height: 110px;
+  -o-object-fit: contain;
+  object-fit: contain;
+  border: 0;
+  -webkit-transform: rotate(-9deg);
+  -ms-transform: rotate(-9deg);
+  transform: rotate(-9deg);
+}
+.knave2e.document-sheet .knave-document .vital-note .vital-values {
+  text-align: center;
+}
+.knave2e.document-sheet .knave-document .vital-note label {
+  display: block;
+}
+.knave2e.document-sheet .knave-document input.ink-number:not([type=checkbox]):not([type=range]), .knave2e.document-sheet .knave-document .ink-number {
+  font: 600 38px/1 "Knave Hand", cursive;
+  text-align: center;
+  width: 100%;
+  height: 43px;
+  border: 0;
+  border-bottom: 1px solid rgba(101, 83, 61, 0.5333333333);
+  background: transparent;
+}
+.knave2e.document-sheet .knave-document input.ink-number:not([type=checkbox]):not([type=range]).small, .knave2e.document-sheet .knave-document .ink-number.small {
+  font-size: 26px;
+  height: 32px;
+}
+.knave2e.document-sheet .knave-document .wound-note {
+  margin: 12px 0 0;
+  text-align: center;
+  color: #713b2b;
+}
+.knave2e.document-sheet .knave-document .wound-values {
+  display: grid;
+  grid-template-columns: 1fr 14px 1fr;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  gap: 3px;
+}
+.knave2e.document-sheet .knave-document button.actor-button.rest {
+  border: 2px solid rgba(121, 71, 48, 0.6666666667);
+  border-radius: 3px 6px 2px 4px;
+  outline: 1px solid rgba(121, 71, 48, 0.4);
+  outline-offset: -5px;
+  font-family: "Knave Capitals", serif;
+  color: #783e2b;
+  background: transparent;
+  -webkit-transform: rotate(-3deg);
+  -ms-transform: rotate(-3deg);
+  transform: rotate(-3deg);
+  letter-spacing: 0.09em;
+}
+.knave2e.document-sheet .knave-document .progress-container {
+  border: 0;
+  border-bottom: 1px solid rgba(114, 83, 50, 0.5333333333);
+  background: transparent;
+}
+.knave2e.document-sheet .knave-document .progress-container .progress-input {
+  font-family: "Knave Hand", cursive;
+  font-size: 31px !important;
+  font-weight: 500;
+}
+.knave2e.document-sheet .knave-document .progress-container .progress-fill.xp, .knave2e.document-sheet .knave-document .progress-container .progress-fill.hitPoints {
+  background: repeating-linear-gradient(105deg, rgba(133, 101, 59, 0.2) 0 2px, transparent 2px 5px);
+  top: auto;
+  height: 7px;
+  min-height: 0;
+  bottom: 0;
+}
+.knave2e.document-sheet .knave-document .journal-heading {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 14px;
+  font: 28px "Knave Hand", cursive;
+}
+.knave2e.document-sheet .knave-document .journal-heading img {
+  width: 65px;
+  height: 60px;
+  -o-object-fit: contain;
+  object-fit: contain;
+  border: 0;
+}
+.knave2e.document-sheet .knave-document .journal-heading span {
+  font-family: "Knave Hand", cursive;
+  border-bottom: 1px solid rgba(114, 83, 50, 0.4);
+  -webkit-transform: rotate(-2deg);
+  -ms-transform: rotate(-2deg);
+  transform: rotate(-2deg);
+}
+.knave2e.document-sheet .knave-document .items-list {
+  border: 0;
+  border-top: 2px solid rgba(122, 92, 53, 0.6);
+  border-bottom: 1px solid rgba(122, 92, 53, 0.6);
+}
+.knave2e.document-sheet .knave-document .items-list .items-header {
+  background: transparent;
+  border-bottom: 2px solid rgba(122, 92, 53, 0.4);
+}
+.knave2e.document-sheet .knave-document .items-list .items-header .resource-label {
+  font-family: "Knave Capitals", serif;
+  font-size: 12px;
+}
+.knave2e.document-sheet .knave-document .items-list .knave-item {
+  border-bottom: 1px dashed rgba(122, 92, 53, 0.4);
+}
+.knave2e.document-sheet .knave-document .items-list .item-name {
+  font: 23px "Knave Hand", cursive;
+}
+.knave2e.document-sheet .knave-document .items-list .item-slots, .knave2e.document-sheet .knave-document .items-list .item-quantity, .knave2e.document-sheet .knave-document .items-list .item-prop {
+  font: 23px "Knave Hand", cursive;
+}
+.knave2e.document-sheet .knave-document .items-list .item-buttons .item-button {
+  border: 1px solid rgba(120, 72, 49, 0.6666666667);
+  border-radius: 3px 1px 4px 2px;
+  color: #704532;
+  font: 13px "Knave Capitals", serif;
+  background: transparent;
+  -webkit-transform: rotate(-2deg);
+  -ms-transform: rotate(-2deg);
+  transform: rotate(-2deg);
+}
+.knave2e.document-sheet .knave-document .items-list .item-buttons .item-button:nth-child(2n) {
+  -webkit-transform: rotate(2deg);
+  -ms-transform: rotate(2deg);
+  transform: rotate(2deg);
+}
+.knave2e.document-sheet .knave-document section.editor {
+  border: 0;
+  border-left: 1px solid rgba(145, 75, 58, 0.2666666667);
+  padding-left: 16px;
+}
+.knave2e.document-sheet .knave-document section.editor .editor-content {
+  font: 23px/28px "Knave Hand", cursive;
+}
+.knave2e.document-sheet .knave-document section.editor .editor-content p {
+  font: inherit;
+}
+.knave2e.document-sheet .knave-document .item-body-aside {
+  border-right: 1px dashed rgba(150, 124, 86, 0.4666666667);
+}
+.knave2e.document-sheet .knave-document .item-body-aside .resource-label {
+  font-size: 13px;
+}
+.knave2e.document-sheet .knave-document footer.footer {
+  border-top: 1px solid rgba(118, 87, 49, 0.5333333333);
+}
+.knave2e.document-sheet .knave-document footer p {
+  font-family: "Knave Press", serif;
+  font-size: 10px !important;
+}
+@container (max-width: 560px) {
+  .knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active {
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  }
+  .knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .abilities {
+    grid-area: 1/1/4/2;
+  }
+  .knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .armor {
+    grid-area: 1/2/2/3;
+  }
+  .knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .health {
+    grid-area: 2/2/3/3;
+  }
+  .knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .level {
+    grid-area: 3/2/4/3;
+  }
+  .knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .portrait {
+    grid-area: 4/1/5/3;
+  }
+  .knave2e.document-sheet .knave-document .document-masthead {
+    grid-template-columns: 50px minmax(0, 1fr) 45px;
+    gap: 6px;
+  }
+  .knave2e.document-sheet .knave-document .document-masthead h1 {
+    font-size: 23px;
+  }
+  .knave2e.document-sheet .knave-document .document-masthead .document-folio {
+    height: 45px;
+    width: 45px;
+    line-height: 45px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .knave2e.document-sheet .knave-document .document-bookmarks .item {
+    -webkit-transition: none;
+    transition: none;
+  }
+}
+
+.knave2e.document-sheet .knave-document input[type=checkbox] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  position: relative;
+  display: inline-block;
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 19px;
+  flex: 0 0 19px;
+  width: 19px;
+  height: 19px;
+  padding: 0;
+  border: 1px solid #65513c;
+  border-radius: 2px 4px 1px 3px;
+  background: transparent;
+  vertical-align: middle;
+  cursor: pointer;
+}
+.knave2e.document-sheet .knave-document input[type=checkbox]:checked::after {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  top: -8px;
+  font: 28px "Knave Hand", cursive;
+  color: #643e28;
+}
+.knave2e.document-sheet .knave-document input[type=range] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: transparent;
+  height: 24px;
+  padding: 0;
+}
+.knave2e.document-sheet .knave-document input[type=range]::-webkit-slider-runnable-track {
+  height: 6px;
+  border-bottom: 1px solid rgba(114, 83, 50, 0.6);
+  background: repeating-linear-gradient(100deg, rgba(114, 83, 50, 0.5333333333) 0 1px, transparent 1px 9px);
+}
+.knave2e.document-sheet .knave-document input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 19px;
+  height: 19px;
+  margin-top: -6px;
+  border: 0;
+  background: url("../assets/ink-seal.webp") center/contain no-repeat;
+  cursor: ew-resize;
+}
+.knave2e.document-sheet .knave-document input[type=range]::-moz-range-track {
+  height: 6px;
+  border-bottom: 1px solid rgba(114, 83, 50, 0.6);
+  background: repeating-linear-gradient(100deg, rgba(114, 83, 50, 0.5333333333) 0 1px, transparent 1px 9px);
+}
+.knave2e.document-sheet .knave-document input[type=range]::-moz-range-thumb {
+  width: 19px;
+  height: 19px;
+  border: 0;
+  background: url("../assets/ink-seal.webp") center/contain no-repeat;
+  cursor: ew-resize;
+}
+.knave2e.document-sheet .knave-document .item-control.item-edit i, .knave2e.document-sheet .knave-document .item-control.item-delete i {
+  display: none;
+}
+.knave2e.document-sheet .knave-document .item-control.item-edit::before {
+  content: "✎";
+  font: 21px Georgia, serif;
+}
+.knave2e.document-sheet .knave-document .item-control.item-delete::before {
+  content: "×";
+  font: 25px "Knave Hand", cursive;
+  color: #783e2b;
+}
+
+.knave2e.document-sheet .knave-document .document-turn-layer {
+  position: absolute;
+  left: -6px;
+  top: -1px;
+  pointer-events: none;
+  z-index: 3;
+  -webkit-perspective: 1400px;
+  perspective: 1400px;
+  -webkit-perspective-origin: 50% 45%;
+  perspective-origin: 50% 45%;
+  overflow: visible;
+}
+.knave2e.document-sheet .knave-document .knave-document.document-turn-face {
+  position: absolute;
+  left: 0;
+  top: 0;
+  margin: 0;
+  pointer-events: none;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-box-shadow: 12px 3px 24px rgba(32, 20, 7, 0.3333333333), inset 12px 0 20px rgba(81, 56, 25, 0.0941176471);
+  box-shadow: 12px 3px 24px rgba(32, 20, 7, 0.3333333333), inset 12px 0 20px rgba(81, 56, 25, 0.0941176471);
+  will-change: transform, opacity;
+  overflow: hidden;
+}
+.knave2e.document-sheet .knave-document .knave-document.document-turn-face .document-bookmarks {
+  display: none;
+}
+.knave2e.document-sheet .knave-document .knave-document.document-turn-face::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: -webkit-gradient(linear, left top, right top, from(rgba(51, 36, 17, 0.168627451)), color-stop(12%, transparent), color-stop(48%, rgba(255, 255, 255, 0.2666666667)), color-stop(78%, transparent), to(rgba(51, 36, 17, 0.1098039216)));
+  background: linear-gradient(90deg, rgba(51, 36, 17, 0.168627451), transparent 12%, rgba(255, 255, 255, 0.2666666667) 48%, transparent 78%, rgba(51, 36, 17, 0.1098039216));
+}
+.knave2e.document-sheet .knave-document .sheet-tabs.document-bookmarks {
+  z-index: 4;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .knave2e.document-sheet .document-turn-layer {
+    display: none;
+  }
+}
+
+</style><nav class="preview-nav"><a href="#character" data-preview="character">character</a><a href="#recruit" data-preview="recruit">recruit</a><a href="#monster" data-preview="monster">monster</a><a href="#vehicle" data-preview="vehicle">vehicle</a><a href="#building" data-preview="building">building</a><a href="#armor" data-preview="armor">armor</a><a href="#equipment" data-preview="equipment">equipment</a><a href="#lightSource" data-preview="lightSource">lightSource</a><a href="#spellbook" data-preview="spellbook">spellbook</a><a href="#weapon" data-preview="weapon">weapon</a><a href="#monsterAttack" data-preview="monsterAttack">monsterAttack</a><a href="#potion" data-preview="potion">potion</a></nav><p class="preview-note">Visual preview · sample data · rolls and saving require Foundry VTT.</p><section id="preview-character" class="app window-app knave2e sheet actor document-sheet" ><header class="window-header">Merrin Ashford · character</header><div class="window-content"><form class="knave-document document-character  character" autocomplete="off">
+    <div class="document-masthead">
+        <span class="document-edition">KNAVE <span aria-hidden="true">/</span> II</span>
+        <div><p class="document-kicker">Personal record</p>
+        <h1>Expedition register</h1></div>
+        <span class="document-folio" aria-hidden="true">I</span>
+    </div>
+    <div class="sheet-container">
+        <div class="character-grid">
+
+            <header class="header">
+
+                <div class="logo">
+                    <img class="logo-img no-border" src="../assets/knave-2e-logo.webp" alt="Knave Second Edition" />
+                </div>
+
+                <div class="info">
+                    <div class="flexrow no-wrap flex-between flex-group-left dotted name">
+                        <div class="resource-label flex1">Name</div>
+                        <input class="transparent flex3 no-border detail name" name="name" type="text"
+                            value="Merrin Ashford" placeholder="Merrin Ashford" />
+                    </div>
+                    <div class="flexrow no-wrap flex-between flex-group-left dotted careers">
+                        <div class="resource-label flex1">Careers</div>
+                        <input class="transparent flex3 no-border detail" name="system.careers" type="text"
+                            value="Cartographer, grave digger" placeholder="Alchemist, Cook, Sailor, etc." />
+                    </div>
+                    <div class="flexrow no-wrap flex-between flex-group-center stats" style="margin-top: 5px;">
+                        <div class="flexcol no-wrap flex-group-center companions">
+                            <div class="resource-label">Companions</div>
+                            <input class="resource-label content narrow" type="text" name="system.companions.value"
+                                value="1" data-dtype="Number" />
+                        </div>
+                        <div class="flexcol no-wrap flex-group-center movement">
+                            <div class="resource-label">Movement</div>
+                            <input class="resource-label content narrow" type="text" name="system.movement"
+                                value="40" data-dtype="Number" />
+                        </div>
+                        <div class="flexcol no-wrap flex-group-center coins">
+                            <div class="resource-label">Coins</div>
+                            <input class="resource-label content narrow" type="text" name="system.coins"
+                                value="235" data-dtype="Number" />
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <nav class="sheet-tabs tabs resource-label document-bookmarks" aria-label="CHARACTER" data-group="primary">
+                <a class="item tab-color resource-label active" data-tab="character" role="button" tabindex="0"><span class="bookmark-index" aria-hidden="true">I</span><span>CHARACTER</span></a>
+                <a class="item tab-color resource-label" data-tab="items" role="button" tabindex="0"><span class="bookmark-index" aria-hidden="true">II</span><span>INVENTORY</span></a>
+                <a class="item tab-color resource-label" data-tab="description" role="button" tabindex="0"><span class="bookmark-index" aria-hidden="true">III</span><span>DESCRIPTION</span></a>
+            </nav>
+
+            <section class="sheet-body">
+                <div class="tab character active" data-group="primary" data-tab="character" aria-current="page">
+                    <div class="abilities">
+                        <div class="flexrow no-wrap flex-between">
+                            <input class="resource-label flex1 flex-group-center circle character" type="text"
+                                aria-label="STRENGTH" name="system.abilities.strength.value" value="2" data-dtype="Number" />
+                            <div class="ability flex3 flex-group-left">
+                                <button type="button" class="resource-label flexrow no-wrap rollable flex-start"
+                                    data-roll="d20+@abilities.strength.value" data-label="ABILITIES.Strength"
+                                    style="justify-content:left;font-size:20px;">
+                                    STRENGTH
+                                </button>
+                                <div class="flexrow no-wrap flex-start detail italic">
+                                    Melee attacks, lifting,<br>climbing, breaking free
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flexrow no-wrap flex-between">
+                            <input class="resource-label flex1 flex-group-center circle character" type="text"
+                                aria-label="DEXTERITY" name="system.abilities.dexterity.value" value="1" data-dtype="Number" />
+                            <div class="ability flex3 flex-group-left">
+                                <button type="button" class="resource-label flexrow no-wrap rollable flex-start"
+                                    data-roll="d20+@abilities.dexterity.value" data-label="ABILITIES.Dexterity"
+                                    style="justify-content:left;font-size:20px;">
+                                    DEXTERITY
+                                </button>
+                                <div class="flexrow no-wrap flex-start detail italic">
+                                    Dodging, sneaking,<br>sleight of hand
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flexrow no-wrap flex-between">
+                            <input class="resource-label flex1 flex-group-center circle character" type="text"
+                                aria-label="CONSTITUTION" name="system.abilities.constitution.value" value="3" data-dtype="Number" />
+                            <div class="ability flex3 flex-group-left">
+                                <button type="button" class="resource-label flexrow no-wrap rollable flex-start"
+                                    data-roll="d20+@abilities.constitution.value" data-label="ABILITIES.Constitution"
+                                    style="justify-content:left;font-size:20px;">
+                                    CONSTITUTION
+                                </button>
+                                <div class="flexrow no-wrap flex-start detail italic">
+                                    Physical resistance,<br>item slots, wounds
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flexrow no-wrap flex-between">
+                            <input class="resource-label flex1 flex-group-center circle character" type="text"
+                                aria-label="INTELLIGENCE" name="system.abilities.intelligence.value" value="2" data-dtype="Number" />
+                            <div class="ability flex3 flex-group-left">
+                                <button type="button" class="resource-label flexrow no-wrap rollable flex-start"
+                                    data-roll="d20+@abilities.intelligence.value" data-label="ABILITIES.Intelligence"
+                                    style="justify-content:left;font-size:20px;">
+                                    INTELLIGENCE
+                                </button>
+                                <div class="flexrow no-wrap flex-start detail italic">
+                                    Lockpicking, alchemy,<br>spells per day
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flexrow no-wrap flex-between">
+                            <input class="resource-label flex1 flex-group-center circle character" type="text"
+                                aria-label="WISDOM" name="system.abilities.wisdom.value" value="1" data-dtype="Number" />
+                            <div class="ability flex3 flex-group-left">
+                                <button type="button" class="resource-label flexrow no-wrap rollable flex-start"
+                                    data-roll="d20+@abilities.wisdom.value" data-label="ABILITIES.Wisdom"
+                                    style="justify-content:left;font-size:20px;">
+                                    WISDOM
+                                </button>
+                                <div class="flexrow no-wrap flex-start detail italic">
+                                    Ranged attacks, foraging,<br>navigation, spell resistance
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flexrow no-wrap flex-between">
+                            <input class="resource-label flex1 flex-group-center circle character" type="text"
+                                aria-label="CHARISMA" name="system.abilities.charisma.value" value="0" data-dtype="Number" />
+                            <div class="ability flex3 flex-group-left">
+                                <button type="button" class="resource-label flexrow no-wrap rollable flex-start"
+                                    data-roll="d20+@abilities.charisma.value" data-label="ABILITIES.Charisma"
+                                    style="justify-content:left;font-size:20px;">
+                                    CHARISMA
+                                </button>
+                                <div class="flexrow no-wrap flex-start detail italic">
+                                    Initiative, persuasion,<br>companions, blessings
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="armor flexrow no-wrap">
+                        <div class="flexcol no-wrap flex-group-center">
+                            <div class="resource-label">AC</div>
+                            <div class="resource-label shield character">14</div>
+                        </div>
+                        <div class="flexcol no-wrap flex-group-center">
+                            <a class="resource-label transparent actor-button ap">AP</a>
+                            <div class="resource-label circle character">3</div>
+                        </div>
+                    </div>
+
+                    <div class="health">
+                        <div class="vital-note">
+                            <img class="vital-illustration" src="../assets/ink-heart.webp" alt="" aria-hidden="true" />
+                            <div class="vital-values">
+                                <label class="resource-label" for="preview-character-hp">HP</label>
+                                <input id="preview-character-hp" class="ink-number" aria-label="HP" name="system.hitPoints.value" value="7" />
+                                <label class="resource-label aside" for="preview-character-hp-max">Max HP</label>
+                                <input id="preview-character-hp-max" class="ink-number small" name="system.hitPoints.max" value="12" />
+                            </div>
+                        </div>
+                        <div class="wound-note">
+                            <label class="resource-label" for="preview-character-wounds">Wounds</label>
+                            <div class="wound-values">
+                                <input id="preview-character-wounds" class="ink-number" aria-label="Wounds" name="system.wounds.value" value="1" />
+                                <span aria-hidden="true">/</span>
+                                <span class="ink-number small" title="Max Wnd">13</span>
+                            </div>
+                        </div>
+                        <div class="health-rest">
+                            <button class="resource-label rounded transparent actor-button rest" type="button">Rest</button>
+                        </div>
+                    </div>
+
+                    <div class="level flexrow no-wrap">
+                        <div class="flexcol no-wrap flex-group-center">
+                            <div class="resource-label">Level</div>
+                                    <div class="resource-label rounded character">3</div>
+                        </div>
+                        <div class="xp flex-group-left">
+                            <div class="resource-label">&nbsp;XP</div>
+                            <div class="progress-container horizontal">
+                                <div class="progress-bar">
+                                    <div class="progress-fill xp" style="width:45%"></div>
+                                    <input class="progress-input resource-label content" aria-label="XP" name="system.xp.value"
+                                        value="2450" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="portrait">
+                        <div class="flexcol no-wrap">
+                            <div class="resource-label align-center">Portrait</div>
+                            <img class="rounded" src="../assets/knave-2e-logo.webp" data-edit="img" title="Merrin Ashford"
+                                width="100%" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab items" data-group="primary" data-tab="items">
+                    <section>
+                        <div class="journal-heading"><img src="../assets/ink-journal.webp" alt="" aria-hidden="true" /><span>INVENTORY</span></div>
+                        <div class="flexrow">
+                            <div class="grid grid-3col flex-group-center">
+                                <div class="resource-label grid-span-3 align-center">Slots</div>
+                                <i class="fa-solid fa-weight-hanging grid-span-1 align-right"></i>
+                                <div class="resource-label grid-span-1 align-center">8 / 13</div>
+                            </div>
+                    
+                            <div class="grid grid-3col flex-group-center">
+                                <div class="resource-label grid-span-3 align-center">Spells Cast</div>
+                                <i class="fa-solid fa-book grid-span-1 align-right"></i>
+                                <div class="resource-label grid-span-1 align-center">1 / 2</div>
+                            </div>
+                    
+                            <div class="grid grid-3col flex-group-center">
+                                <div class="resource-label grid-span-3 align-center">Blessings</div>
+                                <i class="fa-solid fa-sun grid-span-1 align-right"></i>
+                                <div class="resource-label grid-span-1 align-center">0 / 0
+                                </div>
+                            </div>
+                    
+                            <div class="grid grid-3col flex-group-center">
+                                <div class="resource-label grid-span-3 align-center">Arrows</div>
+                                <i class="fa-solid fa-arrow-up-long grid-span-1 align-right"></i>
+                                <input class="resource-label narrow content grid-span-1 align-center" type="text" name="system.ammo.arrow"
+                                    value="12" data-dtype="Number" />
+                            </div>
+                    
+                            <div class="grid grid-3col flex-group-center">
+                                <div class="resource-label grid-span-3 align-center">Sling Bullets
+                                </div>
+                                <i class="fa-solid fa-baseball grid-span-1 align-right"></i>
+                                <input class="resource-label narrow content grid-span-1 align-center" type="text" name="system.ammo.bullet"
+                                    value="0" data-dtype="Number" />
+                            </div>
+                        </div>
+                    
+                        <br>
+                    
+                        <ol class="items-list">
+                            <li class="knave-item grid grid-12col items-header">
+                                <div class="resource-label item-name-header grid-span-8">Item Name</div>
+                                <div class="resource-label item-slots-header grid-span-1">Slots</div>
+                                <div class="resource-label item-slots-header grid-span-1">Qty</div>
+                                <div class="resource-label item-controls-header grid-span-2">
+                                    <a class="item-control item-create" title="Create item" data-type="item"><i class="fas fa-plus"></i> Add
+                                        item</a>
+                                </div>
+                            </li>
+                            <li class="knave-item grid grid-12col" data-item-id="sample0">
+                                <div class="item-progress-wrapper grid grid-span-12 grid-12col">
+                                    <div class="item-progress-fill grid grid-span-12 grid-12col" style="width: 0%;"></div>
+                                    <div class="item-progress-content grid grid-span-12 grid-12col">
+                                        <div class="item-image"><a class="item-image item-name grid-span-1"><img src="../assets/knave-2e-logo.webp"
+                                                    title="Notched longsword" width="36" height="36" /></a></div>
+                    
+                                        <a class="item-name detail grid-span-4">Notched longsword</a>
+                                        <div class="item-buttons grid-span-3 flexrow flex-group-center">
+                                            <button class="item-button attack sheet" data-action="attack" type="button"
+                                                title=Attack Roll>ATK</button>
+                                            <button class="item-button damage sheet" data-action="damage" type="button"
+                                                title=Damage Roll>DMG</button>
+                                            <button class="item-button damage sheet" data-action="direct" type="button"
+                                                title=Direct Damage Roll>DIR</button>
+                                        </div>
+                    
+                    
+                                        <div class="item-slots grid-span-1 item-prop">1</div>
+                                        <div class="item-slots grid-span-1 item-prop">
+                                            <div class="grid-span-3 flexrow flex-group-center">
+                                                <a class="item-toggle quantity" data-action="decrement">
+                                                    <i class="fas fa-caret-down"></i></a>
+                                                <div class="item-prop">1</div>
+                                                <a class="item-toggle quantity" data-action="increment">
+                                                    <i class="fas fa-caret-up"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="item-controls grid-span-2 item-prop">
+                                            <a class="item-toggle" data-action="break" title=Break>
+                                                <i class="fas fa-heart"></i></a>
+                                            <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+                                            <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="knave-item grid grid-12col" data-item-id="sample1">
+                                <div class="item-progress-wrapper grid grid-span-12 grid-12col">
+                                    <div class="item-progress-fill grid grid-span-12 grid-12col" style="width: 0%;"></div>
+                                    <div class="item-progress-content grid grid-span-12 grid-12col">
+                                        <div class="item-image"><a class="item-image item-name grid-span-1"><img src="../assets/knave-2e-logo.webp"
+                                                    title="Battered mail shirt" width="36" height="36" /></a></div>
+                    
+                                        <a class="item-name detail grid-span-7">Battered mail shirt</a>
+                    
+                                        <div class="item-slots grid-span-1 item-prop">1</div>
+                                        <div class="item-slots grid-span-1 item-prop">
+                                            <div class="grid-span-3 flexrow flex-group-center">
+                                                <a class="item-toggle quantity" data-action="decrement">
+                                                    <i class="fas fa-caret-down"></i></a>
+                                                <div class="item-prop">1</div>
+                                                <a class="item-toggle quantity" data-action="increment">
+                                                    <i class="fas fa-caret-up"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="item-controls grid-span-2 item-prop">
+                                            <a class="item-toggle" data-action="equip" title=Equip>
+                                                <i class="fas fa-shirt"></i></a>
+                                            <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+                                            <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="knave-item grid grid-12col" data-item-id="sample2">
+                                <div class="item-progress-wrapper grid grid-span-12 grid-12col">
+                                    <div class="item-progress-fill grid grid-span-12 grid-12col" style="width: 0%;"></div>
+                                    <div class="item-progress-content grid grid-span-12 grid-12col">
+                                        <div class="item-image"><a class="item-image item-name grid-span-1"><img src="../assets/knave-2e-logo.webp"
+                                                    title="Book of the winter gate" width="36" height="36" /></a></div>
+                    
+                                        <a class="item-name detail grid-span-6">Book of the winter gate</a>
+                                        <div class="item-buttons grid-span-1 flexrow flex-group-center">
+                                            <button class="item-button cast" data-action="cast" type="button">CAST</button>
+                                        </div>
+                    
+                    
+                                        <div class="item-slots grid-span-1 item-prop">1</div>
+                                        <div class="item-slots grid-span-1 item-prop">
+                                            <div class="grid-span-3 flexrow flex-group-center">
+                                                <a class="item-toggle quantity" data-action="decrement">
+                                                    <i class="fas fa-caret-down"></i></a>
+                                                <div class="item-prop">1</div>
+                                                <a class="item-toggle quantity" data-action="increment">
+                                                    <i class="fas fa-caret-up"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="item-controls grid-span-2 item-prop">
+                                            <a class="item-toggle" data-action="cast" title=Cast>
+                                                <i class="fas fa-book"></i></a>
+                                            <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+                                            <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="knave-item grid grid-12col" data-item-id="sample3">
+                                <div class="item-progress-wrapper grid grid-span-12 grid-12col">
+                                    <div class="item-progress-fill grid grid-span-12 grid-12col" style="width: 0%;"></div>
+                                    <div class="item-progress-content grid grid-span-12 grid-12col">
+                                        <div class="item-image"><a class="item-image item-name grid-span-1"><img src="../assets/knave-2e-logo.webp"
+                                                    title="Bitter restorative" width="36" height="36" /></a></div>
+                    
+                                        <a class="item-name detail grid-span-6">Bitter restorative</a>
+                                        <div class="item-buttons grid-span-1 flexrow flex-group-center">
+                                            <button class="item-button brew" data-action="brew" type="button"
+                                                title=Attempt to brew this potion>BRW</button>
+                                        </div>
+                    
+                    
+                                        <div class="item-slots grid-span-1 item-prop">1</div>
+                                        <div class="item-slots grid-span-1 item-prop">
+                                            <div class="grid-span-3 flexrow flex-group-center">
+                                                <a class="item-toggle quantity" data-action="decrement">
+                                                    <i class="fas fa-caret-down"></i></a>
+                                                <div class="item-prop">1</div>
+                                                <a class="item-toggle quantity" data-action="increment">
+                                                    <i class="fas fa-caret-up"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="item-controls grid-span-2 item-prop">
+                                            <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+                                            <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="knave-item grid grid-12col" data-item-id="sample4">
+                                <div class="item-progress-wrapper grid grid-span-12 grid-12col">
+                                    <div class="item-progress-fill grid grid-span-12 grid-12col" style="width: 0%;"></div>
+                                    <div class="item-progress-content grid grid-span-12 grid-12col">
+                                        <div class="item-image"><a class="item-image item-name grid-span-1"><img src="../assets/knave-2e-logo.webp"
+                                                    title="Rope, hemp, 50 feet" width="36" height="36" /></a></div>
+                    
+                                        <a class="item-name detail grid-span-7">Rope, hemp, 50 feet</a>
+                    
+                                        <div class="item-slots grid-span-1 item-prop">1</div>
+                                        <div class="item-slots grid-span-1 item-prop">
+                                            <div class="grid-span-3 flexrow flex-group-center">
+                                                <a class="item-toggle quantity" data-action="decrement">
+                                                    <i class="fas fa-caret-down"></i></a>
+                                                <div class="item-prop">1</div>
+                                                <a class="item-toggle quantity" data-action="increment">
+                                                    <i class="fas fa-caret-up"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="item-controls grid-span-2 item-prop">
+                                            <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+                                            <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="knave-item grid grid-12col" data-item-id="sample5">
+                                <div class="item-progress-wrapper grid grid-span-12 grid-12col">
+                                    <div class="item-progress-fill grid grid-span-12 grid-12col" style="width: 0%;"></div>
+                                    <div class="item-progress-content grid grid-span-12 grid-12col">
+                                        <div class="item-image"><a class="item-image item-name grid-span-1"><img src="../assets/knave-2e-logo.webp"
+                                                    title="Storm lantern" width="36" height="36" /></a></div>
+                    
+                                        <a class="item-name detail grid-span-7">Storm lantern</a>
+                    
+                                        <div class="item-slots grid-span-1 item-prop">1</div>
+                                        <div class="item-slots grid-span-1 item-prop">
+                                            <div class="grid-span-3 flexrow flex-group-center">
+                                                <a class="item-toggle quantity" data-action="decrement">
+                                                    <i class="fas fa-caret-down"></i></a>
+                                                <div class="item-prop">1</div>
+                                                <a class="item-toggle quantity" data-action="increment">
+                                                    <i class="fas fa-caret-up"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="item-controls grid-span-2 item-prop">
+                                            <a class="item-toggle" data-action="light" title=Light>
+                                                <i class="far fa-lightbulb"></i></a>
+                                            <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+                                            <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ol>
+                    </section>                </div>
+
+                <div class="tab description" data-group="primary" data-tab="description">
+                    <div class="journal-heading"><img src="../assets/ink-journal.webp" alt="" aria-hidden="true" /><span>DESCRIPTION</span></div>
+                    <section class="editor">
+                        <div class="editor"><div class="editor-content" data-edit="system.description"><p>The northern road ends at the ruined watchtower. The old ferry still crosses at dawn.</p><p>Owes the apothecary a favour. Carries a map with one valley deliberately left blank.</p></div></div>
+                    </section>
+                </div>
+
+            </section>
+            <footer class="footer">
+                <div class="flexrow no-wrap flex-group-center ">
+                    <p style="font-size:smaller">Copyright &#169; 2023 <a
+                            href="https://www.patreon.com/questingbeast/posts">Ben
+                            Milton and Questing Beast LLC.</a> Logo Design by <a
+                            href="https://www.behance.net/MindkillerINK?locale=en_US">Tim Hastings</a>.</p>
+                </div>
+            </footer>
+        </div>
+    </div>
+</form></div></section><section id="preview-recruit" class="app window-app knave2e sheet actor document-sheet" hidden><header class="window-header">Old Tom, lantern bearer · recruit</header><div class="window-content"><form class="knave-document document-recruit  recruit" autocomplete="off">
+    <div class="document-masthead">
+        <span class="document-edition">KNAVE <span aria-hidden="true">/</span> II</span>
+        <div><p class="document-kicker">Retainer register</p>
+        <h1>Articles of service</h1></div>
+        <span class="document-folio" aria-hidden="true">III</span>
+    </div>
+    <div class="sheet-container">
+        <div class="npc-grid">
+
+            <header class="header">
+
+                <div class="image">
+                    <div class="flexcol no-wrap">
+                        <div class="resource-label align-center">Portrait</div>
+                        <img class="rounded" src="../assets/knave-2e-logo.webp" data-edit="img" title="Old Tom, lantern bearer" width="100%" />
+                    </div>
+                </div>
+
+                <div class="info">
+                    <div class="flexrow no-wrap flex-between flex-group-left dotted name">
+                        <div class="resource-label flex1">Name</div>
+                        <input class="transparent flex3 no-border detail name" name="name" type="text"
+                            value="Old Tom, lantern bearer" placeholder="Old Tom, lantern bearer" />
+                    </div>
+                    <div class="grid grid-4col no-wrap flex-between flex-group-center info-2" style="margin-top: 5px;">
+                        <div class="grid-span-1 flexcol no-wrap flex-group-center level">
+                            <a class="resource-label actor-button check">Level</a>
+                            <input class="resource-label content narrow" type="text" name="system.level"
+                                value="3" data-dtype="Number" />
+                        </div>
+                        <div class="grid-span-1 flexcol no-wrap flex-group-center morale">
+                            <a class="resource-label actor-button morale">Morale</a>
+                            <div class="resource-label character">7</div>
+                        </div>
+                        <div class="grid-span-1 flexcol no-wrap flex-group-center movement">
+                            <div class="resource-label">Movement</div>
+                            <input class="resource-label content narrow" type="text" name="system.movement"
+                                value="40" data-dtype="Number" />
+                        </div>
+                        <div class="grid-span-1 flexcol no-wrap flex-group-center coins">
+                            <div class="resource-label">Coins</div>
+                            <input class="resource-label content narrow" type="text" name="system.coins"
+                                value="235" data-dtype="Number" />
+                        </div>
+                    </div>
+                    <div class="grid grid-4col no-wrap flex-between flex-group-center info-2" style="margin-top: 5px;">
+                        <div class="grid-span-1 flexcol no-wrap flex-group-center type">
+                            <div class="resource-label">Type</div>
+                            <select class="actor-select category" name="system.category">
+                                <option value="hireling" >Hireling</option>
+                            </select>
+                        </div>
+                        <div class="grid-span-1 flexcol no-wrap flex-group-center rarity">
+                            <div class="resource-label">Rarity</div>
+                            <div class="resource-label content narrow" name="system.rarity">
+                                </div>
+                        </div>
+                        <div class="grid-span-1 flexcol no-wrap flex-group-center cost">
+                            <div class="resource-label">Cost</div>
+                            <div class="resource-label character">600</div>
+                        </div>
+                        <div class="grid-span-1 flexcol no-wrap flex-group-center rest">
+                            <button class="resource-label rounded transparent narrow actor-button rest"
+                                type="button">Rest</button>
+                        </div>
+                    </div>
+                    <div class="grid grid-4col no-wrap flex-between flex-group-center info-3" style="margin-top: 5px;">
+                        <div class="grid-span-1 flexcol no-wrap flex-group-center">
+                            <div class="resource-label">HP</div>
+                            <div class="progress-container horizontal hitPoints">
+                                <div class="progress-bar">
+                                    <div class="progress-fill hitPoints" style="width:58%">
+                                    </div>
+                                    <input class="progress-input resource-label content" name="system.hitPoints.value"
+                                        value="7" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid-span-1 flexcol no-wrap flex-group-center">
+                            <div class="resource-label">Max HP</div>
+                            <input class="resource-label transparent rounded character" type="text"
+                                name="system.hitPoints.max" value="12" />
+                        </div>
+                        <div class="grid-span-1 flexcol no-wrap flex-group-center">
+                            <div class="resource-label">AC</div>
+                            <div class="resource-label shield character">14</div>
+                        </div>
+                        <div class="grid-span-1 flexcol no-wrap flex-group-center">
+                            <a class="resource-label transparent actor-button ap">AP</a>
+                            <div class="resource-label circle character">3</div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <section class="sheet-body">
+                <div class="resources flexrow flex-group-center" style="margin-top:10px;">
+                    <div class="grid grid-3col flex-group-center">
+                        <div class="resource-label grid-span-3 align-center">Slots</div>
+                        <i class="fa-solid fa-weight-hanging grid-span-1 align-right"></i>
+                        <div class="resource-label grid-span-1 align-center">8 /
+                            13</div>
+                    </div>
+                    <div class="grid grid-3col flex-group-center">
+                        <div class="resource-label grid-span-3 align-center">Spells Cast</div>
+                        <i class="fa-solid fa-book grid-span-1 align-right"></i>
+                        <div class="resource-label grid-span-1 align-center">1 /
+                            2</div>
+                    </div>
+                    <div class="grid grid-3col flex-group-center">
+                        <div class="resource-label grid-span-3 align-center">Arrows</div>
+                        <i class="fa-solid fa-arrow-up-long grid-span-1 align-right"></i>
+                        <input class="resource-label narrow content grid-span-1 align-center" type="text"
+                            name="system.ammo.arrow" value="12" data-dtype="Number" />
+                    </div>
+                    <div class="grid grid-3col flex-group-center">
+                        <div class="resource-label grid-span-3 align-center">Sling Bullets
+                        </div>
+                        <i class="fa-solid fa-baseball grid-span-1 align-right"></i>
+                        <input class="resource-label narrow content grid-span-1 align-center" type="text"
+                            name="system.ammo.bullet" value="0" data-dtype="Number" />
+                    </div>
+                </div>
+                <div class="items">
+                    <ol class="items-list">
+                        <li class="knave-item grid grid-12col items-header">
+                            <div class="resource-label item-name-header grid-span-8">Item Name
+                            </div>
+                            <div class="resource-label item-slots-header grid-span-1">Slots</div>
+                            <div class="resource-label item-slots-header grid-span-1">Qty</div>
+                            <div class="resource-label item-controls-header grid-span-2">
+                                <a class="item-control item-create" title="Create item" data-type="item"><i
+                                        class="fas fa-plus"></i> Add
+                                    item</a>
+                            </div>
+                        </li>
+                        <li class="knave-item grid grid-12col" data-item-id="sample0">
+
+                            <div class="item-progress-wrapper grid grid-span-12 grid-12col">
+                                <div class="item-progress-fill grid grid-span-12 grid-12col"
+                                    style="width: 0%;">
+                                </div>
+                                <div class="item-progress-content grid grid-span-12 grid-12col">
+
+                                    <div class="item-image"><a class="item-image item-name grid-span-1"><img
+                                                src="../assets/knave-2e-logo.webp" title="Notched longsword" width="36" height="36" /></a>
+                                    </div>
+
+                                    <a class="item-name detail grid-span-4">Notched longsword</a>
+                                    <div class="item-buttons grid-span-3 flexrow flex-group-center">
+                                        <button class="item-button attack sheet" data-action="attack" type="button"
+                                            title=Attack Roll>ATK</button>
+                                        <button class="item-button damage sheet" data-action="damage" type="button"
+                                            title=Damage Roll>DMG</button>
+                                        <button class="item-button damage sheet" data-action="direct" type="button"
+                                            title=Direct Damage Roll>DIR</button>
+                                    </div>
+
+
+                                    <div class="item-slots grid-span-1 item-prop">1</div>
+                                    <div class="item-slots grid-span-1 item-prop">
+                                        <div class="grid-span-3 flexrow flex-group-center">
+                                            <a class="item-toggle quantity" data-action="decrement">
+                                                <i class="fas fa-caret-down"></i></a>
+                                            <div class="item-prop">1</div>
+                                            <a class="item-toggle quantity" data-action="increment">
+                                                <i class="fas fa-caret-up"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="item-controls grid-span-2">
+                                        <a class="item-toggle" data-action="break"
+                                            title=Break>
+                                            <i
+                                                class="fas fa-heart"></i></a>
+                                        <a class="item-control item-edit" title="Edit Item"><i
+                                                class="fas fa-edit"></i></a>
+                                        <a class="item-control item-delete" title="Delete Item"><i
+                                                class="fas fa-trash"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="knave-item grid grid-12col" data-item-id="sample1">
+
+                            <div class="item-progress-wrapper grid grid-span-12 grid-12col">
+                                <div class="item-progress-fill grid grid-span-12 grid-12col"
+                                    style="width: 0%;">
+                                </div>
+                                <div class="item-progress-content grid grid-span-12 grid-12col">
+
+                                    <div class="item-image"><a class="item-image item-name grid-span-1"><img
+                                                src="../assets/knave-2e-logo.webp" title="Battered mail shirt" width="36" height="36" /></a>
+                                    </div>
+
+                                    <a class="item-name detail grid-span-7">Battered mail shirt</a>
+
+                                    <div class="item-slots grid-span-1 item-prop">1</div>
+                                    <div class="item-slots grid-span-1 item-prop">
+                                        <div class="grid-span-3 flexrow flex-group-center">
+                                            <a class="item-toggle quantity" data-action="decrement">
+                                                <i class="fas fa-caret-down"></i></a>
+                                            <div class="item-prop">1</div>
+                                            <a class="item-toggle quantity" data-action="increment">
+                                                <i class="fas fa-caret-up"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="item-controls grid-span-2">
+                                        <a class="item-toggle" data-action="equip"
+                                            title=Equip>
+                                            <i
+                                                class="fas fa-shirt"></i></a>
+                                        <a class="item-control item-edit" title="Edit Item"><i
+                                                class="fas fa-edit"></i></a>
+                                        <a class="item-control item-delete" title="Delete Item"><i
+                                                class="fas fa-trash"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="knave-item grid grid-12col" data-item-id="sample2">
+
+                            <div class="item-progress-wrapper grid grid-span-12 grid-12col">
+                                <div class="item-progress-fill grid grid-span-12 grid-12col"
+                                    style="width: 0%;">
+                                </div>
+                                <div class="item-progress-content grid grid-span-12 grid-12col">
+
+                                    <div class="item-image"><a class="item-image item-name grid-span-1"><img
+                                                src="../assets/knave-2e-logo.webp" title="Book of the winter gate" width="36" height="36" /></a>
+                                    </div>
+
+                                    <a class="item-name detail grid-span-6">Book of the winter gate</a>
+                                    <div class="item-buttons grid-span-1 flexrow flex-group-center">
+                                        <button class="item-button cast" data-action="cast" type="button">CAST</button>
+                                    </div>
+
+
+                                    <div class="item-slots grid-span-1 item-prop">1</div>
+                                    <div class="item-slots grid-span-1 item-prop">
+                                        <div class="grid-span-3 flexrow flex-group-center">
+                                            <a class="item-toggle quantity" data-action="decrement">
+                                                <i class="fas fa-caret-down"></i></a>
+                                            <div class="item-prop">1</div>
+                                            <a class="item-toggle quantity" data-action="increment">
+                                                <i class="fas fa-caret-up"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="item-controls grid-span-2">
+                                        <a class="item-toggle" data-action="cast"
+                                            title=Cast>
+                                            <i
+                                                class="fas fa-book"></i></a>
+                                        <a class="item-control item-edit" title="Edit Item"><i
+                                                class="fas fa-edit"></i></a>
+                                        <a class="item-control item-delete" title="Delete Item"><i
+                                                class="fas fa-trash"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="knave-item grid grid-12col" data-item-id="sample3">
+
+                            <div class="item-progress-wrapper grid grid-span-12 grid-12col">
+                                <div class="item-progress-fill grid grid-span-12 grid-12col"
+                                    style="width: 0%;">
+                                </div>
+                                <div class="item-progress-content grid grid-span-12 grid-12col">
+
+                                    <div class="item-image"><a class="item-image item-name grid-span-1"><img
+                                                src="../assets/knave-2e-logo.webp" title="Bitter restorative" width="36" height="36" /></a>
+                                    </div>
+
+                                    <a class="item-name detail grid-span-7">Bitter restorative</a>
+
+                                    <div class="item-slots grid-span-1 item-prop">1</div>
+                                    <div class="item-slots grid-span-1 item-prop">
+                                        <div class="grid-span-3 flexrow flex-group-center">
+                                            <a class="item-toggle quantity" data-action="decrement">
+                                                <i class="fas fa-caret-down"></i></a>
+                                            <div class="item-prop">1</div>
+                                            <a class="item-toggle quantity" data-action="increment">
+                                                <i class="fas fa-caret-up"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="item-controls grid-span-2">
+                                        <a class="item-control item-edit" title="Edit Item"><i
+                                                class="fas fa-edit"></i></a>
+                                        <a class="item-control item-delete" title="Delete Item"><i
+                                                class="fas fa-trash"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="knave-item grid grid-12col" data-item-id="sample4">
+
+                            <div class="item-progress-wrapper grid grid-span-12 grid-12col">
+                                <div class="item-progress-fill grid grid-span-12 grid-12col"
+                                    style="width: 0%;">
+                                </div>
+                                <div class="item-progress-content grid grid-span-12 grid-12col">
+
+                                    <div class="item-image"><a class="item-image item-name grid-span-1"><img
+                                                src="../assets/knave-2e-logo.webp" title="Rope, hemp, 50 feet" width="36" height="36" /></a>
+                                    </div>
+
+                                    <a class="item-name detail grid-span-7">Rope, hemp, 50 feet</a>
+
+                                    <div class="item-slots grid-span-1 item-prop">1</div>
+                                    <div class="item-slots grid-span-1 item-prop">
+                                        <div class="grid-span-3 flexrow flex-group-center">
+                                            <a class="item-toggle quantity" data-action="decrement">
+                                                <i class="fas fa-caret-down"></i></a>
+                                            <div class="item-prop">1</div>
+                                            <a class="item-toggle quantity" data-action="increment">
+                                                <i class="fas fa-caret-up"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="item-controls grid-span-2">
+                                        <a class="item-control item-edit" title="Edit Item"><i
+                                                class="fas fa-edit"></i></a>
+                                        <a class="item-control item-delete" title="Delete Item"><i
+                                                class="fas fa-trash"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="knave-item grid grid-12col" data-item-id="sample5">
+
+                            <div class="item-progress-wrapper grid grid-span-12 grid-12col">
+                                <div class="item-progress-fill grid grid-span-12 grid-12col"
+                                    style="width: 0%;">
+                                </div>
+                                <div class="item-progress-content grid grid-span-12 grid-12col">
+
+                                    <div class="item-image"><a class="item-image item-name grid-span-1"><img
+                                                src="../assets/knave-2e-logo.webp" title="Storm lantern" width="36" height="36" /></a>
+                                    </div>
+
+                                    <a class="item-name detail grid-span-7">Storm lantern</a>
+
+                                    <div class="item-slots grid-span-1 item-prop">1</div>
+                                    <div class="item-slots grid-span-1 item-prop">
+                                        <div class="grid-span-3 flexrow flex-group-center">
+                                            <a class="item-toggle quantity" data-action="decrement">
+                                                <i class="fas fa-caret-down"></i></a>
+                                            <div class="item-prop">1</div>
+                                            <a class="item-toggle quantity" data-action="increment">
+                                                <i class="fas fa-caret-up"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="item-controls grid-span-2">
+                                        <a class="item-toggle" data-action="light"
+                                            title=Light>
+                                            <i
+                                                class="far fa-lightbulb"></i></a>
+                                        <a class="item-control item-edit" title="Edit Item"><i
+                                                class="fas fa-edit"></i></a>
+                                        <a class="item-control item-delete" title="Delete Item"><i
+                                                class="fas fa-trash"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+            </section>
+            <footer class="footer">
+                <div class="flexrow no-wrap flex-group-center ">
+                    <p style="font-size:smaller">Copyright &#169; 2023 <a
+                            href="https://www.patreon.com/questingbeast/posts">Ben
+                            Milton and Questing Beast LLC.</a> Logo Design by <a
+                            href="https://www.behance.net/MindkillerINK?locale=en_US">Tim Hastings</a>.</p>
+                </div>
+            </footer>
+        </div>
+    </div>
+</form></div></section><section id="preview-monster" class="app window-app knave2e sheet actor document-sheet" hidden><header class="window-header">The Barrow Hound · monster</header><div class="window-content"><form class="knave-document document-monster  monster" autocomplete="off">
+    <div class="document-masthead">
+        <span class="document-edition">KNAVE <span aria-hidden="true">/</span> II</span>
+        <div><p class="document-kicker">Field observations</p>
+        <h1>Bestiary</h1></div>
+        <span class="document-folio" aria-hidden="true">II</span>
+    </div>
+    <div class="sheet-container">
+        <div class="npc-grid">
+
+            <header class="header">
+
+                <div class="image">
+                    <div class="flexcol no-wrap">
+                        <div class="resource-label align-center">Portrait</div>
+                        <img class="rounded" src="../assets/knave-2e-logo.webp" data-edit="img" title="The Barrow Hound" width="100%" />
+                    </div>
+                </div>
+
+                <div class="info">
+                    <div class="flexrow no-wrap flex-between flex-group-left dotted name">
+                        <div class="resource-label flex1">Name</div>
+                        <input class="transparent flex3 no-border detail name" name="name" type="text"
+                            value="The Barrow Hound" placeholder="The Barrow Hound" />
+                    </div>
+                    <div class="grid grid-4col no-wrap flex-between flex-group-center info-2" style="margin-top: 5px;">
+                        <div class="grid-span-1 flexcol no-wrap flex-group-center level">
+                            <a class="resource-label actor-button check">Level</a>
+                            <input class="resource-label content narrow" type="text" name="system.level"
+                                value="3" data-dtype="Number" />
+                        </div>
+                        <div class="grid-span-1 flexcol no-wrap flex-group-center morale">
+                            <a class="resource-label actor-button morale">Morale</a>
+                            <input class="resource-label content narrow" type="text" name="system.morale"
+                                value="7" data-dtype="Number" />
+                        </div>
+                        <div class="grid-span-1 flexcol no-wrap flex-group-center movement">
+                            <div class="resource-label">Movement</div>
+                            <input class="resource-label content narrow" type="text" name="system.movement"
+                                value="40" data-dtype="Number" />
+                        </div>
+                        <div class="grid-span-1 flexcol no-wrap flex-group-center numAppearing">
+                            <a class="resource-label actor-button numberAppearing">NA</a>
+                            <input class="resource-label content narrow" type="text"
+                                name="system.numberAppearing.combined" value="1d4"
+                                data-dtype="String" />
+                        </div>
+                    </div>
+                    <div class="grid grid-4col no-wrap flex-between flex-group-center info-3" style="margin-top: 5px;">
+                        <div class="grid-span-1 flexcol no-wrap flex-group-center">
+                            <div class="resource-label">HP</div>
+                            <div class="progress-container horizontal hitPoints">
+                                <div class="progress-bar">
+                                    <div class="progress-fill hitPoints" style="width:58%">
+                                    </div>
+                                    <input class="progress-input resource-label content" name="system.hitPoints.value"
+                                        value="7" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid-span-1 flexcol no-wrap flex-group-center">
+                            <div class="resource-label">Max HP</div>
+                            <input class="resource-label transparent rounded character" type="text"
+                                name="system.hitPoints.max" value="12" />
+                        </div>
+                        <div class="grid-span-1 flexcol no-wrap flex-group-center">
+                            <div class="resource-label">AC</div>
+                            <input class="resource-label shield character" type="text" name="system.armorClass"
+                                value="14" />
+                        </div>
+                        <div class="grid-span-1 flexcol no-wrap flex-group-center">
+                            <a class="resource-label transparent actor-button ap">AP</a>
+                            <div class="resource-label circle character">3</div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <section class="sheet-body">
+                <div class="resources">
+                    <div class="resource-label">DESCRIPTION</div>
+                    <section class="editor">
+                        <div class="editor"><div class="editor-content" data-edit="system.description"><p>The northern road ends at the ruined watchtower. The old ferry still crosses at dawn.</p><p>Owes the apothecary a favour. Carries a map with one valley deliberately left blank.</p></div></div>
+                    </section>
+                </div>
+        <div class="items">
+            <ol class="items-list">
+                <li class="knave-item grid grid-12col items-header">
+                    <div class="resource-label item-name-header grid-span-8">Attack Name
+                    </div>
+                    <div class="resource-label item-slots-header grid-span-2">Attacks
+                    </div>
+                    <div class="resource-label item-controls-header grid-span-2">
+                        <a class="item-control item-create" title="Add Attack" data-type="item"><i
+                                class="fas fa-plus"></i> Add attack</a>
+                    </div>
+                </li>
+                <li class="knave-item grid grid-12col" data-item-id="sample0">
+                    <div class="item-image"><a class="item-image item-name grid-span-1"><img src="../assets/knave-2e-logo.webp"
+                                title="Blackened teeth" width="36" height="36" /></a></div>
+                    <a class="item-name detail grid-span-5" style="margin-left:2px;">Blackened teeth</a>
+                    <div class="item-buttons grid-span-2 flexrow flex-group-center">
+                        <button class="item-button attack sheet" data-action="attack" type="button"
+                            title=Attack Roll>ATK</button>
+                        <button class="item-button damage sheet" data-action="damage" type="button"
+                            title=Damage Roll>DMG</button>
+                    </div>
+                    <div class="item-slots detail grid-span-2 flexrow flex-group-center">1
+                    </div>
+                    <div class="item-controls grid-span-2 flexrow flex-group-center">
+                        <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+                        <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+                    </div>
+                </li>
+            </ol>
+        </div>
+        </section>
+        </div>
+
+        <footer class="footer">
+            <div class="flexrow no-wrap flex-group-center ">
+                <p style="font-size:smaller">Copyright &#169; 2023 <a
+                        href="https://www.patreon.com/questingbeast/posts">Ben
+                        Milton and Questing Beast LLC.</a> Logo Design by <a
+                        href="https://www.behance.net/MindkillerINK?locale=en_US">Tim Hastings</a>.</p>
+            </div>
+        </footer>
+    </div>
+</form></div></section><section id="preview-vehicle" class="app window-app knave2e sheet actor document-sheet" hidden><header class="window-header">The Grey Heron · vehicle</header><div class="window-content"><form class="knave-document document-vehicle  vehicle" autocomplete="off">
+    <div class="document-masthead">
+        <span class="document-edition">KNAVE <span aria-hidden="true">/</span> II</span>
+        <div><p class="document-kicker">Transport &amp; cargo</p>
+        <h1>Travel manifest</h1></div>
+        <span class="document-folio" aria-hidden="true">IV</span>
+    </div>
+    <div class="sheet-container">
+        <div class="vehicle-grid">
+
+            <header class="header">
+
+                <div class="image">
+                    <div class="flexcol no-wrap">
+                        <div class="resource-label align-center">Portrait</div>
+                        <img class="rounded" src="../assets/knave-2e-logo.webp" data-edit="img" title="The Grey Heron" width="100%" />
+                    </div>
+                </div>
+
+                <div class="info">
+                    <div class="flexrow no-wrap flex-between flex-group-left dotted name">
+                        <div class="resource-label flex1">Name</div>
+                        <input class="transparent flex3 no-border detail name" name="name" type="text"
+                            value="The Grey Heron" placeholder="The Grey Heron" />
+                    </div>
+                    <div class="grid grid-3col no-wrap flex-between flex-group-center" style="margin-top: 5px;">
+                        <div class="grid-span-1 flexcol no-wrap flex-group-center info-2">
+                            <a class="resource-label actor-button check">Crew</a>
+                            <input class="resource-label content narrow" type="text" name="system.crew"
+                                value="4" data-dtype="Number" />
+                        </div>
+                        <div class="grid-span-1 flexcol no-wrap flex-group-center cost">
+                            <a class="resource-label actor-button check">Cost</a>
+                            <input class="resource-label content narrow" type="text" name="system.cost"
+                                value="50" data-dtype="Number" />
+                        </div>
+                        <div class="grid-span-1 flexcol no-wrap flex-group-center coins">
+                            <div class="resource-label">Stored Coins</div>
+                            <input class="resource-label content narrow" type="text" name="system.coins"
+                                value="235" data-dtype="Number" />
+                        </div>
+                    </div>
+                    <div class="resources flexrow flex-group-center" style="margin-top:5px;">
+                        <div class="grid grid-3col flex-group-center">
+                            <div class="resource-label grid-span-3 align-center">Slots</div>
+                            <i class="fa-solid fa-weight-hanging grid-span-1 align-right"></i>
+                            <div class="resource-label grid-span-1 align-center">8
+                                <span>/</span>
+                                <input class="resource-label content character" type="text" name="system.slots.max"
+                                    value="13" data-dtype="Number" />
+                            </div>
+                        </div>
+                        <div class="grid grid-3col flex-group-center">
+                            <div class="resource-label grid-span-3 align-center">Stored
+                                Arrows</div>
+                            <i class="fa-solid fa-arrow-up-long grid-span-1 align-right"></i>
+                            <input class="resource-label narrow content grid-span-1 align-center" type="text"
+                                name="system.ammo.arrow" value="12" data-dtype="Number" />
+                        </div>
+                        <div class="grid grid-3col flex-group-center">
+                            <div class="resource-label grid-span-3 align-center">Stored
+                                Sling Bullets
+                            </div>
+                            <i class="fa-solid fa-baseball grid-span-1 align-right"></i>
+                            <input class="resource-label narrow content grid-span-1 align-center" type="text"
+                                name="system.ammo.bullet" value="0" data-dtype="Number" />
+                        </div>
+                    </div>
+            </header>
+
+            <section class="sheet-body">
+                <div class="items">
+                    <ol class="items-list">
+                        <li class="knave-item grid grid-12col items-header">
+                            <div class="resource-label item-name-header grid-span-8">Item Name
+                            </div>
+                            <div class="resource-label item-slots-header grid-span-1">Slots</div>
+                            <div class="resource-label item-slots-header grid-span-1">Qty</div>
+                            <div class="resource-label item-controls-header grid-span-2">
+                                <a class="item-control item-create" title="Create item" data-type="item"><i
+                                        class="fas fa-plus"></i> Add
+                                    item</a>
+                            </div>
+                        </li>
+                        <li class="knave-item grid grid-12col "
+                            data-item-id="sample0">
+                            <div class="item-progress-wrapper grid grid-span-12 grid-12col">
+                                <div class="item-progress-fill grid grid-span-12 grid-12col"
+                                    style="width: 0%;">
+                                </div>
+                                <div class="item-progress-content grid grid-span-12 grid-12col">
+                                    <div class="item-image"><a class="item-image item-name grid-span-1"><img
+                                                src="../assets/knave-2e-logo.webp" title="Notched longsword" width="36" height="36" /></a>
+                                    </div>
+
+                                    <a class="item-name detail grid-span-7">Notched longsword</a>
+
+                                    <div class="item-slots grid-span-1 item-prop">1</div>
+                                    <div class="item-slots grid-span-1 item-prop">
+                                        <div class="grid-span-3 flexrow flex-group-center">
+                                            <a class="item-toggle quantity" data-action="decrement">
+                                                <i class="fas fa-caret-down"></i></a>
+                                            <div class="item-prop">1</div>
+                                            <a class="item-toggle quantity" data-action="increment">
+                                                <i class="fas fa-caret-up"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="item-controls grid-span-2">
+                                        <a class="item-toggle" data-action="break"
+                                            title=Break>
+                                            <i
+                                                class="fas fa-heart"></i></a>
+                                        <a class="item-control item-edit" title="Edit Item"><i
+                                                class="fas fa-edit"></i></a>
+                                        <a class="item-control item-delete" title="Delete Item"><i
+                                                class="fas fa-trash"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="knave-item grid grid-12col "
+                            data-item-id="sample1">
+                            <div class="item-progress-wrapper grid grid-span-12 grid-12col">
+                                <div class="item-progress-fill grid grid-span-12 grid-12col"
+                                    style="width: 0%;">
+                                </div>
+                                <div class="item-progress-content grid grid-span-12 grid-12col">
+                                    <div class="item-image"><a class="item-image item-name grid-span-1"><img
+                                                src="../assets/knave-2e-logo.webp" title="Battered mail shirt" width="36" height="36" /></a>
+                                    </div>
+
+                                    <a class="item-name detail grid-span-7">Battered mail shirt</a>
+
+                                    <div class="item-slots grid-span-1 item-prop">1</div>
+                                    <div class="item-slots grid-span-1 item-prop">
+                                        <div class="grid-span-3 flexrow flex-group-center">
+                                            <a class="item-toggle quantity" data-action="decrement">
+                                                <i class="fas fa-caret-down"></i></a>
+                                            <div class="item-prop">1</div>
+                                            <a class="item-toggle quantity" data-action="increment">
+                                                <i class="fas fa-caret-up"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="item-controls grid-span-2">
+                                        <a class="item-control item-edit" title="Edit Item"><i
+                                                class="fas fa-edit"></i></a>
+                                        <a class="item-control item-delete" title="Delete Item"><i
+                                                class="fas fa-trash"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="knave-item grid grid-12col "
+                            data-item-id="sample2">
+                            <div class="item-progress-wrapper grid grid-span-12 grid-12col">
+                                <div class="item-progress-fill grid grid-span-12 grid-12col"
+                                    style="width: 0%;">
+                                </div>
+                                <div class="item-progress-content grid grid-span-12 grid-12col">
+                                    <div class="item-image"><a class="item-image item-name grid-span-1"><img
+                                                src="../assets/knave-2e-logo.webp" title="Book of the winter gate" width="36" height="36" /></a>
+                                    </div>
+
+                                    <a class="item-name detail grid-span-7">Book of the winter gate</a>
+
+                                    <div class="item-slots grid-span-1 item-prop">1</div>
+                                    <div class="item-slots grid-span-1 item-prop">
+                                        <div class="grid-span-3 flexrow flex-group-center">
+                                            <a class="item-toggle quantity" data-action="decrement">
+                                                <i class="fas fa-caret-down"></i></a>
+                                            <div class="item-prop">1</div>
+                                            <a class="item-toggle quantity" data-action="increment">
+                                                <i class="fas fa-caret-up"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="item-controls grid-span-2">
+                                        <a class="item-toggle" data-action="cast"
+                                            title=Cast>
+                                            <i
+                                                class="fas fa-book"></i></a>
+                                        <a class="item-control item-edit" title="Edit Item"><i
+                                                class="fas fa-edit"></i></a>
+                                        <a class="item-control item-delete" title="Delete Item"><i
+                                                class="fas fa-trash"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="knave-item grid grid-12col "
+                            data-item-id="sample3">
+                            <div class="item-progress-wrapper grid grid-span-12 grid-12col">
+                                <div class="item-progress-fill grid grid-span-12 grid-12col"
+                                    style="width: 0%;">
+                                </div>
+                                <div class="item-progress-content grid grid-span-12 grid-12col">
+                                    <div class="item-image"><a class="item-image item-name grid-span-1"><img
+                                                src="../assets/knave-2e-logo.webp" title="Bitter restorative" width="36" height="36" /></a>
+                                    </div>
+
+                                    <a class="item-name detail grid-span-7">Bitter restorative</a>
+
+                                    <div class="item-slots grid-span-1 item-prop">1</div>
+                                    <div class="item-slots grid-span-1 item-prop">
+                                        <div class="grid-span-3 flexrow flex-group-center">
+                                            <a class="item-toggle quantity" data-action="decrement">
+                                                <i class="fas fa-caret-down"></i></a>
+                                            <div class="item-prop">1</div>
+                                            <a class="item-toggle quantity" data-action="increment">
+                                                <i class="fas fa-caret-up"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="item-controls grid-span-2">
+                                        <a class="item-control item-edit" title="Edit Item"><i
+                                                class="fas fa-edit"></i></a>
+                                        <a class="item-control item-delete" title="Delete Item"><i
+                                                class="fas fa-trash"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="knave-item grid grid-12col "
+                            data-item-id="sample4">
+                            <div class="item-progress-wrapper grid grid-span-12 grid-12col">
+                                <div class="item-progress-fill grid grid-span-12 grid-12col"
+                                    style="width: 0%;">
+                                </div>
+                                <div class="item-progress-content grid grid-span-12 grid-12col">
+                                    <div class="item-image"><a class="item-image item-name grid-span-1"><img
+                                                src="../assets/knave-2e-logo.webp" title="Rope, hemp, 50 feet" width="36" height="36" /></a>
+                                    </div>
+
+                                    <a class="item-name detail grid-span-7">Rope, hemp, 50 feet</a>
+
+                                    <div class="item-slots grid-span-1 item-prop">1</div>
+                                    <div class="item-slots grid-span-1 item-prop">
+                                        <div class="grid-span-3 flexrow flex-group-center">
+                                            <a class="item-toggle quantity" data-action="decrement">
+                                                <i class="fas fa-caret-down"></i></a>
+                                            <div class="item-prop">1</div>
+                                            <a class="item-toggle quantity" data-action="increment">
+                                                <i class="fas fa-caret-up"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="item-controls grid-span-2">
+                                        <a class="item-control item-edit" title="Edit Item"><i
+                                                class="fas fa-edit"></i></a>
+                                        <a class="item-control item-delete" title="Delete Item"><i
+                                                class="fas fa-trash"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="knave-item grid grid-12col "
+                            data-item-id="sample5">
+                            <div class="item-progress-wrapper grid grid-span-12 grid-12col">
+                                <div class="item-progress-fill grid grid-span-12 grid-12col"
+                                    style="width: 0%;">
+                                </div>
+                                <div class="item-progress-content grid grid-span-12 grid-12col">
+                                    <div class="item-image"><a class="item-image item-name grid-span-1"><img
+                                                src="../assets/knave-2e-logo.webp" title="Storm lantern" width="36" height="36" /></a>
+                                    </div>
+
+                                    <a class="item-name detail grid-span-7">Storm lantern</a>
+
+                                    <div class="item-slots grid-span-1 item-prop">1</div>
+                                    <div class="item-slots grid-span-1 item-prop">
+                                        <div class="grid-span-3 flexrow flex-group-center">
+                                            <a class="item-toggle quantity" data-action="decrement">
+                                                <i class="fas fa-caret-down"></i></a>
+                                            <div class="item-prop">1</div>
+                                            <a class="item-toggle quantity" data-action="increment">
+                                                <i class="fas fa-caret-up"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="item-controls grid-span-2">
+                                        <a class="item-toggle" data-action="light"
+                                            title=Light>
+                                            <i
+                                                class="far fa-lightbulb"></i></a>
+                                        <a class="item-control item-edit" title="Edit Item"><i
+                                                class="fas fa-edit"></i></a>
+                                        <a class="item-control item-delete" title="Delete Item"><i
+                                                class="fas fa-trash"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+            </section>
+            <footer class="footer">
+                <div class="flexrow no-wrap flex-group-center ">
+                    <p style="font-size:smaller">Copyright &#169; 2023 <a
+                            href="https://www.patreon.com/questingbeast/posts">Ben
+                            Milton and Questing Beast LLC.</a> Logo Design by <a
+                            href="https://www.behance.net/MindkillerINK?locale=en_US">Tim Hastings</a>.</p>
+                </div>
+            </footer>
+        </div>
+    </div>
+</form></div></section><section id="preview-building" class="app window-app knave2e sheet actor document-sheet" hidden><header class="window-header">The Crooked Lantern · building</header><div class="window-content"><form class="knave-document document-building  building" autocomplete="off">
+    <div class="document-masthead">
+        <span class="document-edition">KNAVE <span aria-hidden="true">/</span> II</span>
+        <div><p class="document-kicker">Estate ledger</p>
+        <h1>Property deed</h1></div>
+        <span class="document-folio" aria-hidden="true">V</span>
+    </div>
+    <div class="sheet-container">
+        <div class="vehicle-grid">
+
+            <header class="header">
+
+                <div class="image">
+                    <div class="flexcol no-wrap">
+                        <div class="resource-label align-center">Portrait</div>
+                        <img class="rounded" src="../assets/knave-2e-logo.webp" data-edit="img" title="The Crooked Lantern" width="100%" />
+                    </div>
+                </div>
+
+                <div class="info">
+                    <div class="flexrow no-wrap flex-between flex-group-left dotted name">
+                        <div class="resource-label flex1">Name</div>
+                        <input class="transparent flex3 no-border detail name" name="name" type="text"
+                            value="The Crooked Lantern" placeholder="The Crooked Lantern" />
+                    </div>
+                    <div class="grid grid-3col no-wrap flex-between flex-group-center" style="margin-top: 5px;">
+                        <div class="grid-span-1 flexcol no-wrap flex-group-center info-2">
+                            <div class="resource-label">Room Style</div>
+                            <select name="system.roomStyle">
+                                <option value="humble" selected>Humble</option>
+                            </select>
+                        </div>
+                        <div class="grid-span-1 flexcol no-wrap flex-group-center">
+                            <div class="resource-label">5&#x27; Squares</div>
+                            <input class="resource-label content narrow" type="text" name="system.squares"
+                                value="6" data-dtype="Number" />
+                        </div>
+                        <div class="grid-span-1 flexcol no-wrap flex-group-center cost">
+                            <div class="resource-label">Base Cost</div>
+                            <div class="resource-label content narrow">6000</div>
+                        </div>
+                    </div>
+                    <div class="grid grid-3col no-wrap flex-between flex-group-center" style="margin-top: 5px;">
+                        <div class="grid-span-1 flexcol no-wrap flex-group-center">
+                            <div class="resource-label">Staffed</div>
+                            <input type="checkbox" name="system.staffed" checked />
+                        </div>
+                        <div class="grid-span-1 flexcol no-wrap flex-group-center">
+                            <div class="resource-label">Annual Staffing Cost</div>
+                            <div class="resource-label content narrow">3000</div>
+                        </div>
+                        <div class="grid-span-1 flexcol no-wrap flex-group-center">
+                            <div class="resource-label">Monthly Rental Income</div>
+                            <div class="resource-label content narrow">60</div>
+                        </div>
+                    </div>
+                    <div class="grid grid-3col no-wrap flex-between flex-group-center" style="margin-top: 5px;">
+                        <div class="grid-span-1 flexcol no-wrap flex-group-center">
+                            <div class="resource-label">Is a Business</div>
+                            <input type="checkbox" name="system.isBusiness" checked />
+                        </div>
+                        <div class="grid-span-1 flexcol no-wrap flex-group-center coins">
+                            <div class="resource-label">Stored Coins</div>
+                            <input class="resource-label content narrow" type="text" name="system.coins"
+                                value="235" data-dtype="Number" />
+                        </div>
+                        <div class="grid-span-1 flexcol no-wrap flex-group-center">
+                            <button class="resource-label rounded transparent actor-button profit" type="button">
+                                Roll Annual Profit</button>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <section class="sheet-body">
+                <div class="items">
+                    <div class="resource-label">DESCRIPTION</div>
+                    <section class="editor">
+                        <div class="editor"><div class="editor-content" data-edit="system.description"><p>The northern road ends at the ruined watchtower. The old ferry still crosses at dawn.</p><p>Owes the apothecary a favour. Carries a map with one valley deliberately left blank.</p></div></div>
+                    </section>
+                </div>
+            </section>
+        </div>
+    </div>
+</form>
+</div></section><section id="preview-armor" class="app window-app knave2e sheet item document-sheet" hidden><header class="window-header">armor · armor</header><div class="window-content"><form class="knave-document document-armor " autocomplete="off">
+    <div class="document-masthead">
+        <span class="document-edition">KNAVE <span aria-hidden="true">/</span> II</span>
+        <div><p class="document-kicker">Armour record</p>
+        <h1>Armoury ledger</h1></div>
+        <span class="document-folio" aria-hidden="true">VII</span>
+    </div>
+    <header class="sheet-header">
+        <div class="item-header-grid">
+
+            <div class="item-header-img">
+                <img class="profile-img" src="../assets/knave-2e-logo.webp" data-edit="img" title="armor" />
+            </div>
+
+            <div class="item-info-grid">
+                <div class="item-header-name">
+                    <input type="text" name="name" value="armor" data-dtype="String" />
+                </div>
+                <div class="item-header-info">
+                    <div class="flexrow flex-group-center">
+                        <div class="flexrow flex-group-center">
+                            <div class="resource-label">Slots</div>
+                            <input type="text" name="system.slots" value="1" data-dtype="Number" />
+                        </div>
+                        <div class="flexrow flex-group-center">
+                            <div class="resource-label">Cost</div>
+                            <input type="text" name="system.cost" value="50" data-dtype="Number" />
+                        </div>
+                        <div class="flexrow flex-group-center">
+                            <div class="resource-label">Relic</div>
+                            <input type="checkbox" name="system.relic.isRelic" >
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="sheet-body">
+        <div class="item-body-grid">
+
+            <div class="item-body-aside">
+                <div class="flexrow flex-group-left flex-between">
+                    <div class="resource-label aside">Type</div>
+                    <select name="system.category">
+                        <option value="mail" >Mail</option></select>
+                </div>
+                <div class="flexrow flex-group-left flex-between">
+                    <div class="resource-label aside">AP</div>
+                    <input type="text" name="system.armorPoints" value="3" data-dtype="Number" />
+                </div>
+                
+                <hr class="separator" />
+
+                <div class="flexrow flex-group-left flex-between">
+                    <div class="resource-label aside">Quantity</div>
+                    <input type="text" name="system.quantity" value="1" data-dtype="Number" />
+                </div>
+            </div>
+
+            <div class="item-body-description">
+                <div class="resource-label">DESCRIPTION</div>
+                <section class="editor">
+                    <div class="editor"><div class="editor-content" data-edit="system.description"><p>The northern road ends at the ruined watchtower. The old ferry still crosses at dawn.</p><p>Owes the apothecary a favour. Carries a map with one valley deliberately left blank.</p></div></div>
+                </section>
+            </div>
+    </section>
+</form></div></section><section id="preview-equipment" class="app window-app knave2e sheet item document-sheet" hidden><header class="window-header">equipment · equipment</header><div class="window-content"><form class="knave-document document-equipment " autocomplete="off">
+    <div class="document-masthead">
+        <span class="document-edition">KNAVE <span aria-hidden="true">/</span> II</span>
+        <div><p class="document-kicker">Equipment record</p>
+        <h1>Inventory ledger</h1></div>
+        <span class="document-folio" aria-hidden="true">VIII</span>
+    </div>
+  <header class="sheet-header">
+    <div class="item-header-grid">
+
+      <div class="item-header-img">
+        <img
+          class="profile-img"
+          src="../assets/knave-2e-logo.webp"
+          data-edit="img"
+          title="equipment"
+        />
+      </div>
+
+      <div class="item-info-grid">
+        <div class="item-header-name">
+          <input
+            type="text"
+            name="name"
+            value="equipment"
+            data-dtype="String"
+          />
+        </div>
+        <div class="item-header-info">
+          <div class="flexrow flex-group-center">
+            <div class="flexrow flex-group-center">
+              <div class="resource-label">Slots</div>
+              <input
+                type="text"
+                name="system.slots"
+                value="1"
+                data-dtype="Number"
+              />
+            </div>
+            <div class="flexrow flex-group-center">
+              <div class="resource-label">Cost</div>
+              <input
+                type="text"
+                name="system.cost"
+                value="50"
+                data-dtype="Number"
+              />
+            </div>
+            <div class="flexrow flex-group-center">
+              <div class="resource-label">Relic</div>
+              <input
+                type="checkbox"
+                name="system.relic.isRelic"
+                
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="sheet-body">
+    <div class="item-body-grid">
+
+      <div class="item-body-aside">
+        <div class="flexrow flex-group-left flex-between">
+          <div class="resource-label aside">Quantity</div>
+          <input
+            type="text"
+            name="system.quantity"
+            value="1"
+            data-dtype="Number"
+          />
+        </div>
+      </div>
+
+      <div class="item-body-description">
+        <div class="resource-label">DESCRIPTION</div>
+        <section class="editor">
+          <div class="editor"><div class="editor-content" data-edit="system.description"><p>The northern road ends at the ruined watchtower. The old ferry still crosses at dawn.</p><p>Owes the apothecary a favour. Carries a map with one valley deliberately left blank.</p></div></div>
+        </section>
+      </div>
+    </div>
+  </section>
+</form></div></section><section id="preview-lightSource" class="app window-app knave2e sheet item document-sheet" hidden><header class="window-header">lightSource · lightSource</header><div class="window-content"><form class="knave-document document-lightSource " autocomplete="off">
+    <div class="document-masthead">
+        <span class="document-edition">KNAVE <span aria-hidden="true">/</span> II</span>
+        <div><p class="document-kicker">Light source record</p>
+        <h1>Expedition stores</h1></div>
+        <span class="document-folio" aria-hidden="true">XI</span>
+    </div>
+    <header class="sheet-header">
+        <div class="item-header-grid">
+
+            <div class="item-header-img">
+                <img class="profile-img" src="../assets/knave-2e-logo.webp" data-edit="img" title="lightSource" />
+            </div>
+
+            <div class="item-info-grid">
+                <div class="item-header-name">
+                    <input type="text" name="name" value="lightSource" data-dtype="String" />
+                </div>
+                <div class="item-header-info">
+                    <div class="flexrow flex-group-center">
+                        <div class="flexrow flex-group-center">
+                            <div class="resource-label">Slots</div>
+                            <input type="text" name="system.slots" value="1" data-dtype="Number" />
+                        </div>
+                        <div class="flexrow flex-group-center">
+                            <div class="resource-label">Cost</div>
+                            <input type="text" name="system.cost" value="50" data-dtype="Number" />
+                        </div>
+                        <div class="flexrow flex-group-center">
+                            <div class="resource-label">Relic</div>
+                            <input type="checkbox" name="system.relic.isRelic"  />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="sheet-body">
+        <div class="item-body-grid">
+
+            <div class="item-body-aside">
+                <div class="flexrow flex-group-left flex-between">
+                    <div class="resource-label aside">Dim Radius</div>
+                    <input type="text" name="system.dimRadius" value="" data-dtype="Number" />
+                </div>
+                <div class="flexrow flex-group-left flex-between">
+                    <div class="resource-label aside">Bright Radius</div>
+                    <input type="text" name="system.brightRadius" value="" data-dtype="Number" />
+                </div>
+                <div class="flexrow flex-group-left flex-between">
+                    <div class="resource-label aside">Intensity</div>
+                    <input type="text" name="system.intensity" value="" data-dtype="Number" />
+                </div>
+                <div class="flexrow flex-group-left flex-between">
+                    <div class="resource-label aside">Speed</div>
+                    <input type="text" name="system.speed" value="24" data-dtype="Number" />
+                </div>
+
+                <hr class="separator" />
+                
+                <div class="flexrow flex-group-left flex-between">
+                    <div class="resource-label aside">Quantity</div>
+                    <input type="text" name="system.quantity" value="1" data-dtype="Number" />
+                </div>
+            </div>
+
+            <div class="item-body-description">
+                <div class="resource-label">DESCRIPTION</div>
+                <section class="editor">
+                    <div class="editor"><div class="editor-content" data-edit="system.description"><p>The northern road ends at the ruined watchtower. The old ferry still crosses at dawn.</p><p>Owes the apothecary a favour. Carries a map with one valley deliberately left blank.</p></div></div>
+                </section>
+            </div>
+        </div>
+    </section>
+</form></div></section><section id="preview-spellbook" class="app window-app knave2e sheet item document-sheet" hidden><header class="window-header">Book of the winter gate · spellbook</header><div class="window-content"><form class="knave-document document-spellbook " autocomplete="off">
+    <div class="document-masthead">
+        <span class="document-edition">KNAVE <span aria-hidden="true">/</span> II</span>
+        <div><p class="document-kicker">Arcane record</p>
+        <h1>Grimoire</h1></div>
+        <span class="document-folio" aria-hidden="true">IX</span>
+    </div>
+    <header class="sheet-header">
+        <div class="item-header-grid">
+
+            <div class="item-header-img">
+                <img class="profile-img" src="../assets/knave-2e-logo.webp" data-edit="img" title="Book of the winter gate" />
+            </div>
+
+            <div class="item-info-grid">
+                <div class="item-header-name">
+                    <input type="text" name="name" value="Book of the winter gate" data-dtype="String" />
+                </div>
+                <div class="item-header-info">
+                    <div class="flexrow flex-group-center">
+                        <div class="flexrow flex-group-center">
+                            <div class="resource-label">Slots</div>
+                            <input type="text" name="system.slots" value="1" data-dtype="Number" />
+                        </div>
+                        <div class="flexrow flex-group-center">
+                            <div class="resource-label">Cost</div>
+                            <input type="text" name="system.cost" value="50" data-dtype="Number" />
+                        </div>
+                        <div class="flexrow flex-group-center">
+                            <div class="resource-label">Relic</div>
+                            <input type="checkbox" name="system.relic.isRelic"  />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="sheet-body">
+        <div class="item-body-grid">
+
+            <div class="item-body-aside">
+                <div class="flexrow flex-group-left flex-between">
+                    <div class="resource-label aside">Type</div>
+                    <select name="system.category">
+                        <option value="arcane" >Arcane</option></select>
+                </div>
+                <hr class="separator" />
+                <div class="flexrow flex-group-left flex-between">
+                    <div class="resource-label aside">Quantity</div>
+                    <input type="text" name="system.quantity" value="1" data-dtype="Number" />
+                </div>
+            </div>
+
+            <div class="item-body-description">
+                <div class="flexrow flex-group-left">
+                    <div class="flexrow flex-group-left">
+                        <div class="resource-label aside" title="How many individual spellbooks have been cast?" title="">
+                            # Cast</div>
+                        <input type="range" name="system.castQuantity" value="0" min="0" max="1">
+                    </div>
+                </div>
+                <div class="resource-label">DESCRIPTION</div>
+                <section class="editor">
+                    <div class="editor"><div class="editor-content" data-edit="system.description"><p>The northern road ends at the ruined watchtower. The old ferry still crosses at dawn.</p><p>Owes the apothecary a favour. Carries a map with one valley deliberately left blank.</p></div></div>
+                </section>
+            </div>
+        </div>
+    </section>
+</form></div></section><section id="preview-weapon" class="app window-app knave2e sheet item document-sheet" hidden><header class="window-header">Notched longsword · weapon</header><div class="window-content"><form class="knave-document document-weapon " autocomplete="off">
+    <div class="document-masthead">
+        <span class="document-edition">KNAVE <span aria-hidden="true">/</span> II</span>
+        <div><p class="document-kicker">Weapon record</p>
+        <h1>Armoury ledger</h1></div>
+        <span class="document-folio" aria-hidden="true">VI</span>
+    </div>
+    <header class="sheet-header">
+        <div class="item-header-grid">
+
+            <div class="item-header-img">
+                <img class="profile-img" src="../assets/knave-2e-logo.webp" data-edit="img" title="Notched longsword" />
+            </div>
+
+            <div class="item-info-grid">
+                <div class="item-header-name">
+                    <input type="text" name="name" value="Notched longsword" data-dtype="String" />
+                </div>
+                <div class="item-header-info">
+                    <div class="flexrow flex-group-center">
+                        <div class="flexrow flex-group-center">
+                            <div class="resource-label">Slots</div>
+                            <input type="text" name="system.slots" value="1" data-dtype="Number" />
+                        </div>
+                        <div class="flexrow flex-group-center">
+                            <div class="resource-label">Cost</div>
+                            <input type="text" name="system.cost" value="50" data-dtype="Number" />
+                        </div>
+                        <div class="flexrow flex-group-center">
+                            <div class="resource-label">Relic</div>
+                            <input type="checkbox" name="system.relic.isRelic"  />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="sheet-body">
+        <div class="item-body-grid">
+
+            <div class="item-body-aside">
+                <div class="flexrow flex-group-left flex-between">
+                    <div class="resource-label aside">Type</div>
+                    <select name="system.category">
+                        <option value="oneHanded" selected>One handed</option></select>
+                </div>
+                <div class="flexrow flex-group-left flex-between">
+                    <div class="resource-label aside">Ammo</div>
+                    <select name="system.ammoType">
+                        <option value="none" selected>None</option></select>
+                </div>
+                <div class="flexrow flex-group-left flex-between">
+                    <div class="resource-label aside">Range</div>
+                    <input type="text" name="system.range" value="0" data-dtype="Number" />
+                </div>
+                <hr class="separator" />
+                <div class="flexrow flex-group-left flex-between">
+                    <div class="resource-label aside">Attack Bonus</div>
+                    <input class="attack-bonus" type="text" name="system.attackBonus" value="0"
+                        data-dtype="Number" />
+                </div>
+                <div class="flexrow flex-group-left flex-between">
+                    <div class="resource-label aside">Roll Formula</div>
+                    <input class="damage-roll-formula" type="text" name="system.damageRoll"
+                        value="1d6" data-dtype="String" />
+                </div>
+
+                <hr class="separator" />
+
+                <div class="flexrow flex-group-left flex-between">
+                    <div class="resource-label aside">Quantity</div>
+                    <input type="text" name="system.quantity" value="1" data-dtype="Number" />
+                </div>
+            </div>
+
+            <div class="item-body-description">
+                <div class="grid grid-6col flexrow flex-group-left">
+                    <div class="grid-span-2 flexrow flex-group-left">
+                        <div class="resource-label aside" title="Can this weapon be broken?">Breakable
+                        </div>
+                        <input type="checkbox" name="system.breakable" checked />
+                    </div>
+                    <div class="grid-span-4 flexrow flex-group-left">
+                        <div class="resource-label aside" title="How many individual weapons are broken?" title="">
+                            # Broken</div>
+                        <input type="range" name="system.brokenQuantity" value="0" min="0" max="1">
+                    </div>
+                </div>
+                <div class="resource-label">DESCRIPTION</div>
+                <section class="editor">
+                    <div class="editor"><div class="editor-content" data-edit="system.description"><p>The northern road ends at the ruined watchtower. The old ferry still crosses at dawn.</p><p>Owes the apothecary a favour. Carries a map with one valley deliberately left blank.</p></div></div>
+                </section>
+            </div>
+        </div>
+    </section>
+</form></div></section><section id="preview-monsterAttack" class="app window-app knave2e sheet item document-sheet" hidden><header class="window-header">monsterAttack · monsterAttack</header><div class="window-content"><form class="knave-document document-monsterAttack " autocomplete="off">
+    <div class="document-masthead">
+        <span class="document-edition">KNAVE <span aria-hidden="true">/</span> II</span>
+        <div><p class="document-kicker">Attack record</p>
+        <h1>Bestiary addendum</h1></div>
+        <span class="document-folio" aria-hidden="true">XII</span>
+    </div>
+    <header class="sheet-header">
+        <div class="item-header-grid">
+
+            <div class="item-header-img">
+                <img class="profile-img" src="../assets/knave-2e-logo.webp" data-edit="img" title="monsterAttack" />
+            </div>
+
+            <div class="item-info-grid">
+                <div class="item-header-name">
+                    <input type="text" name="name" value="monsterAttack" data-dtype="String" />
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="sheet-body">
+        <div class="item-body-grid">
+
+            <div class="item-body-aside">
+                <div class="flexrow flex-group-left flex-between">
+                    <div class="resource-label aside">Attacks</div>
+                    <input type="text" name="system.attackAmount" value="1" data-dtype="Number" />
+                </div>
+                <hr class="separator" />
+                <div class="flexrow flex-group-left flex-between">
+                    <div class="resource-label aside">Attack Bonus</div>
+                    <input class="attack-bonus" type="text" name="system.attackBonus" value="0"
+                        data-dtype="Number" />
+                </div>
+                <div class="flexrow flex-group-left flex-between">
+                    <div class="resource-label aside">Roll Formula</div>
+                    <input class="damage-roll-formula" type="text" name="system.damageRoll"
+                        value="1d6" data-dtype="String" />
+                </div>
+            </div>
+
+            <div class="item-body-description">
+                <div class="resource-label">DESCRIPTION</div>
+                <section class="editor">
+                    <div class="editor"><div class="editor-content" data-edit="system.description"><p>The northern road ends at the ruined watchtower. The old ferry still crosses at dawn.</p><p>Owes the apothecary a favour. Carries a map with one valley deliberately left blank.</p></div></div>
+                </section>
+            </div>
+        </div>
+    </section>
+</form></div></section><section id="preview-potion" class="app window-app knave2e sheet item document-sheet" hidden><header class="window-header">Bitter restorative · potion</header><div class="window-content"><form class="knave-document document-potion " autocomplete="off">
+    <div class="document-masthead">
+        <span class="document-edition">KNAVE <span aria-hidden="true">/</span> II</span>
+        <div><p class="document-kicker">Preparation record</p>
+        <h1>Apothecary notes</h1></div>
+        <span class="document-folio" aria-hidden="true">X</span>
+    </div>
+  <header class="sheet-header">
+    <div class="item-header-grid">
+
+      <div class="item-header-img">
+        <img
+          class="profile-img"
+          src="../assets/knave-2e-logo.webp"
+          data-edit="img"
+          title="Bitter restorative"
+        />
+      </div>
+
+      <div class="item-info-grid">
+        <div class="item-header-name">
+          <input
+            type="text"
+            name="name"
+            value="Bitter restorative"
+            data-dtype="String"
+          />
+        </div>
+        <div class="item-header-info">
+          <div class="flexrow flex-group-center">
+            <div class="flexrow flex-group-center">
+              <div class="resource-label">Slots</div>
+              <input
+                type="text"
+                name="system.slots"
+                value="1"
+                data-dtype="Number"
+              />
+            </div>
+            <div class="flexrow flex-group-center">
+              <div class="resource-label">Cost</div>
+              <input
+                type="text"
+                name="system.cost"
+                value="50"
+                data-dtype="Number"
+              />
+            </div>
+            <div class="flexrow flex-group-center">
+              <div class="resource-label">Relic</div>
+              <input
+                type="checkbox"
+                name="system.relic.isRelic"
+                
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="sheet-body">
+    <div class="item-body-grid">
+
+      <div class="item-body-aside">
+        <div class="flexrow flex-group-left flex-between">
+          <div class="resource-label aside">Quantity</div>
+          <input
+            type="text"
+            name="system.quantity"
+            value="1"
+            data-dtype="Number"
+          />
+        </div>
+        <div class="flexrow flex-group-left flex-between">
+          <div class="resource-label aside">Has Recipe</div>
+          <input
+            type="checkbox"
+            name="system.hasRecipe"
+            
+          />
+        </div>
+        <div class="flexrow flex-group-left flex-between">
+          <div class="resource-label aside">Ingredients</div>
+          <input
+            type="text"
+            name="system.ingredients"
+            value=""
+            data-dtype="String"
+          />
+        </div>
+      </div>
+
+      <div class="item-body-description">
+        <div class="resource-label">DESCRIPTION</div>
+        <section class="editor">
+          <div class="editor"><div class="editor-content" data-edit="system.description"><p>The northern road ends at the ruined watchtower. The old ferry still crosses at dawn.</p><p>Owes the apothecary a favour. Carries a map with one valley deliberately left blank.</p></div></div>
+        </section>
+      </div>
+    </div>
+  </section>
+</form>
+</div></section><script>/** Decorative page turn around the existing Foundry tab controller.
+ * The live document remains the only form. Snapshots are inert and nameless;
+ * this helper never submits, updates, hides or re-parents live fields. */
+function installDocumentMotion(root) {
+    const form = root.matches?.('.document-character') ? root : root.querySelector('.document-character');
+    if (!form) return () => {};
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let overlay = null;
+    let animation = null;
+    let frame = null;
+    let minHeight = null;
+    let resizeObserver = null;
+
+    function clear() {
+        if (frame !== null) cancelAnimationFrame(frame);
+        frame = null;
+        if (animation) { animation.onfinish = null; animation.oncancel = null; animation.cancel(); }
+        animation = null;
+        overlay?.remove(); overlay = null;
+        if (minHeight !== null) form.style.minHeight = minHeight;
+        minHeight = null;
+        resizeObserver?.disconnect(); resizeObserver = null;
+    }
+
+    function snapshot() {
+        const copy = document.createElement('div');
+        copy.className = form.className + ' document-turn-face';
+        for (const child of form.children) {
+            if (!child.matches('.document-turn-layer, .document-bookmarks')) copy.append(child.cloneNode(true));
+        }
+        copy.querySelectorAll('.document-bookmarks, .document-turn-layer').forEach(el => el.remove());
+        // cloneNode does not reliably copy current values of every form control.
+        const originals = [...form.querySelectorAll('input, textarea, select')];
+        copy.querySelectorAll('input, textarea, select').forEach((el, i) => {
+            if (originals[i]) { el.value = originals[i].value; if ('checked' in el) el.checked = originals[i].checked; }
+        });
+        for (const el of [copy, ...copy.querySelectorAll('*')]) {
+            for (const attr of ['id', 'name', 'for', 'data-edit', 'contenteditable', 'autofocus']) el.removeAttribute(attr);
+            if (el.matches('a, button, input, select, textarea, [tabindex]')) el.setAttribute('tabindex', '-1');
+        }
+        copy.inert = true;
+        copy.setAttribute('aria-hidden', 'true');
+        return copy;
+    }
+
+    function turn(event) {
+        const tab = event.target.closest?.('.document-bookmarks [data-tab]');
+        if (!tab || !form.contains(tab)) return;
+        clear();
+        const active = form.querySelector('.sheet-body > .tab.active');
+        const destination = [...form.querySelectorAll('.sheet-body > .tab')].find(el => el.dataset.tab === tab.dataset.tab);
+        if (!active || !destination || active === destination || reduced.matches || typeof form.animate !== 'function') return;
+        const links = [...form.querySelectorAll('.document-bookmarks [data-tab]')];
+        const previous = links.findIndex(el => el.dataset.tab === active.dataset.tab);
+        const backwards = links.indexOf(tab) < previous;
+        const rect = form.getBoundingClientRect();
+        const face = snapshot();
+        // Wait for Foundry's normal tab controller to activate the destination.
+        frame = requestAnimationFrame(() => {
+            frame = null;
+            if (!form.isConnected || !destination.classList.contains('active')) return;
+            const targetRect = form.getBoundingClientRect();
+            minHeight = form.style.minHeight;
+            form.style.minHeight = `${Math.max(rect.height, targetRect.height)}px`;
+            overlay = document.createElement('div');
+            overlay.className = 'document-turn-layer';
+            overlay.setAttribute('aria-hidden', 'true');
+            overlay.inert = true;
+            Object.assign(overlay.style, { width: `${rect.width}px`, height: `${rect.height}px` });
+            Object.assign(face.style, { width: `${rect.width}px`, height: `${rect.height}px`, minHeight: '0', transformOrigin: backwards ? '100% 50%' : '0 50%' });
+            overlay.append(face);
+            form.append(overlay);
+            const sign = backwards ? 1 : -1;
+            animation = face.animate([
+                { transform: 'rotateY(0deg)', filter: 'brightness(1)', opacity: 1, offset: 0 },
+                { transform: `rotateY(${sign * 32}deg)`, filter: 'brightness(.9)', opacity: 1, offset: .4 },
+                { transform: `rotateY(${sign * 83}deg)`, filter: 'brightness(.72)', opacity: .9, offset: .86 },
+                { transform: `rotateY(${sign * 100}deg)`, filter: 'brightness(.72)', opacity: 0, offset: 1 },
+            ], { duration: 480, easing: 'cubic-bezier(.3,.1,.25,1)', fill: 'forwards' });
+            animation.onfinish = clear;
+            animation.oncancel = clear;
+            if (typeof ResizeObserver !== 'undefined') {
+                resizeObserver = new ResizeObserver(() => {
+                    if (Math.abs(form.getBoundingClientRect().width - rect.width) > 1) clear();
+                });
+                resizeObserver.observe(form);
+            }
+        });
+    }
+    const onMotionPreference = () => { if (reduced.matches) clear(); };
+    form.addEventListener('click', turn, true);
+    reduced.addEventListener('change', onMotionPreference);
+    return () => {
+        clear();
+        form.removeEventListener('click', turn, true);
+        reduced.removeEventListener('change', onMotionPreference);
+    };
+}
+;document.querySelectorAll('.document-character').forEach(installDocumentMotion);document.querySelectorAll('[data-preview]').forEach(a=>a.onclick=()=>{document.querySelectorAll('.window-app').forEach(w=>w.hidden=w.id!=='preview-'+a.dataset.preview)});document.querySelectorAll('.sheet-tabs a').forEach(a=>a.onclick=()=>{const f=a.closest('form');f.querySelectorAll('.sheet-tabs a').forEach(t=>t.classList.toggle('active',t===a));f.querySelectorAll('.sheet-body>.tab').forEach(t=>t.classList.toggle('active',t.dataset.tab===a.dataset.tab))});document.querySelectorAll('.document-bookmarks a').forEach(a=>a.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();a.click()}});document.querySelectorAll('form').forEach(f=>f.onsubmit=e=>e.preventDefault());</script></html>

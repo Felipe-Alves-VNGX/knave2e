@@ -18,3 +18,10 @@
   @import 'components/resource';
   @import 'components/items';
 }
+
+// Physical document treatment; scoped to actor and item sheet windows.
+@import 'components/document';
+
+@import 'components/handwritten';
+
+@import 'components/page-turn';

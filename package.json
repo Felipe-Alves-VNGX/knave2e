@@ -6,7 +6,8 @@
     "build": "gulp build",
     "compile": "gulp css",
     "watch": "gulp",
-    "gulp": "gulp"
+    "gulp": "gulp",
+    "preview:sheets": "node scripts/preview-sheets.cjs"
   },
   "browserslist": [
     "last 3 versions"
@@ -19,6 +20,7 @@
     "gulp-autoprefixer": "^8.0.0",
     "gulp-sass": "^5.1.0",
     "gulp-sourcemaps": "^3.0.0",
+    "handlebars": "^4.7.9",
     "sass": "^1.53.0"
   }
 }

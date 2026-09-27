@@ -1,12 +1,13 @@
+import { installDocumentMotion } from './document-motion.mjs';
 import { onAttack, onDamageFromSheet, onCast } from '../helpers/items.mjs';
 import { onBrewPotion } from '../helpers/alchemy.mjs';
 
 export default class Knave2eActorSheet extends foundry.appv1.sheets.ActorSheet {
     static get defaultOptions() {
         return foundry.utils.mergeObject(super.defaultOptions, {
-            classes: ['knave2e', 'sheet', 'actor'],
-            width: 640,
-            height: 670,
+            classes: ['knave2e', 'sheet', 'actor', 'document-sheet'],
+            width: 900,
+            height: 860,
             dragDrop: [
                 { dragSelector: '.item-list .item', dropSelector: null },
                 { dragSelector: '.knave-item', dropSelector: null },
@@ -27,6 +28,7 @@ export default class Knave2eActorSheet extends foundry.appv1.sheets.ActorSheet {
 
     async getData() {
         const context = super.getData();
+        context.appId = this.appId;
 
         // Use a safe clone of the actor data for further operations.
         const actorData = this.actor.toObject(false);
@@ -301,7 +303,17 @@ export default class Knave2eActorSheet extends foundry.appv1.sheets.ActorSheet {
     }
 
     activateListeners(html) {
+        this._documentMotionCleanup?.();
         super.activateListeners(html);
+        this._documentMotionCleanup = installDocumentMotion(html[0]);
+
+        // Bookmark links retain Foundry's tab controller and support keyboard activation.
+        html.on('keydown', '.document-bookmarks [data-tab]', (event) => {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                event.currentTarget.click();
+            }
+        });
 
         // Render the item sheet for viewing/editing prior to the editable check.
         html.find('.item-edit').click((ev) => {
@@ -394,6 +406,12 @@ export default class Knave2eActorSheet extends foundry.appv1.sheets.ActorSheet {
 
         // // Recruit Rarity
         // html.on('change', '.actor-select.rarity', this._onRecruitRarity.bind(this));
+    }
+
+    async close(options = {}) {
+        this._documentMotionCleanup?.();
+        this._documentMotionCleanup = null;
+        return super.close(options);
     }
 
     async _onItemName(event) {

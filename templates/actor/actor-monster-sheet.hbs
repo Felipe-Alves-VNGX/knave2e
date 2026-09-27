@@ -1,4 +1,10 @@
-<form class="{{cssClass}} {{actor.type}}" autocomplete="off">
+<form class="knave-document document-monster {{cssClass}} {{actor.type}}" autocomplete="off">
+    <div class="document-masthead">
+        <span class="document-edition">KNAVE <span aria-hidden="true">/</span> II</span>
+        <div><p class="document-kicker">{{localize "KNAVE2E.Document.monster.Subtitle"}}</p>
+        <h1>{{localize "KNAVE2E.Document.monster.Title"}}</h1></div>
+        <span class="document-folio" aria-hidden="true">II</span>
+    </div>
     <div class="sheet-container">
         <div class="npc-grid">
 
@@ -88,7 +94,6 @@
                         editable=editable}}
                     </section>
                 </div>
-        </div>
         <div class="items">
             <ol class="items-list">
                 <li class="knave-item grid grid-12col items-header">
@@ -123,6 +128,7 @@
             </ol>
         </div>
         </section>
+        </div>
 
         <footer class="footer">
             <div class="flexrow no-wrap flex-group-center ">
@@ -132,6 +138,5 @@
                         href="https://www.behance.net/MindkillerINK?locale=en_US">Tim Hastings</a>.</p>
             </div>
         </footer>
-    </div>
     </div>
 </form>

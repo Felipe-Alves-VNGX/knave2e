@@ -1,4 +1,10 @@
-<form class="{{cssClass}} {{actor.type}}" autocomplete="off">
+<form class="knave-document document-character {{cssClass}} {{actor.type}}" autocomplete="off">
+    <div class="document-masthead">
+        <span class="document-edition">KNAVE <span aria-hidden="true">/</span> II</span>
+        <div><p class="document-kicker">{{localize "KNAVE2E.Document.character.Subtitle"}}</p>
+        <h1>{{localize "KNAVE2E.Document.character.Title"}}</h1></div>
+        <span class="document-folio" aria-hidden="true">I</span>
+    </div>
     <div class="sheet-container">
         <div class="character-grid">
 
@@ -7,7 +13,7 @@
 
                 {{!-- Knave Logo --}}
                 <div class="logo">
-                    <img class="logo-img no-border" src="systems/knave2e/assets/knave-2e-logo.webp" />
+                    <img class="logo-img no-border" src="systems/knave2e/assets/knave-2e-logo.webp" alt="Knave Second Edition" />
                 </div>
 
                 {{!-- Character Header Info --}}
@@ -43,11 +49,11 @@
             </header>
 
             {{!-- Sheet Tab Navigation --}}
-            <nav class="sheet-tabs tabs resource-label" data-group="primary">
+            <nav class="sheet-tabs tabs resource-label document-bookmarks" aria-label="{{localize 'KNAVE2E.Character'}}" data-group="primary">
                 {{!-- Default tab is specified in actor-sheet.mjs --}}
-                <a class="item tab-color resource-label" data-tab="character">{{localize "KNAVE2E.Character"}}</a>
-                <a class="item tab-color resource-label" data-tab="items">{{localize "KNAVE2E.Inventory"}}</a>
-                <a class="item tab-color resource-label" data-tab="description">{{localize "KNAVE2E.Description"}}</a>
+                <a class="item tab-color resource-label" data-tab="character" role="button" tabindex="0"><span class="bookmark-index" aria-hidden="true">I</span><span>{{localize "KNAVE2E.Character"}}</span></a>
+                <a class="item tab-color resource-label" data-tab="items" role="button" tabindex="0"><span class="bookmark-index" aria-hidden="true">II</span><span>{{localize "KNAVE2E.Inventory"}}</span></a>
+                <a class="item tab-color resource-label" data-tab="description" role="button" tabindex="0"><span class="bookmark-index" aria-hidden="true">III</span><span>{{localize "KNAVE2E.Description"}}</span></a>
             </nav>
 
             {{!-- Sheet Body --}}
@@ -59,14 +65,14 @@
                         {{#each system.abilities as |ability key|}}
                         <div class="flexrow no-wrap flex-between">
                             <input class="resource-label flex1 flex-group-center circle character" type="text"
-                                name="system.abilities.{{key}}.value" value="{{ability.value}}" data-dtype="Number" />
+                                aria-label="{{localize ability.label}}" name="system.abilities.{{key}}.value" value="{{ability.value}}" data-dtype="Number" />
                             <div class="ability flex3 flex-group-left">
-                                <div class="resource-label flexrow no-wrap rollable flex-start"
+                                <button type="button" class="resource-label flexrow no-wrap rollable flex-start"
                                     data-roll="d20+@abilities.{{key}}.value" data-label="{{ability.label}}"
                                     style="justify-content:left;font-size:20px;">
                                     {{localize
                                     ability.label}}
-                                </div>
+                                </button>
                                 <div class="flexrow no-wrap flex-start detail italic">
                                     {{{localize
                                     ability.detail}}}
@@ -98,51 +104,31 @@
                         </div>
                     </div>
 
-                    {{!-- Health --}}
-                    <div class="health flexcol no-wrap">
-                        <div class="health-max">
-                            <div class="grid grid-2col" style="justify-items:center">
-                                <div class="grid-span-1 flexcol no-wrap flex-group-center">
-                                    <div class="resource-label">{{localize "KNAVE2E.HitPointsMax"}}</div>
-                                    <input class="resource-label content transparent rounded character"
-                                        name="system.hitPoints.max" value="{{system.hitPoints.max}}" />
-                                </div>
-                                <div class="grid-span-1 flexcol no-wrap flex-group-center">
-                                    <div class="resource-label">{{localize "KNAVE2E.WoundsMax"}}</div>
-                                    {{#if system.settings.automaticWounds}}
-                                    <div class="resource-label rounded character">{{system.wounds.max}}</div>
-                                    {{else}}
-                                    <input class="resource-label narrow content rounded character" type="text"
-                                        name="system.wounds.max" value="{{system.wounds.max}}" data-dtype="Number" />
-                                    {{/if}}
-                                </div>
+                    {{!-- Handwritten vital signs: all original field names are preserved. --}}
+                    <div class="health">
+                        <div class="vital-note">
+                            <img class="vital-illustration" src="systems/knave2e/assets/ink-heart.webp" alt="" aria-hidden="true" />
+                            <div class="vital-values">
+                                <label class="resource-label" for="{{appId}}-hp">{{localize "KNAVE2E.HitPoints"}}</label>
+                                <input id="{{appId}}-hp" class="ink-number" aria-label="{{localize 'KNAVE2E.HitPoints'}}" name="system.hitPoints.value" value="{{system.hitPoints.value}}" />
+                                <label class="resource-label aside" for="{{appId}}-hp-max">{{localize "KNAVE2E.HitPointsMax"}}</label>
+                                <input id="{{appId}}-hp-max" class="ink-number small" name="system.hitPoints.max" value="{{system.hitPoints.max}}" />
                             </div>
                         </div>
-                        <div class="health-value">
-                            <div class="grid grid-2col" style="justify-items:center">
-                                <div class="progress-container grid-span-1 vertical">
-                                    <div class="progress-bar">
-                                        <div class="progress-fill hitPoints"
-                                            style="height:{{system.hitPoints.progress}}%">
-                                        </div>
-                                        <input class="progress-input resource-label content"
-                                            name="system.hitPoints.value" value="{{system.hitPoints.value}}" />
-                                    </div>
-                                </div>
-                                <div class="progress-container grid-span-1 vertical">
-                                    <div class="progress-bar">
-                                        <div class="progress-fill wounds" style="height:{{system.wounds.progress}}%">
-                                        </div>
-                                        <input class="progress-input resource-label content" name="system.wounds.value"
-                                            value="{{system.wounds.value}}" />
-                                    </div>
-                                </div>
+                        <div class="wound-note">
+                            <label class="resource-label" for="{{appId}}-wounds">{{localize "KNAVE2E.Wounds"}}</label>
+                            <div class="wound-values">
+                                <input id="{{appId}}-wounds" class="ink-number" aria-label="{{localize 'KNAVE2E.Wounds'}}" name="system.wounds.value" value="{{system.wounds.value}}" />
+                                <span aria-hidden="true">/</span>
+                                {{#if system.settings.automaticWounds}}
+                                <span class="ink-number small" title="{{localize 'KNAVE2E.WoundsMax'}}">{{system.wounds.max}}</span>
+                                {{else}}
+                                <input class="ink-number small" type="text" name="system.wounds.max" value="{{system.wounds.max}}" data-dtype="Number" aria-label="{{localize 'KNAVE2E.WoundsMax'}}" />
+                                {{/if}}
                             </div>
                         </div>
                         <div class="health-rest">
-                            <button class="resource-label rounded transparent actor-button rest"
-                                type="button">{{localize
-                                "KNAVE2E.Rest"}}</button>
+                            <button class="resource-label rounded transparent actor-button rest" type="button">{{localize "KNAVE2E.Rest"}}</button>
                         </div>
                     </div>
 
@@ -162,7 +148,7 @@
                             <div class="progress-container horizontal">
                                 <div class="progress-bar">
                                     <div class="progress-fill xp" style="width:{{system.xp.progress}}%"></div>
-                                    <input class="progress-input resource-label content" name="system.xp.value"
+                                    <input class="progress-input resource-label content" aria-label="{{localize 'KNAVE2E.XP'}}" name="system.xp.value"
                                         value="{{system.xp.value}}" />
                                 </div>
                             </div>
@@ -186,6 +172,7 @@
 
                 {{!-- Description Tab --}}
                 <div class="tab description" data-group="primary" data-tab="description">
+                    <div class="journal-heading"><img src="systems/knave2e/assets/ink-journal.webp" alt="" aria-hidden="true" /><span>{{localize "KNAVE2E.Description"}}</span></div>
                     <section class="editor">
                         {{editor system.enrichedHTML target="system.description" button=true owner=owner
                         editable=editable}}
