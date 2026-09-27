@@ -50,9 +50,6 @@ export function installDocumentMotion(root) {
         const active = form.querySelector('.sheet-body > .tab.active');
         const destination = [...form.querySelectorAll('.sheet-body > .tab')].find(el => el.dataset.tab === tab.dataset.tab);
         if (!active || !destination || active === destination || reduced.matches || typeof form.animate !== 'function') return;
-        const links = [...form.querySelectorAll('.document-bookmarks [data-tab]')];
-        const previous = links.findIndex(el => el.dataset.tab === active.dataset.tab);
-        const backwards = links.indexOf(tab) < previous;
         const rect = form.getBoundingClientRect();
         const face = snapshot();
         // Wait for Foundry's normal tab controller to activate the destination.
@@ -67,15 +64,15 @@ export function installDocumentMotion(root) {
             overlay.setAttribute('aria-hidden', 'true');
             overlay.inert = true;
             Object.assign(overlay.style, { width: `${rect.width}px`, height: `${rect.height}px` });
-            Object.assign(face.style, { width: `${rect.width}px`, height: `${rect.height}px`, minHeight: '0', transformOrigin: backwards ? '100% 50%' : '0 50%' });
+            Object.assign(face.style, { width: `${rect.width}px`, height: `${rect.height}px`, minHeight: '0', transformOrigin: '0 50%' });
             overlay.append(face);
             form.append(overlay);
-            const sign = backwards ? 1 : -1;
+            // Always turn the same way, regardless of navigation direction, so the motion reads consistently.
             animation = face.animate([
                 { transform: 'rotateY(0deg)', filter: 'brightness(1)', opacity: 1, offset: 0 },
-                { transform: `rotateY(${sign * 32}deg)`, filter: 'brightness(.9)', opacity: 1, offset: .4 },
-                { transform: `rotateY(${sign * 83}deg)`, filter: 'brightness(.72)', opacity: .9, offset: .86 },
-                { transform: `rotateY(${sign * 100}deg)`, filter: 'brightness(.72)', opacity: 0, offset: 1 },
+                { transform: 'rotateY(-32deg)', filter: 'brightness(.9)', opacity: 1, offset: .4 },
+                { transform: 'rotateY(-83deg)', filter: 'brightness(.72)', opacity: .9, offset: .86 },
+                { transform: 'rotateY(-100deg)', filter: 'brightness(.72)', opacity: 0, offset: 1 },
             ], { duration: 480, easing: 'cubic-bezier(.3,.1,.25,1)', fill: 'forwards' });
             animation.onfinish = clear;
             animation.oncancel = clear;
