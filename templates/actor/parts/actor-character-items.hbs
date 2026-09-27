@@ -63,6 +63,12 @@
 
     <br>
 
+    <nav class="inventory-filters" aria-label="{{localize 'KNAVE2E.Inventory'}}">
+        <button type="button" data-inventory-filter="all">{{localize "KNAVE2E.InventoryAll"}}</button>
+        <button type="button" data-inventory-filter="arms">{{localize "KNAVE2E.InventoryArms"}}</button>
+        <button type="button" data-inventory-filter="magic">{{localize "KNAVE2E.InventoryMagic"}}</button>
+        <button type="button" data-inventory-filter="gear">{{localize "KNAVE2E.InventoryGear"}}</button>
+    </nav>
     <ol class="items-list">
         <li class="knave-item grid grid-12col items-header">
             <div class="resource-label item-name-header grid-span-8">{{localize "KNAVE2E.ItemName"}}</div>
@@ -74,7 +80,7 @@
             </div>
         </li>
         {{#each items as |item id|}}
-        <li class="knave-item grid grid-12col" data-item-id="{{item._id}}">
+        <li class="knave-item grid grid-12col" data-item-id="{{item._id}}" data-item-type="{{item.type}}">
             <div class="item-progress-wrapper grid grid-span-12 grid-12col">
                 <div class="item-progress-fill grid grid-span-12 grid-12col" style="width: {{#if item.system.dropped}}100{{else}}{{item.system.progress}}{{/if}}%;"></div>
                 <div class="item-progress-content grid grid-span-12 grid-12col">
@@ -165,4 +171,10 @@
         </li>
         {{/each}}
     </ol>
+    <p class="inventory-empty" hidden>{{localize "KNAVE2E.InventoryEmpty"}}</p>
+    <nav class="inventory-pagination" aria-label="{{localize 'KNAVE2E.InventoryPages'}}">
+        <button type="button" data-inventory-page="previous" aria-label="{{localize 'KNAVE2E.PreviousPage'}}">←</button>
+        <span class="inventory-page-status" role="status" aria-live="polite"></span>
+        <button type="button" data-inventory-page="next" aria-label="{{localize 'KNAVE2E.NextPage'}}">→</button>
+    </nav>
 </section>

@@ -54,7 +54,7 @@ export function installDocumentMotion(root) {
         const previous = links.findIndex(el => el.dataset.tab === active.dataset.tab);
         const backwards = links.indexOf(tab) < previous;
         const rect = form.getBoundingClientRect();
-        const face = snapshot();
+        const outgoing = snapshot();
         // Wait for Foundry's normal tab controller to activate the destination.
         frame = requestAnimationFrame(() => {
             frame = null;
@@ -67,16 +67,20 @@ export function installDocumentMotion(root) {
             overlay.setAttribute('aria-hidden', 'true');
             overlay.inert = true;
             Object.assign(overlay.style, { width: `${rect.width}px`, height: `${rect.height}px` });
-            Object.assign(face.style, { width: `${rect.width}px`, height: `${rect.height}px`, minHeight: '0', transformOrigin: backwards ? '100% 50%' : '0 50%' });
-            overlay.append(face);
+            // Going back brings the previous leaf onto the current page, around
+            // the same left spine. Mirroring the hinge would open another book.
+            const face = backwards ? snapshot() : outgoing;
+            for (const leaf of backwards ? [outgoing, face] : [face]) {
+                Object.assign(leaf.style, { width: `${rect.width}px`, height: `${rect.height}px`, minHeight: '0', transformOrigin: '0 50%' });
+                overlay.append(leaf);
+            }
             form.append(overlay);
-            const sign = backwards ? 1 : -1;
             animation = face.animate([
                 { transform: 'rotateY(0deg)', filter: 'brightness(1)', opacity: 1, offset: 0 },
-                { transform: `rotateY(${sign * 32}deg)`, filter: 'brightness(.9)', opacity: 1, offset: .4 },
-                { transform: `rotateY(${sign * 83}deg)`, filter: 'brightness(.72)', opacity: .9, offset: .86 },
-                { transform: `rotateY(${sign * 100}deg)`, filter: 'brightness(.72)', opacity: 0, offset: 1 },
-            ], { duration: 480, easing: 'cubic-bezier(.3,.1,.25,1)', fill: 'forwards' });
+                { transform: `rotateY(-32deg)`, filter: 'brightness(.9)', opacity: 1, offset: .4 },
+                { transform: `rotateY(-83deg)`, filter: 'brightness(.72)', opacity: .9, offset: .86 },
+                { transform: `rotateY(-100deg)`, filter: 'brightness(.72)', opacity: 0, offset: 1 },
+            ], { duration: 480, easing: 'cubic-bezier(.3,.1,.25,1)', fill: 'both', direction: backwards ? 'reverse' : 'normal' });
             animation.onfinish = clear;
             animation.oncancel = clear;
             if (typeof ResizeObserver !== 'undefined') {

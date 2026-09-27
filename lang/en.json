@@ -300,5 +300,13 @@
   "KNAVE2E.Document.lightSource.Title": "Expedition stores",
   "KNAVE2E.Document.lightSource.Subtitle": "Light source record",
   "KNAVE2E.Document.monsterAttack.Title": "Bestiary addendum",
-  "KNAVE2E.Document.monsterAttack.Subtitle": "Attack record"
+  "KNAVE2E.Document.monsterAttack.Subtitle": "Attack record",
+  "KNAVE2E.InventoryAll": "All",
+  "KNAVE2E.InventoryArms": "Arms & armour",
+  "KNAVE2E.InventoryMagic": "Magic",
+  "KNAVE2E.InventoryGear": "Equipment",
+  "KNAVE2E.InventoryEmpty": "No items in this section.",
+  "KNAVE2E.InventoryPages": "Inventory pages",
+  "KNAVE2E.PreviousPage": "Previous page",
+  "KNAVE2E.NextPage": "Next page"
 }

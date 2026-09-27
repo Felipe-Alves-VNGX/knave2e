@@ -1231,7 +1231,7 @@
 .knave2e.document-sheet .knave-document .character-grid .header .stats {
   gap: 16px;
 }
-.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active {
+.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character {
   grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.8fr) minmax(0, 1fr);
   grid-template-rows: auto 1fr;
   gap: 18px 20px;
@@ -1242,25 +1242,25 @@
   -ms-flex-pack: stretch;
   justify-content: stretch;
 }
-.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .abilities {
+.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character .abilities {
   grid-area: 1/1/3/2;
   border-right: 1px solid rgba(150, 124, 86, 0.3333333333);
   padding-right: 12px;
 }
-.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .abilities > .flexrow {
+.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character .abilities > .flexrow {
   margin-bottom: 13px;
   gap: 10px;
 }
-.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .abilities .ability {
+.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character .abilities .ability {
   margin-left: 0;
   min-width: 0;
 }
-.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .abilities input {
+.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character .abilities input {
   -webkit-box-flex: 0;
   -ms-flex: 0 0 48px;
   flex: 0 0 48px;
 }
-.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .abilities .rollable {
+.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character .abilities .rollable {
   border: 0;
   padding: 0;
   margin: 0;
@@ -1273,46 +1273,46 @@
   line-height: 1.2;
   overflow-wrap: anywhere;
 }
-.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .abilities .detail {
+.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character .abilities .detail {
   font-size: 11px;
   line-height: 1.35;
   color: var(--doc-muted);
 }
-.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .armor {
+.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character .armor {
   grid-area: 1/2/2/3;
   gap: 6px;
 }
-.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .health {
+.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character .health {
   grid-area: 2/2/3/3;
   display: block;
 }
-.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .health .health-max {
+.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character .health .health-max {
   margin-bottom: 8px;
 }
-.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .health-rest {
+.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character .health-rest {
   margin-top: 14px;
 }
-.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .health-rest button {
+.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character .health-rest button {
   width: 100%;
   padding: 7px;
 }
-.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .level {
+.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character .level {
   grid-area: 1/3/2/4;
   gap: 8px;
 }
-.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .level > .flexcol {
+.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character .level > .flexcol {
   -webkit-box-flex: 0;
   -ms-flex: 0 0 52px;
   flex: 0 0 52px;
 }
-.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .xp {
+.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character .xp {
   min-width: 0;
 }
-.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .portrait {
+.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character .portrait {
   grid-area: 2/3/3/4;
   width: 100%;
 }
-.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .portrait img {
+.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character .portrait img {
   width: 100%;
   max-height: 270px;
   min-height: 205px;
@@ -1551,22 +1551,22 @@
     grid-template-columns: 110px minmax(0, 1fr);
     gap: 12px;
   }
-  .knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active {
+  .knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character {
     grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
   }
-  .knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .abilities {
+  .knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character .abilities {
     grid-area: 1/1/4/2;
   }
-  .knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .armor {
+  .knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character .armor {
     grid-area: 1/2/2/3;
   }
-  .knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .health {
+  .knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character .health {
     grid-area: 2/2/3/3;
   }
-  .knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .level {
+  .knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character .level {
     grid-area: 3/2/4/3;
   }
-  .knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .portrait {
+  .knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character .portrait {
     grid-area: 4/1/5/3;
     max-width: 230px;
     justify-self: center;
@@ -1737,51 +1737,51 @@
 .knave2e.document-sheet .knave-document .character-grid .sheet-body {
   margin-top: 26px;
 }
-.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active {
+.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character {
   grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.85fr) minmax(0, 1fr);
   gap: 16px;
 }
-.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .abilities {
+.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character .abilities {
   border: 0;
   padding-right: 8px;
 }
-.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .abilities > .flexrow {
+.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character .abilities > .flexrow {
   gap: 9px;
   margin-bottom: 10px;
 }
-.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .abilities input {
+.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character .abilities input {
   -ms-flex-preferred-size: 58px;
   flex-basis: 58px;
 }
-.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .abilities .rollable {
+.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character .abilities .rollable {
   font-family: "Knave Capitals", serif;
   font-size: 15px !important;
   font-weight: 400;
 }
-.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .abilities .detail {
+.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character .abilities .detail {
   font-family: "Knave Hand", cursive;
   font-size: 17px;
   line-height: 1.05;
   color: #584833;
 }
-.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .abilities > .flexrow:nth-child(2n) input {
+.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character .abilities > .flexrow:nth-child(2n) input {
   -webkit-transform: rotate(-5deg);
   -ms-transform: rotate(-5deg);
   transform: rotate(-5deg);
 }
-.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .abilities > .flexrow:nth-child(2n+1) input {
+.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character .abilities > .flexrow:nth-child(2n+1) input {
   -webkit-transform: rotate(3deg);
   -ms-transform: rotate(3deg);
   transform: rotate(3deg);
 }
-.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .health {
+.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character .health {
   min-width: 0;
 }
-.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .level > .flexcol {
+.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character .level > .flexcol {
   -ms-flex-preferred-size: 60px;
   flex-basis: 60px;
 }
-.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .portrait {
+.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character .portrait {
   position: relative;
   padding: 7px;
   -webkit-transform: rotate(1deg);
@@ -1791,7 +1791,7 @@
   -webkit-box-shadow: 2px 3px 5px rgba(54, 41, 25, 0.2509803922);
   box-shadow: 2px 3px 5px rgba(54, 41, 25, 0.2509803922);
 }
-.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .portrait::before, .knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .portrait::after {
+.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character .portrait::before, .knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character .portrait::after {
   content: "";
   position: absolute;
   top: 19px;
@@ -1804,16 +1804,16 @@
   transform: rotate(-38deg);
   pointer-events: none;
 }
-.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .portrait::before {
+.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character .portrait::before {
   left: -8px;
 }
-.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .portrait::after {
+.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character .portrait::after {
   right: -8px;
   -webkit-transform: rotate(38deg);
   -ms-transform: rotate(38deg);
   transform: rotate(38deg);
 }
-.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .portrait img {
+.knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character .portrait img {
   border: 1px solid rgba(114, 84, 53, 0.4);
   background: transparent;
   -webkit-box-shadow: none;
@@ -2088,22 +2088,22 @@
   font-size: 10px !important;
 }
 @container (max-width: 560px) {
-  .knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active {
+  .knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character {
     grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
   }
-  .knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .abilities {
+  .knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character .abilities {
     grid-area: 1/1/4/2;
   }
-  .knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .armor {
+  .knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character .armor {
     grid-area: 1/2/2/3;
   }
-  .knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .health {
+  .knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character .health {
     grid-area: 2/2/3/3;
   }
-  .knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .level {
+  .knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character .level {
     grid-area: 3/2/4/3;
   }
-  .knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character.active .portrait {
+  .knave2e.document-sheet .knave-document .character-grid .sheet-body .tab.character .portrait {
     grid-area: 4/1/5/3;
   }
   .knave2e.document-sheet .knave-document .document-masthead {
@@ -2244,6 +2244,170 @@
   .knave2e.document-sheet .document-turn-layer {
     display: none;
   }
+}
+.knave2e.document-sheet .knave-document.document-character {
+  min-height: var(--journal-min-height, auto);
+  height: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+.knave2e.document-sheet .knave-document.document-character .document-masthead {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+}
+.knave2e.document-sheet .knave-document.document-character > .sheet-container {
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+.knave2e.document-sheet .knave-document.document-character .character-grid {
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+.knave2e.document-sheet .knave-document.document-character .character-grid > .header {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+}
+.knave2e.document-sheet .knave-document.document-character .character-grid > .sheet-body {
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+}
+.knave2e.document-sheet .knave-document.document-character .character-grid > .sheet-body > .tab {
+  grid-area: 1/1;
+  align-self: start;
+  display: block !important;
+  visibility: hidden;
+  pointer-events: none;
+  height: auto;
+}
+.knave2e.document-sheet .knave-document.document-character .character-grid > .sheet-body > .tab.character {
+  display: grid !important;
+}
+.knave2e.document-sheet .knave-document.document-character .character-grid > .sheet-body > .tab.active {
+  visibility: visible;
+  pointer-events: auto;
+}
+.knave2e.document-sheet .knave-document.document-character .character-grid > .footer {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+}
+.knave2e.document-sheet .knave-document.document-character .inventory-filters {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 12px 0;
+}
+.knave2e.document-sheet .knave-document.document-character .inventory-filters button {
+  width: auto;
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  padding: 5px 7px;
+  font: 14px "Knave Capitals", serif;
+  background: transparent;
+  border: 1px dashed rgba(120, 93, 58, 0.6);
+}
+.knave2e.document-sheet .knave-document.document-character .inventory-filters button[aria-pressed=true] {
+  background: rgba(120, 93, 58, 0.1333333333);
+  border-style: solid;
+  color: #783e2b;
+  -webkit-box-shadow: inset 0 -2px rgba(120, 62, 43, 0.4);
+  box-shadow: inset 0 -2px rgba(120, 62, 43, 0.4);
+}
+.knave2e.document-sheet .knave-document.document-character .tab.items .items-list {
+  grid-template-rows: 38px repeat(var(--inventory-reserved-rows, 6), 64px);
+}
+.knave2e.document-sheet .knave-document.document-character .tab.items .items-list .knave-item {
+  min-height: 0;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.knave2e.document-sheet .knave-document.document-character .tab.items .items-list .inventory-hidden {
+  display: none !important;
+}
+.knave2e.document-sheet .knave-document.document-character .inventory-pagination {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  gap: 16px;
+  min-height: 42px;
+  margin: 12px 0;
+}
+.knave2e.document-sheet .knave-document.document-character .inventory-pagination button {
+  width: 40px;
+  font: 24px "Knave Hand", cursive;
+}
+.knave2e.document-sheet .knave-document.document-character .inventory-pagination button:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+.knave2e.document-sheet .knave-document.document-character .inventory-page-status {
+  font: 23px "Knave Hand", cursive;
+  min-width: 65px;
+  text-align: center;
+}
+.knave2e.document-sheet .knave-document.document-character .inventory-empty {
+  font: 22px "Knave Hand", cursive;
+  margin: 0;
+}
+.knave2e.document-sheet .knave-document.document-character .inventory-empty[hidden] {
+  display: none;
+}
+
+.knave2e.document-sheet .knave-document.document-character .character-grid > .header input {
+  line-height: normal;
+}
+.knave2e.document-sheet .knave-document.document-character .inventory-empty {
+  min-height: 31px;
+}
+.knave2e.document-sheet .knave-document.document-character .inventory-empty[hidden] {
+  display: block;
+  visibility: hidden;
+}
+
+.knave2e.document-sheet .knave-document.document-character .character-grid {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+.knave2e.document-sheet .knave-document.document-character .character-grid > .header, .knave2e.document-sheet .knave-document.document-character .character-grid > .sheet-body, .knave2e.document-sheet .knave-document.document-character .character-grid > .footer {
+  grid-area: auto;
+}
+
+.knave2e.document-sheet .knave-document.document-character .header input {
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
 }
 
 </style><nav class="preview-nav"><a href="#character" data-preview="character">character</a><a href="#recruit" data-preview="recruit">recruit</a><a href="#monster" data-preview="monster">monster</a><a href="#vehicle" data-preview="vehicle">vehicle</a><a href="#building" data-preview="building">building</a><a href="#armor" data-preview="armor">armor</a><a href="#equipment" data-preview="equipment">equipment</a><a href="#lightSource" data-preview="lightSource">lightSource</a><a href="#spellbook" data-preview="spellbook">spellbook</a><a href="#weapon" data-preview="weapon">weapon</a><a href="#monsterAttack" data-preview="monsterAttack">monsterAttack</a><a href="#potion" data-preview="potion">potion</a></nav><p class="preview-note">Visual preview · sample data · rolls and saving require Foundry VTT.</p><section id="preview-character" class="app window-app knave2e sheet actor document-sheet" ><header class="window-header">Merrin Ashford · character</header><div class="window-content"><form class="knave-document document-character  character" autocomplete="off">
@@ -2489,6 +2653,12 @@
                     
                         <br>
                     
+                        <nav class="inventory-filters" aria-label="INVENTORY">
+                            <button type="button" data-inventory-filter="all">All</button>
+                            <button type="button" data-inventory-filter="arms">Arms &amp; armour</button>
+                            <button type="button" data-inventory-filter="magic">Magic</button>
+                            <button type="button" data-inventory-filter="gear">Equipment</button>
+                        </nav>
                         <ol class="items-list">
                             <li class="knave-item grid grid-12col items-header">
                                 <div class="resource-label item-name-header grid-span-8">Item Name</div>
@@ -2499,7 +2669,7 @@
                                         item</a>
                                 </div>
                             </li>
-                            <li class="knave-item grid grid-12col" data-item-id="sample0">
+                            <li class="knave-item grid grid-12col" data-item-id="sample0" data-item-type="weapon">
                                 <div class="item-progress-wrapper grid grid-span-12 grid-12col">
                                     <div class="item-progress-fill grid grid-span-12 grid-12col" style="width: 0%;"></div>
                                     <div class="item-progress-content grid grid-span-12 grid-12col">
@@ -2536,7 +2706,7 @@
                                     </div>
                                 </div>
                             </li>
-                            <li class="knave-item grid grid-12col" data-item-id="sample1">
+                            <li class="knave-item grid grid-12col" data-item-id="sample1" data-item-type="armor">
                                 <div class="item-progress-wrapper grid grid-span-12 grid-12col">
                                     <div class="item-progress-fill grid grid-span-12 grid-12col" style="width: 0%;"></div>
                                     <div class="item-progress-content grid grid-span-12 grid-12col">
@@ -2564,7 +2734,7 @@
                                     </div>
                                 </div>
                             </li>
-                            <li class="knave-item grid grid-12col" data-item-id="sample2">
+                            <li class="knave-item grid grid-12col" data-item-id="sample2" data-item-type="spellbook">
                                 <div class="item-progress-wrapper grid grid-span-12 grid-12col">
                                     <div class="item-progress-fill grid grid-span-12 grid-12col" style="width: 0%;"></div>
                                     <div class="item-progress-content grid grid-span-12 grid-12col">
@@ -2596,7 +2766,7 @@
                                     </div>
                                 </div>
                             </li>
-                            <li class="knave-item grid grid-12col" data-item-id="sample3">
+                            <li class="knave-item grid grid-12col" data-item-id="sample3" data-item-type="potion">
                                 <div class="item-progress-wrapper grid grid-span-12 grid-12col">
                                     <div class="item-progress-fill grid grid-span-12 grid-12col" style="width: 0%;"></div>
                                     <div class="item-progress-content grid grid-span-12 grid-12col">
@@ -2627,7 +2797,7 @@
                                     </div>
                                 </div>
                             </li>
-                            <li class="knave-item grid grid-12col" data-item-id="sample4">
+                            <li class="knave-item grid grid-12col" data-item-id="sample4" data-item-type="equipment">
                                 <div class="item-progress-wrapper grid grid-span-12 grid-12col">
                                     <div class="item-progress-fill grid grid-span-12 grid-12col" style="width: 0%;"></div>
                                     <div class="item-progress-content grid grid-span-12 grid-12col">
@@ -2653,7 +2823,7 @@
                                     </div>
                                 </div>
                             </li>
-                            <li class="knave-item grid grid-12col" data-item-id="sample5">
+                            <li class="knave-item grid grid-12col" data-item-id="sample5" data-item-type="lightSource">
                                 <div class="item-progress-wrapper grid grid-span-12 grid-12col">
                                     <div class="item-progress-fill grid grid-span-12 grid-12col" style="width: 0%;"></div>
                                     <div class="item-progress-content grid grid-span-12 grid-12col">
@@ -2682,6 +2852,12 @@
                                 </div>
                             </li>
                         </ol>
+                        <p class="inventory-empty" hidden>No items in this section.</p>
+                        <nav class="inventory-pagination" aria-label="Inventory pages">
+                            <button type="button" data-inventory-page="previous" aria-label="Previous page">←</button>
+                            <span class="inventory-page-status" role="status" aria-live="polite"></span>
+                            <button type="button" data-inventory-page="next" aria-label="Next page">→</button>
+                        </nav>
                     </section>                </div>
 
                 <div class="tab description" data-group="primary" data-tab="description">
@@ -4139,7 +4315,60 @@
     </div>
   </section>
 </form>
-</div></section><script>/** Decorative page turn around the existing Foundry tab controller.
+</div></section><script>/** Shared natural page height is handled by overlapping CSS grid cells.
+ * Inventory leaves keep live item rows in place so Foundry handlers/dragging survive. */
+function installDocumentPages(root, state = { category: 'all', page: 0 }) {
+    const form = root.matches?.('.document-character') ? root : root.querySelector('.document-character');
+    if (!form) return () => {};
+    const inventory = form.querySelector('.tab.items');
+    const rows = [...inventory.querySelectorAll('.items-list > [data-item-id]')];
+    const filters = [...inventory.querySelectorAll('[data-inventory-filter]')];
+    const previous = inventory.querySelector('[data-inventory-page="previous"]');
+    const next = inventory.querySelector('[data-inventory-page="next"]');
+    const status = inventory.querySelector('.inventory-page-status');
+    const empty = inventory.querySelector('.inventory-empty');
+    const pageSize = 6;
+    inventory.style.setProperty('--inventory-reserved-rows', Math.min(pageSize, rows.length));
+    function category(row) {
+        if (['weapon', 'armor'].includes(row.dataset.itemType)) return 'arms';
+        if (['spellbook', 'potion'].includes(row.dataset.itemType)) return 'magic';
+        return 'gear';
+    }
+    function render() {
+        if (!filters.some(button => button.dataset.inventoryFilter === state.category)) state.category = 'all';
+        const selected = rows.filter(row => state.category === 'all' || category(row) === state.category);
+        const pages = Math.max(1, Math.ceil(selected.length / pageSize));
+        state.page = Math.max(0, Math.min(state.page, pages - 1));
+        const visible = new Set(selected.slice(state.page * pageSize, (state.page + 1) * pageSize));
+        rows.forEach(row => row.classList.toggle('inventory-hidden', !visible.has(row)));
+        filters.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.inventoryFilter === state.category)));
+        previous.disabled = state.page === 0;
+        next.disabled = state.page === pages - 1;
+        status.textContent = `${state.page + 1} / ${pages}`;
+        empty.hidden = selected.length !== 0;
+    }
+    function onClick(event) {
+        const filter = event.target.closest('[data-inventory-filter]');
+        const page = event.target.closest('[data-inventory-page]');
+        if (filter && inventory.contains(filter)) { state.category = filter.dataset.inventoryFilter; state.page = 0; render(); }
+        else if (page && inventory.contains(page) && !page.disabled) { state.page += page.dataset.inventoryPage === 'next' ? 1 : -1; render(); }
+    }
+    let lastWidth = -1;
+    function resize() {
+        const width = form.getBoundingClientRect().width;
+        if (width > 0 && width !== lastWidth) {
+            lastWidth = width;
+            // A5 is a minimum proportion, never a cap on the tallest page.
+            form.style.setProperty('--journal-min-height', `${Math.ceil(width * 210 / 148)}px`);
+        }
+    }
+    render(); resize();
+    const observer = new ResizeObserver(resize);
+    observer.observe(form);
+    inventory.addEventListener('click', onClick);
+    return () => { observer.disconnect(); inventory.removeEventListener('click', onClick); };
+}
+;document.querySelectorAll('.document-character').forEach(el=>installDocumentPages(el));/** Decorative page turn around the existing Foundry tab controller.
  * The live document remains the only form. Snapshots are inert and nameless;
  * this helper never submits, updates, hides or re-parents live fields. */
 function installDocumentMotion(root) {
@@ -4195,7 +4424,7 @@ function installDocumentMotion(root) {
         const previous = links.findIndex(el => el.dataset.tab === active.dataset.tab);
         const backwards = links.indexOf(tab) < previous;
         const rect = form.getBoundingClientRect();
-        const face = snapshot();
+        const outgoing = snapshot();
         // Wait for Foundry's normal tab controller to activate the destination.
         frame = requestAnimationFrame(() => {
             frame = null;
@@ -4208,16 +4437,20 @@ function installDocumentMotion(root) {
             overlay.setAttribute('aria-hidden', 'true');
             overlay.inert = true;
             Object.assign(overlay.style, { width: `${rect.width}px`, height: `${rect.height}px` });
-            Object.assign(face.style, { width: `${rect.width}px`, height: `${rect.height}px`, minHeight: '0', transformOrigin: backwards ? '100% 50%' : '0 50%' });
-            overlay.append(face);
+            // Going back brings the previous leaf onto the current page, around
+            // the same left spine. Mirroring the hinge would open another book.
+            const face = backwards ? snapshot() : outgoing;
+            for (const leaf of backwards ? [outgoing, face] : [face]) {
+                Object.assign(leaf.style, { width: `${rect.width}px`, height: `${rect.height}px`, minHeight: '0', transformOrigin: '0 50%' });
+                overlay.append(leaf);
+            }
             form.append(overlay);
-            const sign = backwards ? 1 : -1;
             animation = face.animate([
                 { transform: 'rotateY(0deg)', filter: 'brightness(1)', opacity: 1, offset: 0 },
-                { transform: `rotateY(${sign * 32}deg)`, filter: 'brightness(.9)', opacity: 1, offset: .4 },
-                { transform: `rotateY(${sign * 83}deg)`, filter: 'brightness(.72)', opacity: .9, offset: .86 },
-                { transform: `rotateY(${sign * 100}deg)`, filter: 'brightness(.72)', opacity: 0, offset: 1 },
-            ], { duration: 480, easing: 'cubic-bezier(.3,.1,.25,1)', fill: 'forwards' });
+                { transform: `rotateY(-32deg)`, filter: 'brightness(.9)', opacity: 1, offset: .4 },
+                { transform: `rotateY(-83deg)`, filter: 'brightness(.72)', opacity: .9, offset: .86 },
+                { transform: `rotateY(-100deg)`, filter: 'brightness(.72)', opacity: 0, offset: 1 },
+            ], { duration: 480, easing: 'cubic-bezier(.3,.1,.25,1)', fill: 'both', direction: backwards ? 'reverse' : 'normal' });
             animation.onfinish = clear;
             animation.oncancel = clear;
             if (typeof ResizeObserver !== 'undefined') {

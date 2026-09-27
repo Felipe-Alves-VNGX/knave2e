@@ -1,3 +1,4 @@
+import { installDocumentPages } from './document-pages.mjs';
 import { installDocumentMotion } from './document-motion.mjs';
 import { onAttack, onDamageFromSheet, onCast } from '../helpers/items.mjs';
 import { onBrewPotion } from '../helpers/alchemy.mjs';
@@ -304,7 +305,9 @@ export default class Knave2eActorSheet extends foundry.appv1.sheets.ActorSheet {
 
     activateListeners(html) {
         this._documentMotionCleanup?.();
+        this._documentPagesCleanup?.();
         super.activateListeners(html);
+        this._documentPagesCleanup = installDocumentPages(html[0], this._documentInventoryState ??= { category: 'all', page: 0 });
         this._documentMotionCleanup = installDocumentMotion(html[0]);
 
         // Bookmark links retain Foundry's tab controller and support keyboard activation.
@@ -411,6 +414,8 @@ export default class Knave2eActorSheet extends foundry.appv1.sheets.ActorSheet {
     async close(options = {}) {
         this._documentMotionCleanup?.();
         this._documentMotionCleanup = null;
+        this._documentPagesCleanup?.();
+        this._documentPagesCleanup = null;
         return super.close(options);
     }
 

@@ -62,7 +62,7 @@ Verificações desta revisão: compilação SCSS; 24 comparações de campos/com
 
 ## Virada de página em 3D
 
-Ao selecionar um marca-páginas, a folha anterior gira em perspectiva com sombra e mudança de iluminação. A direção depende da ordem das abas. Duração: 480 ms. É uma aproximação de folha rígida em CSS 3D, sem a simulação de curvatura do DearFlip. Nenhum código do DearFlip foi incorporado.
+Ao selecionar um marca-páginas, a folha anterior gira em perspectiva com sombra e mudança de iluminação. Ao avançar, a folha atual sai pela lombada esquerda; ao voltar, a folha anterior retorna pela mesma lombada sobre a atual. A volta inverte o movimento e a iluminação, sem trocar o eixo para a borda direita. Duração: 480 ms. É uma aproximação de folha rígida em CSS 3D, sem a simulação de curvatura do DearFlip. Nenhum código do DearFlip foi incorporado.
 
 A implementação está em `module/sheets/document-motion.mjs` e `scss/components/_page-turn.scss`. A mesma função é executada pela prévia HTML. Durante a transição há uma cópia visual sem nomes de campos, IDs ou edição, marcada como `inert` e `aria-hidden`. O formulário real permanece no lugar, e o controlador de abas original continua responsável pela navegação.
 
@@ -71,3 +71,14 @@ A animação é cancelada ao trocar rapidamente de aba, redimensionar a largura,
 Verificado na prévia: ativação da aba correta, preservação dos valores de formulário, ausência de campos e IDs duplicados na cópia visual, trocas rápidas, redução de movimento e limpeza no redimensionamento. Teste dentro do Foundry permanece pendente.
 
 Demonstração animada: `docs/page-turn-preview.gif`. Para experimentar com cliques, abra `docs/sheets-preview.html`.
+
+
+## Páginas de tamanho comum e inventário dividido
+
+As três páginas participam da mesma medição de layout, inclusive quando inativas. A maior altura natural define a folha de todas elas. Não há altura fixa em pixels nem rolagem interna obrigatória; se a janela for menor, a janela pode rolar normalmente. A proporção A5 (148 × 210 mm, aproximadamente 1:1,42) serve como referência mínima. Em janelas estreitas ou com anotações extensas, a necessidade de espaço prevalece sobre essa proporção.
+
+Referência de formato: https://www.adobe.com/uk/creativecloud/design/discover/a5-format.html
+
+O inventário contém as seções All, Arms & armour, Magic e Equipment, com seis entradas por subpágina. Armas e armaduras ficam juntas; livros de magia e poções ficam em Magic; equipamentos e fontes de luz ficam em Equipment. All inclui todos os itens. As setas percorrem as subpáginas. O espaço de linhas é reservado conforme o total de itens, evitando que a última subpágina, mais curta, diminua a folha. A seção e subpágina são mantidas quando o Foundry renderiza novamente a mesma janela.
+
+Verificações: igualdade das três alturas em larguras de 900 e 600 px; 36 itens acessíveis em seis subpáginas, sem mudança de altura; categorias e limites das setas; crescimento conjunto diante de anotações longas; animação e preservação de valores continuam passando na prévia. Não houve sessão de teste dentro do Foundry.

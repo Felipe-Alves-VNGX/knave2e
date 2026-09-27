@@ -138,7 +138,7 @@
       .header .logo img { width: 100%; min-width: 0; max-width: 170px; mix-blend-mode: multiply; }
       .header .info { grid-area: auto; min-width: 0; }
       .header .stats { gap: 16px; }
-      .sheet-body .tab.character.active {
+      .sheet-body .tab.character {
         grid-template-columns: minmax(0, 1.25fr) minmax(0, .8fr) minmax(0, 1fr);
         grid-template-rows: auto 1fr;
         gap: 18px 20px;
@@ -233,7 +233,7 @@
   @container (max-width: 560px) {
     .knave-document .document-masthead { grid-template-columns: 65px minmax(0, 1fr) 25px; h1 { font-size: 21px; } }
     .knave-document .character-grid .header { grid-template-columns: 110px minmax(0, 1fr); gap: 12px; }
-    .knave-document .character-grid .sheet-body .tab.character.active {
+    .knave-document .character-grid .sheet-body .tab.character {
       grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
       .abilities { grid-area: 1 / 1 / 4 / 2; }
       .armor { grid-area: 1 / 2 / 2 / 3; }
