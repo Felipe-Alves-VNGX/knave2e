@@ -104,6 +104,7 @@
         .party-condition-add { width: 44px; }
       }
       .cell-transfer select { width: 56px; }
+      .cell-careers .party-edit { width: 100%; min-width: 110px; text-align: left; font-size: 19px; }
     }
     .tab-total { margin: 4px 0 0; text-align: right; font: 21px 'Knave Hand', cursive; strong { color: var(--doc-accent); font-weight: normal; } }
 
@@ -113,7 +114,7 @@
       select, input { height: 28px; }
       .inventory-total { margin-left: auto; font: 24px 'Knave Hand', cursive; color: var(--doc-accent); }
     }
-    .stash-title { font-size: 19px; margin-top: 10px; a { font-size: 22px; } }
+    .stash-title { font-size: 19px; margin-top: 10px; a { font-size: 22px; } .party-edit.limit { width: 52px; height: 24px; margin: 0 2px; font-size: 19px; } }
 
     .army-totals { grid-template-columns: repeat(3, minmax(0, 1fr)) auto; margin-top: 12px; }
     .party-warfare { width: auto; margin: 0; padding: 5px 14px; font: 16px 'Knave Capitals', serif; }

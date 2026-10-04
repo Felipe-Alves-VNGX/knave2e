@@ -4,11 +4,13 @@
 - Add the Party actor type, a folder-like sheet you drag actors onto (from the sidebar or
   from another party) and can organise into subfolders. In the Actors directory the party
   expands to list its members and accepts drops. Its tabs only exist while the party holds a
-  matching actor: Characters (HP, AC, wounds, XP, level, conditions, carrying), a Shared
+  matching actor: Characters (HP, AC, wounds, XP, level, careers, conditions), a Shared
   stash that pools the items of every sheet with an inventory (and moves items between
-  members), Retinue (hirelings, mercenaries, experts and companions with upkeep), Holdings
+  members; the slot limit of vehicles and buildings is edited right there), Retinue (hirelings, mercenaries, experts and companions with upkeep), Holdings
   (buildings and vehicles) and Armies (military strength). The idea is inspired by the
   Pathfinder 2e system (see the README credits).
+- Buildings now have an inventory like vehicles do. The book gives neither a storage rule,
+  so both slot limits are set by hand (buildings default to 100 slots)
 - Add the Army actor type for the Warfare procedure: unit type, troops, morale/position
   modifier and leader speech give fighting power and monthly cost; the Armies tab feeds the
   total into the Warfare Calculator

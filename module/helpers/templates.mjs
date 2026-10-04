@@ -7,5 +7,6 @@ export const preloadHandlebarsTemplates = async function () {
   return foundry.applications.handlebars.loadTemplates([
     // Actor partials.
     "systems/knave2e/templates/actor/parts/actor-character-items.hbs",
+    "systems/knave2e/templates/actor/parts/actor-items-list.hbs",
   ]);
 };

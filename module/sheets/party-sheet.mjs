@@ -1,4 +1,4 @@
-import { INVENTORY_HOLDER_TYPES, PARTY_ROLES, PARTY_TABS, enlistActor, resolveMembers, roleTagOf } from '../helpers/party.mjs';
+import { INVENTORY_HOLDER_TYPES, MANUAL_LIMIT_TYPES, PARTY_ROLES, PARTY_TABS, enlistActor, resolveMembers, roleTagOf } from '../helpers/party.mjs';
 
 const ROMAN = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII'];
 const TYPE_ICONS = {
@@ -116,7 +116,7 @@ export default class Knave2ePartySheet extends foundry.appv1.sheets.ActorSheet {
                 row.hp = sys.hitPoints;
                 row.wounds = sys.wounds;
                 row.ac = sys.armorClass;
-                row.carry = { value: Number(sys.slots.value), max: Number(sys.slots.max) };
+                row.careers = sys.careers;
                 row.conditions = m.actor.effects.contents
                     .filter((effect) => !effect.disabled && effect.statuses?.size)
                     .map((effect) => ({
@@ -136,6 +136,7 @@ export default class Knave2ePartySheet extends foundry.appv1.sheets.ActorSheet {
             .map((m) => ({
                 ...this._base(m),
                 slots: { value: Number(m.actor.system.slots.value), max: Number(m.actor.system.slots.max) },
+                limitEditable: MANUAL_LIMIT_TYPES.includes(m.actor.type) && m.actor.isOwner,
                 items: [],
             }));
         const types = new Set();
@@ -214,8 +215,9 @@ export default class Knave2ePartySheet extends foundry.appv1.sheets.ActorSheet {
             const row = { ...base, hidden: !base.canOpen };
             if (!row.hidden) {
                 row.coins = sys.coins;
+                row.carry = { value: Number(sys.slots.value), max: Number(sys.slots.max) };
                 if (m.group === 'vehicles') {
-                    Object.assign(row, { crew: sys.crew, cost: sys.cost, carry: { value: Number(sys.slots.value), max: Number(sys.slots.max) } });
+                    Object.assign(row, { crew: sys.crew, cost: sys.cost });
                 } else {
                     const style = CONFIG.SYSTEM.BUILDING.ROOM_STYLES[sys.roomStyle];
                     Object.assign(row, {
@@ -365,6 +367,7 @@ export default class Knave2ePartySheet extends foundry.appv1.sheets.ActorSheet {
             const input = event.currentTarget;
             const actor = fromUuidSync(input.closest('[data-uuid]').dataset.uuid);
             if (!actor?.isOwner) return ui.notifications.warn(game.i18n.localize('KNAVE2E.Party.NotOwner'));
+            if (input.dataset.type === 'string') return actor.update({ [input.dataset.field]: input.value.trim() });
             const value = Number(input.value);
             if (!Number.isFinite(value)) return this.render(false);
             return actor.update({ [input.dataset.field]: value });

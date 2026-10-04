@@ -7,7 +7,10 @@ export const PARTY_GROUPS = ['players', 'hireling', 'mercenary', 'expert', 'comp
 const RECRUIT_CATEGORY_GROUPS = ['hireling', 'mercenary', 'expert'];
 
 /** Actor types that carry an inventory worth pooling in the shared stash. */
-export const INVENTORY_HOLDER_TYPES = ['character', 'recruit', 'vehicle'];
+export const INVENTORY_HOLDER_TYPES = ['character', 'recruit', 'vehicle', 'building'];
+
+/** Holders whose slot limit has no rule behind it, so the GM sets it by hand. */
+export const MANUAL_LIMIT_TYPES = ['vehicle', 'building'];
 
 /** Which group an actor belongs to; `null` for actors that cannot join a party. */
 export function groupOf(actor) {

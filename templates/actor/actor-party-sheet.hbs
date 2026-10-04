@@ -114,7 +114,7 @@
                             <th class="num">{{localize "KNAVE2E.HitPoints"}}</th>
                             <th class="num">{{localize "KNAVE2E.ArmorClass"}}</th>
                             <th class="num">{{localize "KNAVE2E.Party.Col.wounds"}}</th>
-                            <th class="num">{{localize "KNAVE2E.Party.Col.carrying"}}</th>
+                            <th>{{localize "KNAVE2E.Party.Col.careers"}}</th>
                             <th>{{localize "KNAVE2E.Party.Col.conditions"}}</th>
                         </tr></thead>
                         <tbody>
@@ -130,7 +130,7 @@
                                 <td class="num"><input class="party-edit" type="text" inputmode="numeric" data-field="system.hitPoints.value" value="{{c.hp.value}}" {{#unless c.canEdit}}disabled{{/unless}}><span class="of">/ {{c.hp.max}}</span></td>
                                 <td class="num">{{c.ac}}</td>
                                 <td class="num"><input class="party-edit" type="text" inputmode="numeric" data-field="system.wounds.value" value="{{c.wounds.value}}" {{#unless c.canEdit}}disabled{{/unless}}><span class="of">/ {{c.wounds.max}}</span></td>
-                                <td class="num">{{c.carry.value}}<span class="of">/ {{c.carry.max}}</span></td>
+                                <td class="cell-careers"><input class="party-edit" type="text" data-type="string" data-field="system.careers" value="{{c.careers}}" placeholder="—" {{#unless c.canEdit}}disabled{{/unless}}></td>
                                 <td class="cell-conditions">
                                     {{#each c.conditions as |cond|}}<a class="party-condition" data-status="{{cond.id}}" data-tooltip="{{cond.name}}"><img src="{{cond.img}}" alt="{{cond.name}}"></a>{{/each}}
                                     {{#if c.canEdit}}
@@ -169,7 +169,8 @@
                     {{#each inventory.holders as |holder|}}
                     <section class="stash-holder" data-uuid="{{holder.uuid}}">
                         <h3 class="stash-title"><img class="member-image" src="{{holder.img}}" alt=""><a class="party-open detail">{{holder.name}}</a>
-                            <span class="count">{{holder.slots.value}}<span class="of">/ {{holder.slots.max}}</span> {{localize "KNAVE2E.Slots"}}</span></h3>
+                            <span class="count">{{holder.slots.value}}<span class="of">/
+                                {{#if holder.limitEditable}}<input class="party-edit limit" type="text" inputmode="numeric" data-field="system.slots.max" value="{{holder.slots.max}}" title="{{localize 'KNAVE2E.Party.EditLimit'}}">{{else}}{{holder.slots.max}}{{/if}}</span> {{localize "KNAVE2E.Slots"}}</span></h3>
                         <table class="party-table items">
                             <tbody>
                                 {{#each holder.items as |item|}}
@@ -246,19 +247,20 @@
                     <table class="party-table">
                         <thead><tr>
                             <th>{{localize "KNAVE2E.Name"}}</th><th class="num">{{localize "KNAVE2E.Squares"}}</th><th>{{localize "KNAVE2E.Party.Col.style"}}</th>
-                            <th class="num">{{localize "KNAVE2E.Party.Col.value"}}</th><th class="num">{{localize "KNAVE2E.Party.Col.staffing"}}</th><th class="num">{{localize "KNAVE2E.Party.Col.rental"}}</th><th class="num">{{localize "KNAVE2E.Coins"}}</th>
+                            <th class="num">{{localize "KNAVE2E.Party.Col.value"}}</th><th class="num">{{localize "KNAVE2E.Party.Col.staffing"}}</th><th class="num">{{localize "KNAVE2E.Party.Col.rental"}}</th><th class="num">{{localize "KNAVE2E.Party.Col.carrying"}}</th><th class="num">{{localize "KNAVE2E.Coins"}}</th>
                         </tr></thead>
                         <tbody>
                             {{#each holdings.buildings as |b|}}
                             <tr class="party-row" data-uuid="{{b.uuid}}">
                                 <td class="cell-name"><img class="member-image" src="{{b.img}}" alt=""><a class="party-open detail {{#unless b.canOpen}}disabled{{/unless}}">{{b.name}}</a>
                                     {{#if b.business}}<small class="resource-label">{{localize "KNAVE2E.IsBusiness"}}</small>{{/if}}</td>
-                                {{#if b.hidden}}<td colspan="6" class="cell-hidden">{{localize "KNAVE2E.Party.NoAccess"}}</td>{{else}}
+                                {{#if b.hidden}}<td colspan="7" class="cell-hidden">{{localize "KNAVE2E.Party.NoAccess"}}</td>{{else}}
                                 <td class="num">{{b.squares}}</td>
                                 <td>{{localize b.styleLabel}}</td>
                                 <td class="num">{{b.baseCost}}c</td>
                                 <td class="num">{{b.staffing}}c</td>
                                 <td class="num">{{b.rental}}c</td>
+                                <td class="num">{{b.carry.value}}<span class="of">/ {{b.carry.max}}</span></td>
                                 <td class="num">{{b.coins}}c</td>
                                 {{/if}}
                             </tr>

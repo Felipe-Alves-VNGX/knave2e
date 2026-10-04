@@ -404,5 +404,7 @@
   "KNAVE2E.Party.Search": "Search",
   "KNAVE2E.Party.Transfer": "Move to another member",
   "KNAVE2E.Party.Transferred": "{item} moved to {to}.",
-  "KNAVE2E.Party.NoItems": "No items."
+  "KNAVE2E.Party.NoItems": "No items.",
+  "KNAVE2E.Party.Col.careers": "Careers",
+  "KNAVE2E.Party.EditLimit": "Slot limit (set by hand)"
 }

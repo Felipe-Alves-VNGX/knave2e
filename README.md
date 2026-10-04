@@ -28,7 +28,7 @@ Knave Second Edition for FoundryVTT provides sheets for player characters, monst
 
 ### Party:
 - [x] A Party actor works like a folder: drag characters, recruits, NPCs, vehicles, buildings and armies onto it and sort them into subfolders; in the Actors directory it expands to show its members
-- [x] Management tabs appear only when the party holds a matching actor: Characters (HP, AC, wounds, XP, conditions, carrying), a Shared stash across every inventory, Retinue (hirelings, mercenaries, experts, companions), Holdings (buildings, vehicles) and Armies (fighting power and upkeep)
+- [x] Management tabs appear only when the party holds a matching actor: Characters (HP, AC, wounds, XP, careers, conditions), a Shared stash across every inventory (vehicles and buildings get a hand-set slot limit), Retinue (hirelings, mercenaries, experts, companions), Holdings (buildings, vehicles) and Armies (fighting power and upkeep)
 - [x] Recruits and monsters/NPCs carry a role tag (hireling, mercenary, companion) that decides where they are listed
 
 ### Combat:

@@ -19,11 +19,19 @@ export default class Knave2eBuilding extends Knave2eActorType {
         schema.staffed = new fields.BooleanField({ initial: false });
         schema.isBusiness = new fields.BooleanField({ initial: false });
         schema.coins = new fields.NumberField({ ...requiredInteger, initial: 0, min: 0 });
+        // The book gives no storage rule for a building, so the limit is whatever the GM decides.
+        schema.slots = new fields.SchemaField({
+            value: new fields.NumberField({ required: true, nullable: false, integer: false, initial: 0, min: 0, step: 0.01 }),
+            max: new fields.NumberField({ required: true, nullable: false, integer: false, initial: 100, min: 0, step: 0.01 }),
+        });
 
         return schema;
     }
 
     prepareDerivedData() {
+        this.slots.value = Number(
+            this.parent.items.reduce((total, item) => total + (item.system?.quantity ?? 0) * (item.system?.slots ?? 0), 0).toFixed(2)
+        );
         const style = SYSTEM.BUILDING.ROOM_STYLES[this.roomStyle] ?? SYSTEM.BUILDING.ROOM_STYLES.poor;
         this.baseCost = Number.isFinite(this.costOverride) ? this.costOverride : style.costPerSquare * this.squares;
         // Staffing a non-business building costs half its value per year.

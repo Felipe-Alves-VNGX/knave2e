@@ -74,11 +74,24 @@
                             {{/if}}
                         </div>
                     </div>
+                    {{!-- Storage has no fixed rule for a building, so its limit is set by hand. --}}
+                    <div class="resources flexrow flex-group-center" style="margin-top:5px;">
+                        <div class="grid grid-3col flex-group-center">
+                            <div class="resource-label grid-span-3 align-center">{{localize "KNAVE2E.Slots"}}</div>
+                            <i class="fa-solid fa-weight-hanging grid-span-1 align-right"></i>
+                            <div class="resource-label grid-span-1 align-center">{{system.slots.value}}
+                                <span>/</span>
+                                <input class="resource-label content character" type="text" name="system.slots.max"
+                                    value="{{system.slots.max}}" data-dtype="Number" />
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </header>
 
             {{!-- Sheet Body --}}
             <section class="sheet-body">
+                {{> "systems/knave2e/templates/actor/parts/actor-items-list.hbs"}}
                 <div class="items">
                     <div class="resource-label">{{localize "KNAVE2E.Description"}}</div>
                     <section class="editor">
