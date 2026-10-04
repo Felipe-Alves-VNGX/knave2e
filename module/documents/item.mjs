@@ -1,4 +1,12 @@
+import { defaultItemIcon } from "../config/item-icons.mjs";
+
 export default class Knave2eItem extends Item {
+  /** New items start with a themed icon for their type (or category) instead of the generic bag. */
+  static getDefaultArtwork(itemData) {
+    const img = defaultItemIcon(itemData?.type, itemData?.system?.category);
+    return img ? { img } : super.getDefaultArtwork(itemData);
+  }
+
   /**
    * Prepare a data object which is passed to any Roll formulas which are created related to this Item
    * @private

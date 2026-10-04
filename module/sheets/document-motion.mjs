@@ -2,7 +2,8 @@
  * The live document remains the only form. Snapshots are inert and nameless;
  * this helper never submits, updates, hides or re-parents live fields. */
 export function installDocumentMotion(root) {
-    const form = root.matches?.('.document-character') ? root : root.querySelector('.document-character');
+    const selector = '.document-character, .document-party';
+    const form = root.matches?.(selector) ? root : root.querySelector(selector);
     if (!form) return () => {};
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
     let overlay = null;

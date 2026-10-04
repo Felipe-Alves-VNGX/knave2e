@@ -1,3 +1,4 @@
+import { installDocumentMotion } from './document-motion.mjs';
 import { INVENTORY_HOLDER_TYPES, MANUAL_LIMIT_TYPES, PARTY_ROLES, PARTY_TABS, enlistActor, resolveMembers, roleTagOf } from '../helpers/party.mjs';
 
 const ROMAN = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII'];
@@ -297,7 +298,16 @@ export default class Knave2ePartySheet extends foundry.appv1.sheets.ActorSheet {
     /* -------------------------------------------- */
 
     activateListeners(html) {
+        this._documentMotionCleanup?.();
         super.activateListeners(html);
+        // Page-turn between tabs, the same as on the character sheet.
+        this._documentMotionCleanup = installDocumentMotion(html[0]);
+        html.on('keydown', '.document-bookmarks [data-tab]', (event) => {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                event.currentTarget.click();
+            }
+        });
 
         // A tab disappears when the last matching actor leaves; fall back to the roster.
         const tabs = this._tabs?.[0];
@@ -425,5 +435,11 @@ export default class Knave2ePartySheet extends foundry.appv1.sheets.ActorSheet {
 
     _enlist(uuid, folder = '') {
         return enlistActor(this.actor, uuid, folder);
+    }
+
+    async close(options = {}) {
+        this._documentMotionCleanup?.();
+        this._documentMotionCleanup = null;
+        return super.close(options);
     }
 }

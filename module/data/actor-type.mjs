@@ -1,3 +1,16 @@
+/** Plain update data for items whose held/dropped state was recomputed.
+ * Passing the live Item documents to updateEmbeddedDocuments corrupts them on Foundry v13 (they lose `type` and `system`). */
+export function toItemUpdates(items) {
+  const byId = new Map();
+  for (const item of items) {
+    byId.set(item.id, {
+      _id: item.id,
+      system: { held: item.system.held, dropped: item.system.dropped, progress: item.system.progress },
+    });
+  }
+  return [...byId.values()];
+}
+
 export default class Knave2eActorType extends foundry.abstract.TypeDataModel {
   static defineSchema() {
     const fields = foundry.data.fields;

@@ -1,4 +1,12 @@
+import { defaultActorIcon } from '../config/actor-icons.mjs';
+
 export default class Knave2eActor extends Actor {
+    /** New actors start with a themed portrait (and token art) for their type instead of the mystery man. */
+    static getDefaultArtwork(actorData) {
+        const img = defaultActorIcon(actorData?.type);
+        return img ? { img, texture: { src: img } } : super.getDefaultArtwork(actorData);
+    }
+
     async _preCreate(data) {
         if ((await super._preCreate(data)) === false) return false;
         if (data.type === 'character' || data.type === 'recruit') {

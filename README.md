@@ -124,3 +124,5 @@ This system would not have been possible without the following people:
 
 
 4. The contributors of the [Pathfinder 2e system for Foundry VTT](https://github.com/foundryvtt/pf2e). The Party actor (a roster that groups characters, followers, vehicles and buildings) is inspired by theirs. The implementation here is original and no code from that project was copied.
+
+5. The artists of [game-icons.net](https://game-icons.net) (Lorc, Delapouite, Skoll, sbed, Cathelineau, Willdabeast, Caro Asercion, Carl Olsen and DarkZaitzev), whose icons under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/) are used, recolored, as the default art for items and actors. The author of every icon is listed in [assets/icons/CREDITS.md](assets/icons/CREDITS.md).

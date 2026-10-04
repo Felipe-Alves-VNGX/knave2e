@@ -1,6 +1,13 @@
 # CHANGELOG
 
-## Unreleased
+## 0.7.0
+- Add themed icons from game-icons.net (CC BY 3.0, credits in `assets/icons/CREDITS.md`):
+  new items get an icon for their type or category (broadsword, bordered shield, torch, spell
+  book, potion...) and new actors get a portrait and token for their type (character,
+  recruit, monster, vehicle, building, party, army). Existing items and actors keep their art
+- The party sheet turns pages between tabs, like the character sheet
+- Fix item data being corrupted on Foundry v13: the first item of an actor lost its type and
+  system data, which broke the character sheet
 - Add the Party actor type, a folder-like sheet you drag actors onto (from the sidebar or
   from another party) and can organise into subfolders. In the Actors directory the party
   expands to list its members and accepts drops. Its tabs only exist while the party holds a
@@ -19,6 +26,10 @@
 - Add a side-based combat tracker following the book: one CHA vs CHA check between the
   sides' leaders, and each side acts together in a 10-second round
 - Fix document sheets cropping long content (such as long monster descriptions)
+
+## 0.6.0
+- Document-style sheets: parchment and leather, ink accents, handwritten fonts, a page-turn
+  animation between tabs and a filterable, paginated inventory
 
 ## 0.5.0
 - Add Alchemy: potion Item type with a brewing mechanic (INT check, optional

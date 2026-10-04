@@ -1,3 +1,4 @@
+import { toItemUpdates } from './actor-type.mjs';
 import Knave2eActorType from './actor-type.mjs';
 import { SYSTEM } from '../config/system.mjs';
 
@@ -127,7 +128,7 @@ export default class Knave2eRecruit extends Knave2eActorType {
             modifiedItems.push(item);
             itemSlots += item.system.quantity * item.system.slots;
         }
-        this.parent.updateEmbeddedDocuments('Item', modifiedItems);
+        this.parent.updateEmbeddedDocuments('Item', toItemUpdates(modifiedItems));
         return itemSlots;
     }
 
@@ -156,7 +157,7 @@ export default class Knave2eRecruit extends Knave2eActorType {
             }
             break iterateRemainder;
         }
-        this.parent.updateEmbeddedDocuments('Item', modifiedItems);
+        this.parent.updateEmbeddedDocuments('Item', toItemUpdates(modifiedItems));
     }
 
     async getRestData() {
