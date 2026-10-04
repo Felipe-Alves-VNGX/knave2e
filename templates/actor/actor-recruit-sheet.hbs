@@ -26,6 +26,13 @@
                         <input class="transparent flex3 no-border detail name" name="name" type="text"
                             value="{{actor.name}}" placeholder="{{actor.name}}" />
                     </div>
+                    <div class="flexrow no-wrap flex-between flex-group-left dotted party-role">
+                        <div class="resource-label flex1">{{localize "KNAVE2E.Party.RoleLabel"}}</div>
+                        <select class="actor-select party-role-select flex2" name="system.partyRole">
+                            {{selectOptions partyRoles selected=system.partyRole localize=true}}
+                        </select>
+                        {{#if roleTag}}<span class="party-tag {{roleTag.id}}">{{localize roleTag.label}}</span>{{/if}}
+                    </div>
                     <div class="grid grid-4col no-wrap flex-between flex-group-center info-2" style="margin-top: 5px;">
                         <div class="grid-span-1 flexcol no-wrap flex-group-center level">
                             <a class="resource-label actor-button check">{{localize "KNAVE2E.Level"}}</a>

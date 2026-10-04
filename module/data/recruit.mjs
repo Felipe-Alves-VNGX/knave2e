@@ -46,6 +46,8 @@ export default class Knave2eRecruit extends Knave2eActorType {
             max: 12,
         });
         schema.rarity = new fields.StringField({ initial: this.DEFAULT_RARITY });
+        // Empty means "follow the recruit category"; otherwise hireling, mercenary or companion.
+        schema.partyRole = new fields.StringField({ required: true, blank: true, initial: '' });
         schema.spells = new fields.SchemaField({
             value: new fields.NumberField({ ...requiredInteger, initial: 0, min: 0 }),
             max: new fields.NumberField({ ...requiredInteger, initial: 0, min: 0 }),

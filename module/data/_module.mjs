@@ -7,6 +7,7 @@ export { default as Knave2eItemType } from "./item-type.mjs";
 export { default as Knave2eLightSource } from "./light-source.mjs";
 export { default as Knave2eMonster } from "./monster.mjs";
 export { default as Knave2eMonsterAttack } from "./monster-attack.mjs";
+export { default as Knave2eParty } from "./party.mjs";
 export { default as Knave2ePotion } from "./potion.mjs";
 export { default as Knave2eRecruit } from "./recruit.mjs";
 export { default as Knave2eSpellbook } from "./spellbook.mjs";

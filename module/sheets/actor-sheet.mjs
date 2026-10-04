@@ -2,6 +2,7 @@ import { installDocumentPages } from './document-pages.mjs';
 import { installDocumentMotion } from './document-motion.mjs';
 import { onAttack, onDamageFromSheet, onCast } from '../helpers/items.mjs';
 import { onBrewPotion } from '../helpers/alchemy.mjs';
+import { PARTY_ROLES, roleTagOf } from '../helpers/party.mjs';
 
 export default class Knave2eActorSheet extends foundry.appv1.sheets.ActorSheet {
     static get defaultOptions() {
@@ -57,6 +58,16 @@ export default class Knave2eActorSheet extends foundry.appv1.sheets.ActorSheet {
 
         if (actorData.type == 'building') {
             this._prepareBuildingData(context);
+        }
+
+        // Recruits and monsters/NPCs can be tagged as a hireling, mercenary or companion for a party.
+        if (['recruit', 'monster'].includes(actorData.type)) {
+            context.partyRoles = {
+                '': 'KNAVE2E.Party.RoleNone',
+                ...Object.fromEntries(PARTY_ROLES.map((role) => [role, `KNAVE2E.Party.Role.${role}`])),
+            };
+            const tag = roleTagOf(this.actor);
+            context.roleTag = tag ? { id: tag, label: `KNAVE2E.Party.Role.${tag}` } : null;
         }
 
         // Add roll data for TinyMCE editors.

@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## Unreleased
+- Add the Party actor type: a roster of characters, recruits, NPCs/monsters, vehicles
+  and buildings, grouped as players, hirelings, mercenaries, experts, companions,
+  vehicles, buildings and other creatures. Actors are added by dragging them onto the
+  sheet. The idea is inspired by the Pathfinder 2e system (see the README credits).
+- Add a role tag (hireling, mercenary, companion) to recruit and monster/NPC sheets;
+  it decides where they appear in a party
+- Add a side-based combat tracker following the book: one CHA vs CHA check between the
+  sides' leaders, and each side acts together in a 10-second round
+- Fix document sheets cropping long content (such as long monster descriptions)
+
 ## 0.5.0
 - Add Alchemy: potion Item type with a brewing mechanic (INT check, optional
   extra watch for +5, recipe discovery on a strong success)

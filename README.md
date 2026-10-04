@@ -117,3 +117,5 @@ This system would not have been possible without the following people:
 3. [mxzf](https://gitlab.com/mxzf), [chaosOS](https://github.com/JPMeehan), [Ethaks](https://github.com/Ethaks), `Draft`, and the rest of the incredible FoundryVTT development gurus in the FoundryVTT Discord server. Partially for their wisdom, but mostly for their patience.
 
 
+
+4. The contributors of the [Pathfinder 2e system for Foundry VTT](https://github.com/foundryvtt/pf2e). The Party actor (a roster that groups characters, followers, vehicles and buildings) is inspired by theirs. The implementation here is original and no code from that project was copied.

@@ -1,0 +1,119 @@
+<form class="knave-document document-party {{cssClass}} {{actor.type}}" autocomplete="off">
+    <div class="document-masthead">
+        <span class="document-edition">KNAVE <span aria-hidden="true">/</span> II</span>
+        <div><p class="document-kicker">{{localize "KNAVE2E.Document.party.Subtitle"}}</p>
+        <h1>{{localize "KNAVE2E.Document.party.Title"}}</h1></div>
+        <span class="document-folio" aria-hidden="true">V</span>
+    </div>
+    <div class="sheet-container">
+        <div class="party-grid">
+
+            <header class="header">
+                <div class="image">
+                    <div class="flexcol no-wrap">
+                        <div class="resource-label align-center">{{localize "KNAVE2E.Portrait"}}</div>
+                        <img class="rounded" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" width="100%" />
+                    </div>
+                </div>
+                <div class="info">
+                    <div class="flexrow no-wrap flex-between flex-group-left dotted name">
+                        <div class="resource-label flex1">{{localize "KNAVE2E.Name"}}</div>
+                        <input class="transparent flex3 no-border detail name" name="name" type="text"
+                            value="{{actor.name}}" placeholder="{{actor.name}}" />
+                    </div>
+                    <div class="party-summary">
+                        <div class="party-figure">
+                            <span class="resource-label">{{localize "KNAVE2E.Party.Members"}}</span>
+                            <span class="figure">{{totals.members}}</span>
+                        </div>
+                        <div class="party-figure">
+                            <span class="resource-label">{{localize "KNAVE2E.Party.MonthlyUpkeep"}}</span>
+                            <span class="figure">{{totals.upkeep}}<small>c</small></span>
+                        </div>
+                        <div class="party-figure">
+                            <span class="resource-label">{{localize "KNAVE2E.Party.CoinsCarried"}}</span>
+                            <span class="figure">{{totals.coins}}<small>c</small></span>
+                        </div>
+                        <div class="party-figure">
+                            <span class="resource-label">{{localize "KNAVE2E.HitPoints"}}</span>
+                            <span class="figure">{{totals.hp}}<small>/{{totals.hpMax}}</small></span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <section class="sheet-body">
+                <div class="party-roster">
+                    {{#each groups as |group|}}
+                    <section class="party-group {{group.id}}">
+                        <h2 class="party-group-title">
+                            <i class="fa-solid {{group.icon}}" aria-hidden="true"></i>
+                            {{localize group.label}} <span class="count">{{group.members.length}}</span>
+                        </h2>
+                        <ol class="party-members plain">
+                            {{#each group.members as |m|}}
+                            <li class="party-member {{m.type}}" data-uuid="{{m.uuid}}">
+                                <img class="member-image" src="{{m.img}}" alt="{{m.name}}" loading="lazy">
+                                <div class="member-name">
+                                    <a class="party-open detail {{#unless m.canOpen}}disabled{{/unless}}">{{m.name}}</a>
+                                    {{#if m.roleTag}}
+                                    <span class="party-tag {{m.roleTag}}">{{localize (concat "KNAVE2E.Party.Role." m.roleTag)}}</span>
+                                    {{/if}}
+                                </div>
+                                <div class="member-stats">
+                                    {{#each m.stats as |s|}}
+                                    <span class="member-stat"><span class="resource-label">{{localize s.label}}</span> {{s.value}}</span>
+                                    {{/each}}
+                                </div>
+                                {{#if @root.editable}}
+                                <div class="member-controls">
+                                    {{#if m.retainer}}
+                                    <select class="party-role-select actor-select" aria-label="{{localize 'KNAVE2E.Party.RoleLabel'}}">
+                                        {{selectOptions @root.partyRoles selected=m.role localize=true}}
+                                    </select>
+                                    {{/if}}
+                                    <a class="party-remove" title="{{localize 'KNAVE2E.Party.Remove'}}"><i class="fa-solid fa-xmark"></i></a>
+                                </div>
+                                {{/if}}
+                            </li>
+                            {{/each}}
+                        </ol>
+                    </section>
+                    {{/each}}
+
+                    {{#each missing as |uuid|}}
+                    <section class="party-group missing">
+                        <ol class="party-members plain">
+                            <li class="party-member missing" data-uuid="{{uuid}}">
+                                <span class="member-name detail">{{localize "KNAVE2E.Party.Missing"}}</span>
+                                {{#if @root.editable}}<a class="party-remove" title="{{localize 'KNAVE2E.Party.Remove'}}"><i class="fa-solid fa-xmark"></i></a>{{/if}}
+                            </li>
+                        </ol>
+                    </section>
+                    {{/each}}
+
+                    {{#if isEmpty}}
+                    <p class="party-hint">{{localize "KNAVE2E.Party.DropHint"}}</p>
+                    {{else if @root.editable}}
+                    <p class="party-hint small">{{localize "KNAVE2E.Party.DropHint"}}</p>
+                    {{/if}}
+                </div>
+
+                <div class="resources">
+                    <div class="resource-label">{{localize "KNAVE2E.Party.Notes"}}</div>
+                    <section class="editor">
+                        {{editor system.enrichedHTML target="system.description" button=true owner=owner
+                        editable=editable}}
+                    </section>
+                </div>
+            </section>
+        </div>
+
+        <footer class="footer">
+            <div class="flexrow no-wrap flex-group-center ">
+                <p style="font-size:smaller">{{localize "KNAVE2E.Party.Credit"}}
+                    <a href="https://github.com/foundryvtt/pf2e">Pathfinder 2e for Foundry VTT</a>.</p>
+            </div>
+        </footer>
+    </div>
+</form>

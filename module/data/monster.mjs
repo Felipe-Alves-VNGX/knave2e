@@ -26,6 +26,8 @@ export default class Knave2eRecruit extends Knave2eActorType {
       dungeon: new fields.StringField({ initial: "" }),
       wilderness: new fields.StringField({ initial: "" }),
     });
+    // Role this NPC or monster plays for a party (hireling, mercenary, companion); empty for ordinary monsters.
+    schema.partyRole = new fields.StringField({ required: true, blank: true, initial: "" });
     return schema;
   }
 
