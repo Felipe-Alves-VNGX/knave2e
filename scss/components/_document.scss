@@ -34,6 +34,9 @@
     --color-shadow-primary: #783c2c66;
     height: auto;
     min-height: 100%;
+    // Foundry gives window-content children `flex: 1 1 0%`; with min-height:100% that pins the
+    // paper to the window height and long content spills off it. Size to content instead.
+    flex: 1 0 auto;
     padding: 22px 28px 16px;
     position: relative;
     background: var(--doc-paper) url('../assets/document-paper.webp') center top / 100% 100%;
@@ -200,6 +203,7 @@
       border: 1px solid #967c5677; min-height: 200px; padding: 10px;
       background: repeating-linear-gradient(transparent 0 27px, #967c5629 27px 28px);
       .editor-content { min-height: 180px; line-height: 28px; }
+      .editor-content pre { white-space: pre-wrap; overflow-wrap: anywhere; }
       .editor { min-height: 180px; padding: 0; }
     }
     .npc-grid, .vehicle-grid { display: block; }
