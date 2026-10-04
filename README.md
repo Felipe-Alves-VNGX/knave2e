@@ -26,6 +26,11 @@ Knave Second Edition for FoundryVTT provides sheets for player characters, monst
 - [x] Automatically restore HP (and/or Wounds) depending on type of rest
 - [x] Active Relics and Companions cannot exceed CHA
 
+### Party:
+- [x] A Party actor works like a folder: drag characters, recruits, NPCs, vehicles, buildings and armies onto it and sort them into subfolders; in the Actors directory it expands to show its members
+- [x] Management tabs appear only when the party holds a matching actor: Characters (HP, AC, wounds, XP, conditions, carrying), a Shared stash across every inventory, Retinue (hirelings, mercenaries, experts, companions), Holdings (buildings, vehicles) and Armies (fighting power and upkeep)
+- [x] Recruits and monsters/NPCs carry a role tag (hireling, mercenary, companion) that decides where they are listed
+
 ### Combat:
 - [x] Roll attack, damage, and direct damage from the sheet or chat buttons
 - [x] Add weapon attack/damage bonuses and set custom damage dice per weapon

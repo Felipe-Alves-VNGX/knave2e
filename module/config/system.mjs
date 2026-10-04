@@ -1,6 +1,7 @@
 import * as ABILITIES from "./abilities.mjs"
 import * as AMMO from "./ammo.mjs"
 import * as ARMOR from "./armor.mjs"
+import * as ARMY from "./army.mjs"
 import * as BUILDING from "./building.mjs"
 import * as COIN from "./coin.mjs"
 import * as EQUIPMENT from "./equipment.mjs"
@@ -26,6 +27,7 @@ export const SYSTEM = {
     ABILITIES,
     AMMO,
     ARMOR,
+    ARMY,
     BUILDING,
     COIN,
     DAMAGE_DICE_SIZES,

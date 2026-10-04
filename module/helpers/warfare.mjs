@@ -12,17 +12,17 @@ function bonusForRatio(ratio) {
 
 const RESULT_SLOTS = ['Capture', 'Loot', 'Slay', 'Rescue', 'Guard', 'Shield'];
 
-export async function resolveBattle() {
+export async function resolveBattle(defaults = {}) {
     const input = await Dialog.wait({
         title: game.i18n.localize('KNAVE2E.WarfareCalculator'),
         content: `
             <div class="form-group">
                 <label>${game.i18n.localize('KNAVE2E.WarfareSideA')}</label>
-                <input type="number" name="sideA" value="0" min="0" />
+                <input type="number" name="sideA" value="${Number(defaults.sideA) || 0}" min="0" step="any" />
             </div>
             <div class="form-group">
                 <label>${game.i18n.localize('KNAVE2E.WarfareSideB')}</label>
-                <input type="number" name="sideB" value="0" min="0" />
+                <input type="number" name="sideB" value="${Number(defaults.sideB) || 0}" min="0" step="any" />
             </div>`,
         buttons: {
             ok: {

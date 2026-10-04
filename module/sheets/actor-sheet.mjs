@@ -60,6 +60,18 @@ export default class Knave2eActorSheet extends foundry.appv1.sheets.ActorSheet {
             this._prepareBuildingData(context);
         }
 
+        if (actorData.type == 'army') {
+            context.unitTypes = this._labelOptions(CONFIG.SYSTEM.ARMY.UNIT_TYPES);
+            const sys = this.actor.system;
+            const fixed = (n) => (Number.isInteger(n) ? String(n) : n.toFixed(2));
+            context.armyStats = {
+                blocks: fixed(sys.blocks),
+                power: fixed(sys.fightingPower),
+                multiplier: `${Math.round(sys.powerMultiplier * 100)}%`,
+                cost: sys.monthlyCost.toLocaleString(),
+            };
+        }
+
         // Recruits and monsters/NPCs can be tagged as a hireling, mercenary or companion for a party.
         if (['recruit', 'monster'].includes(actorData.type)) {
             context.partyRoles = {

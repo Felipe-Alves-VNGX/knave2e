@@ -1,0 +1,70 @@
+<form class="knave-document document-army {{cssClass}} {{actor.type}}" autocomplete="off">
+    <div class="document-masthead">
+        <span class="document-edition">KNAVE <span aria-hidden="true">/</span> II</span>
+        <div><p class="document-kicker">{{localize "KNAVE2E.Document.army.Subtitle"}}</p>
+        <h1>{{localize "KNAVE2E.Document.army.Title"}}</h1></div>
+        <span class="document-folio" aria-hidden="true">VI</span>
+    </div>
+    <div class="sheet-container">
+        <div class="vehicle-grid">
+            <header class="header">
+                <div class="image">
+                    <div class="flexcol no-wrap">
+                        <div class="resource-label align-center">{{localize "KNAVE2E.Portrait"}}</div>
+                        <img class="rounded" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" width="100%" />
+                    </div>
+                </div>
+                <div class="info">
+                    <div class="flexrow no-wrap flex-between flex-group-left dotted name">
+                        <div class="resource-label flex1">{{localize "KNAVE2E.Name"}}</div>
+                        <input class="transparent flex3 no-border detail name" name="name" type="text"
+                            value="{{actor.name}}" placeholder="{{actor.name}}" />
+                    </div>
+                    <div class="flexrow no-wrap flex-between flex-group-left dotted">
+                        <div class="resource-label flex1">{{localize "KNAVE2E.Army.UnitType"}}</div>
+                        <select class="actor-select flex3" name="system.unitType">
+                            {{selectOptions unitTypes selected=system.unitType localize=true}}
+                        </select>
+                    </div>
+                    <div class="grid grid-4col no-wrap flex-between flex-group-center" style="margin-top: 5px;">
+                        <div class="grid-span-1 flexcol no-wrap flex-group-center">
+                            <div class="resource-label">{{localize "KNAVE2E.Army.Troops"}}</div>
+                            <input class="resource-label content narrow" type="text" name="system.troops"
+                                value="{{system.troops}}" data-dtype="Number" />
+                        </div>
+                        <div class="grid-span-1 flexcol no-wrap flex-group-center">
+                            <div class="resource-label">{{localize "KNAVE2E.Army.Modifier"}} %</div>
+                            <input class="resource-label content narrow" type="text" name="system.modifier"
+                                value="{{system.modifier}}" data-dtype="Number" />
+                        </div>
+                        <div class="grid-span-1 flexcol no-wrap flex-group-center">
+                            <div class="resource-label">{{localize "KNAVE2E.Army.Speech"}}</div>
+                            <input type="checkbox" name="system.speech" {{checked system.speech}} />
+                        </div>
+                        <div class="grid-span-1 flexcol no-wrap flex-group-center">
+                            <div class="resource-label">{{localize "KNAVE2E.Army.Leader"}}</div>
+                            <input class="resource-label content narrow" type="text" name="system.leader"
+                                value="{{system.leader}}" data-dtype="String" />
+                        </div>
+                    </div>
+                    <div class="army-figures">
+                        <div class="army-figure"><span class="resource-label">{{localize "KNAVE2E.Army.Blocks"}}</span><span class="figure">{{armyStats.blocks}}</span></div>
+                        <div class="army-figure"><span class="resource-label">{{localize "KNAVE2E.Army.Multiplier"}}</span><span class="figure">{{armyStats.multiplier}}</span></div>
+                        <div class="army-figure"><span class="resource-label">{{localize "KNAVE2E.Army.FightingPower"}}</span><span class="figure">{{armyStats.power}}</span></div>
+                        <div class="army-figure"><span class="resource-label">{{localize "KNAVE2E.CostPerMonth"}}</span><span class="figure">{{armyStats.cost}}<small>c</small></span></div>
+                    </div>
+                </div>
+            </header>
+
+            <section class="sheet-body">
+                <div class="items">
+                    <div class="resource-label">{{localize "KNAVE2E.Description"}}</div>
+                    <section class="editor">
+                        {{editor system.enrichedHTML target="system.description" button=true owner=owner
+                        editable=editable}}
+                    </section>
+                </div>
+            </section>
+        </div>
+    </div>
+</form>

@@ -1,8 +1,11 @@
-// Party register and the role tag shown on recruit / monster sheets.
+// Party register, army sheet, follower role tag and the party entry in the Actors directory.
 .knave2e.document-sheet {
   .document-party { --doc-accent: #6b4a1f; }
+  .document-army { --doc-accent: #5a3a52; }
+  // Room for the bookmarks that stick out of the right edge (as on the character sheet).
+  &:has(.document-party) .window-content { padding-right: 124px; }
 
-  // Ink stamp: the same tag appears on the follower's own sheet and in the party roster.
+  // Ink stamp: the same tag appears on the follower's own sheet and in the party tables.
   .party-tag {
     --tag: #465b40;
     display: inline-block; align-self: center; flex: none;
@@ -17,48 +20,127 @@
   .party-role { align-items: center; }
   .party-role .party-role-select { min-width: 0; }
 
+  .army-figures, .army-totals {
+    display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin-top: 8px; text-align: center;
+    align-items: end;
+  }
+  .army-figure, .party-figure { display: flex; flex-direction: column; gap: 2px; padding-bottom: 4px; border-bottom: 1px solid #967c5655; }
+  .figure { font: 30px/1 'Knave Hand', cursive; color: var(--doc-accent); small { font-size: 18px; color: var(--doc-muted); } }
+
   .knave-document.document-party {
     .party-grid { display: block; }
     .party-grid .header { display: grid; grid-template-columns: 130px minmax(0, 1fr); gap: 20px; align-items: start; }
+    .party-summary { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin-top: 8px; text-align: center; }
 
-    .party-summary {
-      display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin-top: 8px; text-align: center;
-      .party-figure { display: flex; flex-direction: column; gap: 2px; padding-bottom: 4px; border-bottom: 1px solid #967c5655; }
-      .figure { font: 30px/1 'Knave Hand', cursive; color: var(--doc-accent); small { font-size: 18px; color: var(--doc-muted); } }
+    // The remaining bookmarks need colours of their own (the sheet gives the first three).
+    .sheet-tabs.document-bookmarks .item {
+      &:nth-child(4) { --ribbon: #6b4a1f; transform: rotate(-1.5deg); }
+      &:nth-child(5) { --ribbon: #5a3a52; transform: rotate(1.5deg); }
+      &:nth-child(6) { --ribbon: #3c5a4c; transform: rotate(-1deg); }
+      &.active, &:hover { transform: translateX(7px); }
     }
 
     .sheet-body { margin-top: 22px; }
-    .party-roster { display: flex; flex-direction: column; gap: 14px; min-height: 120px; margin-bottom: 22px; }
-    .party-group-title {
-      display: flex; align-items: center; gap: 8px; margin: 0 0 4px; padding: 0 0 4px;
+    .tab { min-height: 220px; }
+
+    .party-hint { margin: 0; font: 21px 'Knave Hand', cursive; color: var(--doc-muted); &.small { font-size: 18px; opacity: .8; } }
+    .party-group-title, .stash-title {
+      display: flex; align-items: center; gap: 8px; margin: 14px 0 4px; padding: 0 0 4px;
       font: 21px/1.1 'Knave Capitals', serif; letter-spacing: .03em; color: var(--doc-ink);
       border: 0; border-bottom: 1px solid var(--doc-rule);
-      i { font-size: 15px; color: var(--doc-accent); width: 20px; text-align: center; }
       .count { margin-left: auto; font: 18px 'Knave Hand', cursive; color: var(--doc-muted); }
+    }
+    .member-image { width: 34px; height: 34px; padding: 2px; object-fit: cover; flex: none; border: 1px solid #72543566; border-radius: 0; background: transparent; }
+    .party-open { font: 23px/1.1 'Knave Hand', cursive; font-style: normal; cursor: pointer; &.disabled { cursor: default; pointer-events: none; } }
+    .of { font: 15px 'Knave Hand', cursive; color: var(--doc-muted); margin-left: 3px; }
+
+    // --- Roster: the tree --------------------------------------------------------------------
+    .roster-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
+    .folder-add { width: auto; margin: 0; padding: 3px 11px; font: 15px 'Knave Capitals', serif; }
+    .party-folder {
+      margin-bottom: 10px; padding: 2px 6px 6px 8px; border-left: 3px solid transparent;
+      &.drop-over, &:hover { border-left-color: #783c2c44; }
+      &.root { padding-left: 2px; border-left-width: 0; }
+      &:not(.root) { border: 1px dashed #967c5688; border-radius: 3px; background: #fffaeb33; }
+      &.collapsed .party-members { display: none; }
+      .folder-head { display: flex; align-items: center; gap: 8px; padding: 2px 0 4px; }
+      .folder-toggle { color: var(--doc-accent); cursor: pointer; .open { display: inline; } .closed { display: none; } }
+      &.collapsed .folder-toggle { .open { display: none; } .closed { display: inline; } }
+      .folder-name { flex: 1; min-width: 0; height: 28px; font: 23px 'Knave Hand', cursive; font-style: normal; border: 0; border-bottom: 1px dotted transparent; background: transparent; &:hover, &:focus { border-bottom-color: var(--doc-rule); } }
+      .count { font: 18px 'Knave Hand', cursive; color: var(--doc-muted); }
+      .folder-delete { color: var(--doc-muted); cursor: pointer; &:hover { color: var(--doc-accent); } }
+      .folder-empty { padding: 6px 4px; font: 19px 'Knave Hand', cursive; color: var(--doc-muted); }
     }
     .party-members { margin: 0; padding: 0; list-style: none; }
     .party-member {
-      display: grid; grid-template-columns: 40px minmax(0, 1.4fr) minmax(0, 1.6fr) auto; align-items: center; gap: 10px;
-      min-height: 50px; padding: 4px 2px; border-bottom: 1px dashed #967c5688;
+      display: grid; grid-template-columns: 40px minmax(0, 1fr) auto auto; align-items: center; gap: 10px;
+      min-height: 46px; padding: 3px 2px; border-bottom: 1px dashed #967c5688; cursor: grab;
       &:last-child { border-bottom: 0; }
       &:hover { background: #783c2c10; }
-      .member-image { width: 38px; height: 38px; padding: 2px; object-fit: cover; border: 1px solid #72543566; border-radius: 0; background: transparent; }
-      .member-name { display: flex; align-items: center; flex-wrap: wrap; min-width: 0; }
-      .party-open { font: 24px/1.1 'Knave Hand', cursive; font-style: normal; cursor: pointer; &.disabled { cursor: default; pointer-events: none; } }
-      .member-stats { display: flex; flex-wrap: wrap; gap: 2px 14px; font: 20px 'Knave Hand', cursive; color: var(--doc-ink); .resource-label { font-size: 11px; color: var(--doc-muted); } }
-      .member-controls { display: flex; align-items: center; gap: 6px;
-        .party-role-select { height: 26px; width: 130px; font-size: 13px; }
-        .party-remove { color: var(--doc-muted); font-size: 15px; cursor: pointer; &:hover { color: var(--doc-accent); } }
-      }
-      &.missing { grid-template-columns: minmax(0, 1fr) auto; font-style: italic; color: var(--doc-muted); }
+      .member-name { display: flex; align-items: center; flex-wrap: wrap; gap: 4px; min-width: 0; }
+      .member-type { width: 18px; color: var(--doc-accent); text-align: center; }
+      .member-group { color: var(--doc-muted); }
+      .party-remove { color: var(--doc-muted); font-size: 15px; cursor: pointer; &:hover { color: var(--doc-accent); } }
+      &.missing { grid-template-columns: minmax(0, 1fr) auto; font-style: italic; color: var(--doc-muted); cursor: default; }
     }
-    .party-hint { margin: 0; font: 21px 'Knave Hand', cursive; color: var(--doc-muted); &.small { font-size: 18px; opacity: .8; } }
+
+    // --- Management tables -------------------------------------------------------------------
+    .party-table {
+      width: 100%; border-collapse: collapse; margin: 2px 0 8px; background: transparent; border: 0; box-shadow: none;
+      thead, thead tr, tbody tr { background: transparent; border: 0; box-shadow: none; outline: 0; }
+      th.num { text-align: right; }
+      th { padding: 3px 6px; text-align: left; font: 12px 'Knave Capitals', serif; letter-spacing: .05em; color: var(--doc-muted); background: transparent; border: 0; border-bottom: 1px solid var(--doc-rule); white-space: nowrap; }
+      td { padding: 4px 6px; border-bottom: 1px dashed #967c5688; vertical-align: middle; font: 20px 'Knave Hand', cursive; }
+      tr:last-child td { border-bottom: 0; }
+      .num { text-align: right; white-space: nowrap; &.strong { color: var(--doc-accent); font-size: 23px; } }
+      .cell-name { display: flex; align-items: center; gap: 8px; min-width: 0; small { display: block; line-height: 1; } }
+      .cell-hidden { color: var(--doc-muted); font-style: italic; }
+      .party-edit { width: 54px; height: 26px; padding: 0 4px; text-align: right; font: 21px 'Knave Hand', cursive; &:disabled { opacity: 1; border-bottom-color: transparent; background: transparent; } }
+      .meter { display: block; height: 4px; margin-top: 2px; background: linear-gradient(90deg, var(--doc-accent) var(--fill, 0%), #967c5633 var(--fill, 0%)); }
+      select { height: 26px; max-width: 150px; font-size: 13px; }
+      .cell-conditions { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; min-width: 120px;
+        // Status icons are white glyphs; turn them into ink so they read on the paper.
+        .party-condition { cursor: pointer; img { width: 24px; height: 24px; border: 0; filter: invert(1) sepia(.8) saturate(1.6) opacity(.85); } &:hover img { filter: invert(1) sepia(1) saturate(3) hue-rotate(-15deg); } }
+        .party-condition-add { width: 44px; }
+      }
+      .cell-transfer select { width: 56px; }
+    }
+    .tab-total { margin: 4px 0 0; text-align: right; font: 21px 'Knave Hand', cursive; strong { color: var(--doc-accent); font-weight: normal; } }
+
+    .inventory-bar {
+      display: flex; flex-wrap: wrap; align-items: end; gap: 12px; margin-bottom: 8px;
+      label { display: flex; flex-direction: column; gap: 2px; &.grow { flex: 1; min-width: 120px; } }
+      select, input { height: 28px; }
+      .inventory-total { margin-left: auto; font: 24px 'Knave Hand', cursive; color: var(--doc-accent); }
+    }
+    .stash-title { font-size: 19px; margin-top: 10px; a { font-size: 22px; } }
+
+    .army-totals { grid-template-columns: repeat(3, minmax(0, 1fr)) auto; margin-top: 12px; }
+    .party-warfare { width: auto; margin: 0; padding: 5px 14px; font: 16px 'Knave Capitals', serif; }
   }
 
-  @container (max-width: 560px) {
+  @container (max-width: 640px) {
     .knave-document.document-party {
       .party-summary { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .party-member { grid-template-columns: 40px minmax(0, 1fr) auto; .member-stats { grid-column: 2 / -1; } }
+      .party-table { display: block; overflow-x: auto; }
     }
   }
+}
+
+// --- Actors directory: a party is listed as a folder that holds its members. -----------------
+.directory-item.party-entry {
+  flex-wrap: wrap;
+  .party-nest-toggle { flex: none; width: 16px; cursor: pointer; color: #c9a45f; transition: transform 120ms ease-out; }
+  &.expanded .party-nest-toggle { transform: rotate(90deg); }
+  .party-nest-count { flex: none; margin-left: auto; padding: 0 6px; font-size: 11px; color: #e6d3ae; background: #783c2c99; border-radius: 8px; }
+  .party-nest { display: none; flex: 1 0 100%; margin: 4px 0 2px 16px; padding: 0 0 0 8px; border-left: 2px solid #a58a5c88; list-style: none;
+    .nest-member { display: flex; align-items: center; gap: 6px; padding: 2px 4px; cursor: grab; border-radius: 3px;
+      img { width: 20px; height: 20px; object-fit: cover; border: 1px solid #a58a5c66; border-radius: 2px; }
+      a { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+      &:hover { background: #a58a5c22; }
+    }
+    .nest-folder { margin-top: 4px; padding: 0 4px; font-size: 11px; letter-spacing: .05em; text-transform: uppercase; color: #c9a45f; }
+  }
+  &.expanded .party-nest { display: block; }
+  &.drop-target { outline: 2px dashed #c9a45f; outline-offset: -2px; }
 }

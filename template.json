@@ -1,12 +1,13 @@
 {
   "Actor": {
-    "types": ["character", "recruit", "monster", "vehicle", "building", "party"],
+    "types": ["character", "recruit", "monster", "vehicle", "building", "party", "army"],
     "character": {},
     "recruit": {},
     "monster": {},
     "vehicle": {},
     "building": {},
-    "party": {}
+    "party": {},
+    "army": {}
   },
   "Item": {
     "types": ["armor", "equipment", "lightSource", "spellbook", "weapon", "monsterAttack", "potion"],

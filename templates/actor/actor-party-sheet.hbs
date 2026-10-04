@@ -1,3 +1,20 @@
+{{#*inline "rosterRow"}}
+<li class="party-member {{type}} {{#if missing}}missing{{/if}}" data-uuid="{{uuid}}" {{#unless missing}}draggable="true"{{/unless}}>
+    {{#if missing}}
+    <span class="member-name detail">{{localize "KNAVE2E.Party.Missing"}}</span>
+    {{#if @root.editable}}<a class="party-remove" title="{{localize 'KNAVE2E.Party.Remove'}}"><i class="fa-solid fa-xmark"></i></a>{{/if}}
+    {{else}}
+    <img class="member-image" src="{{img}}" alt="{{name}}" loading="lazy">
+    <div class="member-name">
+        <i class="member-type fa-solid {{typeIcon}}" aria-hidden="true"></i>
+        <a class="party-open detail {{#unless canOpen}}disabled{{/unless}}">{{name}}</a>
+        {{#if roleTag}}<span class="party-tag {{roleTag}}">{{localize (concat "KNAVE2E.Party.Role." roleTag)}}</span>{{/if}}
+    </div>
+    <span class="member-group resource-label">{{localize (concat "KNAVE2E.Party.Group." group)}}</span>
+    {{#if @root.editable}}<a class="party-remove" title="{{localize 'KNAVE2E.Party.Remove'}}"><i class="fa-solid fa-xmark"></i></a>{{/if}}
+    {{/if}}
+</li>
+{{/inline}}
 <form class="knave-document document-party {{cssClass}} {{actor.type}}" autocomplete="off">
     <div class="document-masthead">
         <span class="document-edition">KNAVE <span aria-hidden="true">/</span> II</span>
@@ -42,70 +59,275 @@
                 </div>
             </header>
 
+            <nav class="sheet-tabs tabs resource-label document-bookmarks" aria-label="{{localize 'KNAVE2E.Document.party.Title'}}" data-group="primary">
+                {{#each tabs as |tab|}}
+                <a class="item tab-color resource-label" data-tab="{{tab.id}}" role="button" tabindex="0"><span class="bookmark-index" aria-hidden="true">{{tab.index}}</span><span>{{localize tab.label}}</span></a>
+                {{/each}}
+            </nav>
+
             <section class="sheet-body">
-                <div class="party-roster">
-                    {{#each groups as |group|}}
-                    <section class="party-group {{group.id}}">
-                        <h2 class="party-group-title">
-                            <i class="fa-solid {{group.icon}}" aria-hidden="true"></i>
-                            {{localize group.label}} <span class="count">{{group.members.length}}</span>
-                        </h2>
+
+                {{!-- ROSTER: the nested tree --}}
+                <div class="tab roster" data-group="primary" data-tab="roster">
+                    <div class="roster-toolbar">
+                        {{#if editable}}<button type="button" class="folder-add"><i class="fa-solid fa-folder-plus" inert></i> {{localize "KNAVE2E.Party.AddFolder"}}</button>{{/if}}
+                        <p class="party-hint small">{{localize "KNAVE2E.Party.DropHint"}}</p>
+                    </div>
+                    <div class="party-folder root" data-folder="">
                         <ol class="party-members plain">
-                            {{#each group.members as |m|}}
-                            <li class="party-member {{m.type}}" data-uuid="{{m.uuid}}">
-                                <img class="member-image" src="{{m.img}}" alt="{{m.name}}" loading="lazy">
-                                <div class="member-name">
-                                    <a class="party-open detail {{#unless m.canOpen}}disabled{{/unless}}">{{m.name}}</a>
-                                    {{#if m.roleTag}}
-                                    <span class="party-tag {{m.roleTag}}">{{localize (concat "KNAVE2E.Party.Role." m.roleTag)}}</span>
-                                    {{/if}}
-                                </div>
-                                <div class="member-stats">
-                                    {{#each m.stats as |s|}}
-                                    <span class="member-stat"><span class="resource-label">{{localize s.label}}</span> {{s.value}}</span>
-                                    {{/each}}
-                                </div>
-                                {{#if @root.editable}}
-                                <div class="member-controls">
-                                    {{#if m.retainer}}
-                                    <select class="party-role-select actor-select" aria-label="{{localize 'KNAVE2E.Party.RoleLabel'}}">
-                                        {{selectOptions @root.partyRoles selected=m.role localize=true}}
+                            {{#each roster.root}}{{> rosterRow}}{{/each}}
+                        </ol>
+                        {{#if roster.isEmpty}}<p class="party-hint">{{localize "KNAVE2E.Party.DropHintEmpty"}}</p>{{/if}}
+                    </div>
+                    {{#each roster.folders as |folder|}}
+                    <section class="party-folder {{#if folder.collapsed}}collapsed{{/if}}" data-folder="{{folder.id}}">
+                        <header class="folder-head">
+                            <a class="folder-toggle" title="{{localize 'KNAVE2E.Party.ToggleFolder'}}"><i class="fa-solid fa-folder-closed closed"></i><i class="fa-solid fa-folder-open open"></i></a>
+                            <input class="folder-name detail" type="text" value="{{folder.name}}" {{#unless @root.editable}}readonly{{/unless}}>
+                            <span class="count">{{folder.count}}</span>
+                            {{#if @root.editable}}<a class="folder-delete" title="{{localize 'KNAVE2E.Party.DeleteFolder'}}"><i class="fa-solid fa-trash"></i></a>{{/if}}
+                        </header>
+                        <ol class="party-members plain">
+                            {{#each folder.members}}{{> rosterRow}}{{/each}}
+                            {{#unless folder.members.length}}<li class="folder-empty">{{localize "KNAVE2E.Party.EmptyFolder"}}</li>{{/unless}}
+                        </ol>
+                    </section>
+                    {{/each}}
+
+                    <div class="resources">
+                        <div class="resource-label">{{localize "KNAVE2E.Party.Notes"}}</div>
+                        <section class="editor">
+                            {{editor system.enrichedHTML target="system.description" button=true owner=owner
+                            editable=editable}}
+                        </section>
+                    </div>
+                </div>
+
+                {{!-- CHARACTERS --}}
+                {{#if characters}}
+                <div class="tab characters" data-group="primary" data-tab="characters">
+                    <table class="party-table">
+                        <thead><tr>
+                            <th>{{localize "KNAVE2E.Party.Col.character"}}</th>
+                            <th class="num">{{localize "KNAVE2E.Level"}}</th>
+                            <th class="num">XP</th>
+                            <th class="num">{{localize "KNAVE2E.HitPoints"}}</th>
+                            <th class="num">{{localize "KNAVE2E.ArmorClass"}}</th>
+                            <th class="num">{{localize "KNAVE2E.Party.Col.wounds"}}</th>
+                            <th class="num">{{localize "KNAVE2E.Party.Col.carrying"}}</th>
+                            <th>{{localize "KNAVE2E.Party.Col.conditions"}}</th>
+                        </tr></thead>
+                        <tbody>
+                            {{#each characters.rows as |c|}}
+                            <tr class="party-row" data-uuid="{{c.uuid}}">
+                                <td class="cell-name"><img class="member-image" src="{{c.img}}" alt=""><span><a class="party-open detail {{#unless c.canOpen}}disabled{{/unless}}">{{c.name}}</a>{{#if c.label}}<small class="resource-label">{{c.label}}</small>{{/if}}</span></td>
+                                {{#if c.hidden}}<td colspan="7" class="cell-hidden">{{localize "KNAVE2E.Party.NoAccess"}}</td>{{else}}
+                                <td class="num">{{c.level}}</td>
+                                <td class="num">
+                                    <input class="party-edit" type="text" inputmode="numeric" data-field="system.xp.value" value="{{c.xp.value}}" {{#unless c.canEdit}}disabled{{/unless}}>
+                                    <span class="meter" style="--fill: {{c.xp.progress}}%"></span>
+                                </td>
+                                <td class="num"><input class="party-edit" type="text" inputmode="numeric" data-field="system.hitPoints.value" value="{{c.hp.value}}" {{#unless c.canEdit}}disabled{{/unless}}><span class="of">/ {{c.hp.max}}</span></td>
+                                <td class="num">{{c.ac}}</td>
+                                <td class="num"><input class="party-edit" type="text" inputmode="numeric" data-field="system.wounds.value" value="{{c.wounds.value}}" {{#unless c.canEdit}}disabled{{/unless}}><span class="of">/ {{c.wounds.max}}</span></td>
+                                <td class="num">{{c.carry.value}}<span class="of">/ {{c.carry.max}}</span></td>
+                                <td class="cell-conditions">
+                                    {{#each c.conditions as |cond|}}<a class="party-condition" data-status="{{cond.id}}" data-tooltip="{{cond.name}}"><img src="{{cond.img}}" alt="{{cond.name}}"></a>{{/each}}
+                                    {{#if c.canEdit}}
+                                    <select class="party-condition-add" aria-label="{{localize 'KNAVE2E.Party.AddCondition'}}">
+                                        <option value="">+</option>
+                                        {{#each @root.characters.statuses as |s|}}<option value="{{s.id}}">{{s.name}}</option>{{/each}}
                                     </select>
                                     {{/if}}
-                                    <a class="party-remove" title="{{localize 'KNAVE2E.Party.Remove'}}"><i class="fa-solid fa-xmark"></i></a>
-                                </div>
+                                </td>
                                 {{/if}}
-                            </li>
+                            </tr>
                             {{/each}}
-                        </ol>
+                        </tbody>
+                    </table>
+                </div>
+                {{/if}}
+
+                {{!-- SHARED INVENTORY --}}
+                {{#if inventory}}
+                <div class="tab inventory" data-group="primary" data-tab="inventory">
+                    <div class="inventory-bar">
+                        <label><span class="resource-label">{{localize "KNAVE2E.Party.Holder"}}</span>
+                            <select class="inventory-filter" data-filter="holder">
+                                <option value="">{{localize "KNAVE2E.InventoryAll"}}</option>
+                                {{selectOptions inventory.holderOptions selected=inventory.filter.holder valueAttr="id" labelAttr="name"}}
+                            </select></label>
+                        <label><span class="resource-label">{{localize "KNAVE2E.Party.ItemType"}}</span>
+                            <select class="inventory-filter" data-filter="type">
+                                <option value="">{{localize "KNAVE2E.InventoryAll"}}</option>
+                                {{selectOptions inventory.typeOptions selected=inventory.filter.type valueAttr="id" labelAttr="name"}}
+                            </select></label>
+                        <label class="grow"><span class="resource-label">{{localize "KNAVE2E.Party.Search"}}</span>
+                            <input class="inventory-filter" data-filter="text" type="text" value="{{inventory.filter.text}}"></label>
+                        <span class="inventory-total"><span class="resource-label">{{localize "KNAVE2E.Slots"}}</span> {{inventory.slots.value}}<span class="of">/ {{inventory.slots.max}}</span></span>
+                    </div>
+                    {{#each inventory.holders as |holder|}}
+                    <section class="stash-holder" data-uuid="{{holder.uuid}}">
+                        <h3 class="stash-title"><img class="member-image" src="{{holder.img}}" alt=""><a class="party-open detail">{{holder.name}}</a>
+                            <span class="count">{{holder.slots.value}}<span class="of">/ {{holder.slots.max}}</span> {{localize "KNAVE2E.Slots"}}</span></h3>
+                        <table class="party-table items">
+                            <tbody>
+                                {{#each holder.items as |item|}}
+                                <tr>
+                                    <td class="cell-name"><img class="member-image" src="{{item.img}}" alt="" onerror="this.onerror=null;this.src='icons/svg/item-bag.svg'"><a class="party-open detail" data-item-id="{{item.id}}">{{item.name}}</a></td>
+                                    <td>{{item.typeLabel}}</td>
+                                    <td class="num">×{{item.quantity}}</td>
+                                    <td class="num">{{item.totalSlots}} <span class="resource-label">{{localize "KNAVE2E.Slots"}}</span></td>
+                                    <td class="num">{{item.cost}}c</td>
+                                    <td class="cell-transfer">
+                                        {{#if holder.transferTargets.length}}
+                                        <select class="party-transfer" data-item-id="{{item.id}}" aria-label="{{localize 'KNAVE2E.Party.Transfer'}}">
+                                            <option value="">⇄</option>
+                                            {{#each holder.transferTargets as |t|}}<option value="{{t.uuid}}">{{t.name}}</option>{{/each}}
+                                        </select>
+                                        {{/if}}
+                                    </td>
+                                </tr>
+                                {{/each}}
+                                {{#unless holder.items.length}}<tr><td colspan="6" class="folder-empty">{{localize "KNAVE2E.Party.NoItems"}}</td></tr>{{/unless}}
+                            </tbody>
+                        </table>
                     </section>
                     {{/each}}
+                    {{#unless inventory.itemCount}}<p class="party-hint">{{localize "KNAVE2E.Party.NoItems"}}</p>{{/unless}}
+                </div>
+                {{/if}}
 
-                    {{#each missing as |uuid|}}
-                    <section class="party-group missing">
-                        <ol class="party-members plain">
-                            <li class="party-member missing" data-uuid="{{uuid}}">
-                                <span class="member-name detail">{{localize "KNAVE2E.Party.Missing"}}</span>
-                                {{#if @root.editable}}<a class="party-remove" title="{{localize 'KNAVE2E.Party.Remove'}}"><i class="fa-solid fa-xmark"></i></a>{{/if}}
-                            </li>
-                        </ol>
-                    </section>
+                {{!-- HIRELINGS, MERCENARIES, COMPANIONS --}}
+                {{#if retinue}}
+                <div class="tab retinue" data-group="primary" data-tab="retinue">
+                    {{#each retinue.groups as |group|}}
+                    <h3 class="party-group-title">{{localize group.label}} <span class="count">{{group.rows.length}}</span></h3>
+                    <table class="party-table">
+                        <thead><tr>
+                            <th>{{localize "KNAVE2E.Name"}}</th><th>{{localize "KNAVE2E.Party.RoleLabel"}}</th>
+                            <th class="num">{{localize "KNAVE2E.Level"}}</th><th class="num">{{localize "KNAVE2E.HitPoints"}}</th><th class="num">{{localize "KNAVE2E.ArmorClass"}}</th>
+                            <th class="num">{{localize "KNAVE2E.Morale"}}</th><th class="num">{{localize "KNAVE2E.CostPerMonth"}}</th><th class="num">{{localize "KNAVE2E.Party.Col.carrying"}}</th>
+                        </tr></thead>
+                        <tbody>
+                            {{#each group.rows as |r|}}
+                            <tr class="party-row" data-uuid="{{r.uuid}}">
+                                <td class="cell-name"><img class="member-image" src="{{r.img}}" alt=""><a class="party-open detail {{#unless r.canOpen}}disabled{{/unless}}">{{r.name}}</a></td>
+                                {{#if r.hidden}}<td colspan="7" class="cell-hidden">{{localize "KNAVE2E.Party.NoAccess"}}</td>{{else}}
+                                <td>
+                                    {{#if @root.editable}}{{#if r.retainer}}
+                                    <select class="party-role-select actor-select" aria-label="{{localize 'KNAVE2E.Party.RoleLabel'}}">
+                                        {{selectOptions @root.partyRoles selected=r.role localize=true}}
+                                    </select>
+                                    {{/if}}{{/if}}
+                                    <span class="party-tag {{r.roleTag}}">{{localize (concat "KNAVE2E.Party.Role." r.roleTag)}}</span>
+                                </td>
+                                <td class="num">{{r.level}}</td>
+                                <td class="num">{{r.hp.value}}<span class="of">/ {{r.hp.max}}</span></td>
+                                <td class="num">{{r.ac}}</td>
+                                <td class="num">{{r.morale}}</td>
+                                <td class="num">{{#if r.cost}}{{r.cost}}c{{else}}—{{/if}}</td>
+                                <td class="num">{{#if r.carry}}{{r.carry.value}}<span class="of">/ {{r.carry.max}}</span>{{else}}—{{/if}}</td>
+                                {{/if}}
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
                     {{/each}}
+                    <p class="tab-total"><span class="resource-label">{{localize "KNAVE2E.Party.MonthlyUpkeep"}}</span> <strong>{{retinue.upkeep}}c</strong></p>
+                </div>
+                {{/if}}
 
-                    {{#if isEmpty}}
-                    <p class="party-hint">{{localize "KNAVE2E.Party.DropHint"}}</p>
-                    {{else if @root.editable}}
-                    <p class="party-hint small">{{localize "KNAVE2E.Party.DropHint"}}</p>
+                {{!-- BUILDINGS AND VEHICLES --}}
+                {{#if holdings}}
+                <div class="tab holdings" data-group="primary" data-tab="holdings">
+                    {{#if holdings.buildings.length}}
+                    <h3 class="party-group-title">{{localize "KNAVE2E.Party.Group.buildings"}} <span class="count">{{holdings.buildings.length}}</span></h3>
+                    <table class="party-table">
+                        <thead><tr>
+                            <th>{{localize "KNAVE2E.Name"}}</th><th class="num">{{localize "KNAVE2E.Squares"}}</th><th>{{localize "KNAVE2E.Party.Col.style"}}</th>
+                            <th class="num">{{localize "KNAVE2E.Party.Col.value"}}</th><th class="num">{{localize "KNAVE2E.Party.Col.staffing"}}</th><th class="num">{{localize "KNAVE2E.Party.Col.rental"}}</th><th class="num">{{localize "KNAVE2E.Coins"}}</th>
+                        </tr></thead>
+                        <tbody>
+                            {{#each holdings.buildings as |b|}}
+                            <tr class="party-row" data-uuid="{{b.uuid}}">
+                                <td class="cell-name"><img class="member-image" src="{{b.img}}" alt=""><a class="party-open detail {{#unless b.canOpen}}disabled{{/unless}}">{{b.name}}</a>
+                                    {{#if b.business}}<small class="resource-label">{{localize "KNAVE2E.IsBusiness"}}</small>{{/if}}</td>
+                                {{#if b.hidden}}<td colspan="6" class="cell-hidden">{{localize "KNAVE2E.Party.NoAccess"}}</td>{{else}}
+                                <td class="num">{{b.squares}}</td>
+                                <td>{{localize b.styleLabel}}</td>
+                                <td class="num">{{b.baseCost}}c</td>
+                                <td class="num">{{b.staffing}}c</td>
+                                <td class="num">{{b.rental}}c</td>
+                                <td class="num">{{b.coins}}c</td>
+                                {{/if}}
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                    <p class="tab-total"><span class="resource-label">{{localize "KNAVE2E.Party.Col.value"}}</span> <strong>{{holdings.buildingValue}}c</strong>
+                        · <span class="resource-label">{{localize "KNAVE2E.Party.Col.staffing"}}</span> <strong>{{holdings.staffing}}c</strong>
+                        · <span class="resource-label">{{localize "KNAVE2E.Party.Col.rental"}}</span> <strong>{{holdings.rental}}c</strong></p>
+                    {{/if}}
+                    {{#if holdings.vehicles.length}}
+                    <h3 class="party-group-title">{{localize "KNAVE2E.Party.Group.vehicles"}} <span class="count">{{holdings.vehicles.length}}</span></h3>
+                    <table class="party-table">
+                        <thead><tr>
+                            <th>{{localize "KNAVE2E.Name"}}</th><th class="num">{{localize "KNAVE2E.Crew"}}</th><th class="num">{{localize "KNAVE2E.Party.Col.carrying"}}</th>
+                            <th class="num">{{localize "KNAVE2E.Cost"}}</th><th class="num">{{localize "KNAVE2E.Coins"}}</th>
+                        </tr></thead>
+                        <tbody>
+                            {{#each holdings.vehicles as |v|}}
+                            <tr class="party-row" data-uuid="{{v.uuid}}">
+                                <td class="cell-name"><img class="member-image" src="{{v.img}}" alt=""><a class="party-open detail {{#unless v.canOpen}}disabled{{/unless}}">{{v.name}}</a></td>
+                                {{#if v.hidden}}<td colspan="4" class="cell-hidden">{{localize "KNAVE2E.Party.NoAccess"}}</td>{{else}}
+                                <td class="num">{{v.crew}}</td>
+                                <td class="num">{{v.carry.value}}<span class="of">/ {{v.carry.max}}</span></td>
+                                <td class="num">{{v.cost}}c</td>
+                                <td class="num">{{v.coins}}c</td>
+                                {{/if}}
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                    <p class="tab-total"><span class="resource-label">{{localize "KNAVE2E.Party.Col.value"}}</span> <strong>{{holdings.vehicleValue}}c</strong></p>
                     {{/if}}
                 </div>
+                {{/if}}
 
-                <div class="resources">
-                    <div class="resource-label">{{localize "KNAVE2E.Party.Notes"}}</div>
-                    <section class="editor">
-                        {{editor system.enrichedHTML target="system.description" button=true owner=owner
-                        editable=editable}}
-                    </section>
+                {{!-- ARMIES AND MILITARY STRENGTH --}}
+                {{#if armies}}
+                <div class="tab armies" data-group="primary" data-tab="armies">
+                    <table class="party-table">
+                        <thead><tr>
+                            <th>{{localize "KNAVE2E.Name"}}</th><th>{{localize "KNAVE2E.Army.UnitType"}}</th><th class="num">{{localize "KNAVE2E.Army.Troops"}}</th>
+                            <th class="num">{{localize "KNAVE2E.Army.Blocks"}}</th><th class="num">{{localize "KNAVE2E.Army.Multiplier"}}</th><th class="num">{{localize "KNAVE2E.Army.FightingPower"}}</th><th class="num">{{localize "KNAVE2E.CostPerMonth"}}</th>
+                        </tr></thead>
+                        <tbody>
+                            {{#each armies.rows as |a|}}
+                            <tr class="party-row" data-uuid="{{a.uuid}}">
+                                <td class="cell-name"><img class="member-image" src="{{a.img}}" alt=""><span><a class="party-open detail {{#unless a.canOpen}}disabled{{/unless}}">{{a.name}}</a>{{#if a.leader}}<small class="resource-label">{{a.leader}}</small>{{/if}}</span></td>
+                                {{#if a.hidden}}<td colspan="6" class="cell-hidden">{{localize "KNAVE2E.Party.NoAccess"}}</td>{{else}}
+                                <td>{{localize a.unitLabel}}</td>
+                                <td class="num">{{a.troops}}</td>
+                                <td class="num">{{a.blocks}}</td>
+                                <td class="num">{{a.multiplier}}</td>
+                                <td class="num strong">{{a.power}}</td>
+                                <td class="num">{{a.cost}}c</td>
+                                {{/if}}
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                    <div class="army-totals">
+                        <div class="party-figure"><span class="resource-label">{{localize "KNAVE2E.Army.Troops"}}</span><span class="figure">{{armies.troops}}</span></div>
+                        <div class="party-figure"><span class="resource-label">{{localize "KNAVE2E.Army.TotalPower"}}</span><span class="figure">{{armies.power}}</span></div>
+                        <div class="party-figure"><span class="resource-label">{{localize "KNAVE2E.CostPerMonth"}}</span><span class="figure">{{armies.cost}}<small>c</small></span></div>
+                        <button type="button" class="party-warfare" data-power="{{armies.rawPower}}"><i class="fa-solid fa-khanda" inert></i> {{localize "KNAVE2E.WarfareCalculator"}}</button>
+                    </div>
                 </div>
+                {{/if}}
+
             </section>
         </div>
 

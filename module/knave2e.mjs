@@ -5,7 +5,8 @@ import { preloadHandlebarsTemplates } from './helpers/templates.mjs';
 import * as DataModels from './data/_module.mjs';
 import { Knave2eActor, Knave2eItem, Knave2eChatMessage, Knave2eCombat } from './documents/_module.mjs';
 import Knave2eCombatTracker from './applications/combat-tracker.mjs';
-import { refreshPartiesOf } from './helpers/party.mjs';
+import { refreshPartiesOf, refreshPartiesOfParent } from './helpers/party.mjs';
+import { decorateActorDirectory } from './applications/party-directory.mjs';
 import { Knave2eActorSheet, Knave2eItemSheet, Knave2ePartySheet } from './sheets/_module.mjs';
 import { SYSTEM } from './config/system.mjs';
 import * as Downtime from './helpers/downtime.mjs';
@@ -22,6 +23,7 @@ Hooks.on('init', () => {
     CONFIG.Actor.dataModels.vehicle = DataModels.Knave2eVehicle;
     CONFIG.Actor.dataModels.building = DataModels.Knave2eBuilding;
     CONFIG.Actor.dataModels.party = DataModels.Knave2eParty;
+    CONFIG.Actor.dataModels.army = DataModels.Knave2eArmy;
     CONFIG.Item.dataModels.weapon = DataModels.Knave2eWeapon;
     CONFIG.Item.dataModels.spellbook = DataModels.Knave2eSpellbook;
     CONFIG.Item.dataModels.lightSource = DataModels.Knave2eLightSource;
@@ -35,8 +37,12 @@ Hooks.once('init', () => {
     CONFIG.SYSTEM = SYSTEM;
 });
 
+Hooks.on('renderActorDirectory', decorateActorDirectory);
 Hooks.on('updateActor', (actor) => refreshPartiesOf(actor));
 Hooks.on('deleteActor', (actor) => refreshPartiesOf(actor));
+for (const hook of ['createItem', 'updateItem', 'deleteItem', 'createActiveEffect', 'updateActiveEffect', 'deleteActiveEffect']) {
+    Hooks.on(hook, (document) => refreshPartiesOfParent(document));
+}
 
 Hooks.once('i18nInit', function () {
     // Apply localizations
@@ -339,7 +345,7 @@ Hooks.once('init', function () {
     foundry.documents.collections.Actors.unregisterSheet('core', foundry.appv1.sheets.ActorSheet);
     foundry.documents.collections.Actors.registerSheet('knave2e', Knave2eActorSheet, {
         makeDefault: true,
-        types: ['character', 'recruit', 'monster', 'vehicle', 'building'],
+        types: ['character', 'recruit', 'monster', 'vehicle', 'building', 'army'],
     });
     foundry.documents.collections.Actors.registerSheet('knave2e', Knave2ePartySheet, { makeDefault: true, types: ['party'] });
     foundry.documents.collections.Items.unregisterSheet('core', foundry.appv1.sheets.ItemSheet);
