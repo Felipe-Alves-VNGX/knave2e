@@ -308,5 +308,19 @@
   "KNAVE2E.InventoryEmpty": "No items in this section.",
   "KNAVE2E.InventoryPages": "Inventory pages",
   "KNAVE2E.PreviousPage": "Previous page",
-  "KNAVE2E.NextPage": "Next page"
+  "KNAVE2E.NextPage": "Next page",
+  "KNAVE2E.Combat.Side.party": "The party",
+  "KNAVE2E.Combat.Side.foes": "Foes",
+  "KNAVE2E.Combat.Acting": "Acting",
+  "KNAVE2E.Combat.RollSide": "Roll CHA check",
+  "KNAVE2E.Combat.SideInitiative": "Initiative: CHA vs CHA between the sides' leaders",
+  "KNAVE2E.Combat.SideRollFlavor": "Initiative — {side} (leader: {leader})",
+  "KNAVE2E.Combat.Tie": "The sides tied on initiative; rolling again.",
+  "KNAVE2E.Combat.GMOnly": "Only the GM can roll a side's initiative.",
+  "KNAVE2E.Combat.SetLeader": "Make leader",
+  "KNAVE2E.Combat.SwapSide": "Move to the other side",
+  "KNAVE2E.Combat.ToggleHidden": "Toggle visibility",
+  "KNAVE2E.Combat.ToggleDefeated": "Toggle defeated",
+  "KNAVE2E.Combat.Ping": "Ping",
+  "KNAVE2E.Combat.NoMembers": "Nobody on this side."
 }

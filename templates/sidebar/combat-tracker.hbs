@@ -1,0 +1,54 @@
+<div class="knave-ledger combat-tracker">
+    {{#if hasCombat}}
+    {{#each sides as |side|}}
+    <section class="ledger-side {{side.id}} {{#if side.active}}acting{{/if}} {{#if side.waiting}}waiting{{/if}}" data-side="{{side.id}}">
+        <header class="ledger-side-head">
+            <h3>{{side.label}}</h3>
+            {{#if side.active}}<span class="acting-ribbon">{{localize "KNAVE2E.Combat.Acting"}}</span>{{/if}}
+            {{#if side.hasInitiative}}
+            <span class="side-seal" data-tooltip="{{localize 'KNAVE2E.Combat.SideInitiative'}}">{{side.initiative}}</span>
+            {{else if @root.isGM}}
+            <button type="button" class="side-roll" data-action="rollSide" data-side="{{side.id}}">
+                <i class="fa-solid fa-dice-d20" inert></i> {{localize "KNAVE2E.Combat.RollSide"}}
+            </button>
+            {{else}}
+            <span class="side-seal pending">?</span>
+            {{/if}}
+        </header>
+        <ol class="ledger-members plain">
+            {{#each side.members as |t|}}
+            <li class="combatant {{t.css}} {{#if t.leader}}leader{{/if}}" data-combatant-id="{{t.id}}" data-action="activateCombatant">
+                <img class="token-image" src="{{t.img}}" alt="{{t.name}}" loading="lazy">
+                <div class="token-name">
+                    <strong class="name">{{t.name}}</strong>
+                    <div class="combatant-controls">
+                        {{#if @root.user.isGM}}
+                        <button type="button" class="inline-control combatant-control icon fa-solid fa-star {{#if t.leader}}active{{/if}}"
+                                data-action="setLeader" data-tooltip aria-label="{{localize 'KNAVE2E.Combat.SetLeader'}}"></button>
+                        <button type="button" class="inline-control combatant-control icon fa-solid fa-right-left"
+                                data-action="swapSide" data-tooltip aria-label="{{localize 'KNAVE2E.Combat.SwapSide'}}"></button>
+                        <button type="button" class="inline-control combatant-control icon fa-solid fa-eye-slash {{#if t.hidden}}active{{/if}}"
+                                data-action="toggleHidden" data-tooltip aria-label="{{localize 'KNAVE2E.Combat.ToggleHidden'}}"></button>
+                        <button type="button" class="inline-control combatant-control icon fa-solid fa-skull {{#if t.isDefeated}}active{{/if}}"
+                                data-action="toggleDefeated" data-tooltip aria-label="{{localize 'KNAVE2E.Combat.ToggleDefeated'}}"></button>
+                        {{/if}}
+                        {{#if t.canPing}}
+                        <button type="button" class="inline-control combatant-control icon fa-solid fa-bullseye-arrow"
+                                data-action="pingCombatant" data-tooltip aria-label="{{localize 'KNAVE2E.Combat.Ping'}}"></button>
+                        {{/if}}
+                    </div>
+                    <div class="token-effects" data-tooltip-html="{{t.effects.tooltip}}">
+                        {{#each t.effects.icons}}<img class="token-effect" src="{{img}}" alt="{{name}}">{{/each}}
+                    </div>
+                </div>
+                {{#if t.resource includeZero=true}}
+                <div class="token-resource"><span class="resource">{{t.resource}}</span></div>
+                {{/if}}
+            </li>
+            {{/each}}
+            {{#if side.empty}}<li class="ledger-empty">{{localize "KNAVE2E.Combat.NoMembers"}}</li>{{/if}}
+        </ol>
+    </section>
+    {{/each}}
+    {{/if}}
+</div>

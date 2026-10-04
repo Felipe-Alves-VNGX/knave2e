@@ -1,0 +1,126 @@
+// Combat tracker as a field ledger: leather desk, one paper page per side, ink-seal initiative.
+// Palette, fonts and textures mirror the document sheets. Everything is scoped to .knave2e-combat.
+.knave2e-combat.knave2e-combat {
+  --k-ink: #30271f;
+  --k-muted: #65533d;
+  --k-rule: #967c56;
+  --k-accent: #783c2c;
+  --k-paper: #f1e5ca;
+  --k-cream: #f7e7c5;
+  --k-party: #753d2e;
+  --k-foes: #415660;
+
+  background: #302019 url('../assets/document-leather.webp') center / 620px;
+  color: var(--k-cream);
+
+  .combat-tracker-header, .combat-controls {
+    background: #24170b99;
+    border-color: #a58a5c66;
+    color: var(--k-cream);
+    font-family: 'Knave Capitals', serif;
+    text-shadow: 0 1px 1px #000;
+  }
+  .encounter-title, .encounter-name {
+    font: 22px/1.2 'Knave Capitals', serif; letter-spacing: .04em; color: var(--k-cream);
+  }
+  .combat-tracker-header .inline-control, .combat-controls .inline-control, .combat-control-lg {
+    color: var(--k-cream);
+    &:hover, &:focus-visible { color: #fff3d4; text-shadow: 0 0 6px #e4cb94aa; }
+  }
+  .combat-control-lg {
+    font-family: 'Knave Capitals', serif; letter-spacing: .04em;
+    background: #75402e66 url('../assets/document-leather.webp') center / 180px; background-blend-mode: multiply;
+    border: 1px solid #a58a5c88; border-radius: 2px;
+  }
+
+  .knave-ledger { display: flex; flex-direction: column; gap: 14px; padding: 10px 8px 14px; }
+
+  .ledger-side {
+    position: relative;
+    padding: 8px 10px 10px 12px;
+    color: var(--k-ink);
+    background: var(--k-paper) url('../assets/document-paper.webp') center top / 100% 100%;
+    border: 1px solid #b99b67;
+    border-left: 6px double #9c815a88;
+    border-radius: 2px 5px 3px 2px;
+    box-shadow: 2px 3px 0 #c7b38b, 4px 5px 0 #725e40, 0 4px 14px #0007;
+    transition: opacity 160ms ease-out, filter 160ms ease-out;
+    --side: var(--k-party);
+    &.foes { --side: var(--k-foes); }
+    &.waiting { opacity: .78; filter: saturate(.75) brightness(.94); }
+  }
+
+  .ledger-side-head {
+    display: grid; grid-template-columns: minmax(0, 1fr) auto auto; align-items: center; gap: 8px;
+    padding-bottom: 6px; margin-bottom: 4px;
+    border-bottom: 1px solid var(--k-rule);
+    h3 {
+      margin: 0; border: 0; padding: 0;
+      font: 21px/1.1 'Knave Capitals', serif; letter-spacing: .03em; color: var(--k-ink);
+    }
+  }
+  // Bookmark ribbon, the same cut as the sheet tabs, marks the side that is acting.
+  .acting-ribbon {
+    padding: 3px 14px 3px 8px;
+    font: 12px 'Knave Capitals', serif; letter-spacing: .06em; color: var(--k-cream); text-shadow: 0 1px 2px #0006;
+    background: linear-gradient(90deg, #0006, transparent 25%), var(--side) url('../assets/document-leather.webp') center / 140px;
+    background-blend-mode: multiply, luminosity;
+    clip-path: polygon(0 0, 100% 0, 88% 50%, 100% 100%, 0 100%);
+    box-shadow: inset 0 2px 0 #e4cb943d;
+  }
+  .side-seal {
+    display: grid; place-items: center; width: 44px; height: 44px;
+    font: 25px/1 'Knave Hand', cursive; color: #643e28;
+    background: url('../assets/ink-seal.webp') center / contain no-repeat;
+    &.pending { opacity: .45; }
+  }
+  .side-roll {
+    width: auto; margin: 0; padding: 3px 9px; line-height: 1.4;
+    font: 14px 'Knave Capitals', serif; color: var(--k-ink);
+    background: #e3d3b155; border: 1px solid var(--k-rule); border-radius: 2px; box-shadow: none;
+    &:hover, &:focus-visible { background: #d0b58466; color: var(--k-accent); }
+  }
+
+  .ledger-members { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; }
+  .combatant {
+    display: grid; grid-template-columns: 38px minmax(0, 1fr) auto; align-items: center; gap: 8px;
+    min-height: 46px; padding: 4px 2px;
+    color: var(--k-ink); background: transparent; border: 0;
+    border-bottom: 1px dashed #967c5688;
+    &:last-child { border-bottom: 0; }
+    &:hover, &.hover { background: #783c2c14; }
+    // The acting side is marked by its ribbon; the core one-row highlight would contradict it.
+    &.active { border: 0; border-bottom: 1px dashed #967c5688; border-radius: 0; box-shadow: none; outline: 0; &:last-child { border-bottom: 0; } }
+    &.active::before { content: none; }
+    .token-image {
+      width: 36px; height: 36px; padding: 2px; object-fit: cover;
+      border: 1px solid #72543566; border-radius: 0; background: transparent;
+    }
+    .name { font: 23px/1.1 'Knave Hand', cursive; color: var(--k-ink); text-shadow: none; }
+    &.leader .name::after { content: '★'; margin-left: 6px; font: 15px Georgia, serif; color: var(--k-accent); vertical-align: 2px; }
+    .token-resource { font: 22px 'Knave Hand', cursive; color: var(--k-accent); }
+    &.defeated { opacity: .55; .name { text-decoration: line-through; text-decoration-thickness: 1.5px; } }
+    &.hide .name { font-style: italic; }
+    position: relative;
+    .token-name { display: flex; flex-direction: column; min-width: 0; }
+    .token-effects { display: flex; gap: 2px; img { width: 16px; height: 16px; border: 0; } }
+    // GM controls float over the row's right edge on hover/focus instead of taking up space.
+    .combatant-controls {
+      position: absolute; right: 2px; top: 50%; transform: translateY(-50%);
+      display: flex; align-items: center; gap: 1px; padding: 2px 2px 2px 22px;
+      background: linear-gradient(90deg, transparent, #efe0c0 22px);
+      opacity: 0; pointer-events: none; transition: opacity 120ms ease-out;
+      .inline-control {
+        width: 20px; height: 20px; padding: 0; font-size: 12px; color: var(--k-muted); box-shadow: none;
+        &.active { color: var(--k-accent); }
+        &:hover, &:focus-visible { color: var(--k-accent); }
+      }
+    }
+    &:hover .combatant-controls, &:focus-within .combatant-controls { opacity: 1; pointer-events: auto; }
+  }
+  .ledger-empty { padding: 8px 2px; font: 20px 'Knave Hand', cursive; color: var(--k-muted); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ledger-side, .combatant .combatant-controls { transition: none; }
+  }
+}

@@ -3,7 +3,8 @@ import { preloadHandlebarsTemplates } from './helpers/templates.mjs';
 // Import DataModel classes.
 
 import * as DataModels from './data/_module.mjs';
-import { Knave2eActor, Knave2eItem, Knave2eChatMessage } from './documents/_module.mjs';
+import { Knave2eActor, Knave2eItem, Knave2eChatMessage, Knave2eCombat } from './documents/_module.mjs';
+import Knave2eCombatTracker from './applications/combat-tracker.mjs';
 import { Knave2eActorSheet, Knave2eItemSheet } from './sheets/_module.mjs';
 import { SYSTEM } from './config/system.mjs';
 import * as Downtime from './helpers/downtime.mjs';
@@ -317,6 +318,12 @@ Hooks.once('init', function () {
         formula: '1d20 + @abilities.charisma.value',
         decimals: 2,
     };
+
+    // Knave 2e combat: 10-second rounds where each side acts as a unit (see documents/combat.mjs).
+    CONFIG.time.roundTime = 10;
+    CONFIG.time.turnTime = 0;
+    CONFIG.Combat.documentClass = Knave2eCombat;
+    CONFIG.ui.combat = Knave2eCombatTracker;
 
     // Define custom Document classes
     CONFIG.Actor.documentClass = Knave2eActor;
